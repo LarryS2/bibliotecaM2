@@ -22,11 +22,12 @@ public class ModeloEstudiante {
         try {
             
             ps = con.prepareStatement(sql);
-//            ps.setString(1, bib.getCedula());
-//            ps.setString(2, Bibliotecario.getNombre_autor());
-//            ps.setString(3, Bibliotecario.getSegundo_nombre_autor());
-//            ps.setString(4, Bibliotecario.getApellido_autor());
-//            ps.setString(5, Bibliotecario.getSegundo_apellido_autor());
+            
+            ps.setString(1, est.getCedula());
+            ps.setString(2, est.getPrimer_nombre());
+            ps.setString(3, est.getSegundo_nombre());
+            ps.setString(4, est.getPrimer_apellido());
+            ps.setString(5, est.getSegundo_apellido());
 //            ps.setDate(6, (Date) Bibliotecario.getFecha_nac());
 //            ps.setString(7, Bibliotecario.getLengua_materna());
 //            ps.setString(8, Bibliotecario.getPais_origen());
