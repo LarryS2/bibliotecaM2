@@ -28,6 +28,7 @@ public class ModeloEstudiante {
             ps.setString(3, est.getSegundo_nombre());
             ps.setString(4, est.getPrimer_apellido());
             ps.setString(5, est.getSegundo_apellido());
+            ps.setString(6, est.getTipo_usuario());
 //            ps.setDate(6, (Date) Bibliotecario.getFecha_nac());
 //            ps.setString(7, Bibliotecario.getLengua_materna());
 //            ps.setString(8, Bibliotecario.getPais_origen());
