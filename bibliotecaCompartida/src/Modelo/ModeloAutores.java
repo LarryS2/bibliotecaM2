@@ -32,8 +32,8 @@ public class ModeloAutores {
             while(rs.next()){
                 Autor autor = new Autor();
                 autor.setId_autor(rs.getInt("ID"));
-                autor.setNombre_autor(rs.getString("PRIMER_NOMBRE"));
-                autor.setApellido_autor(rs.getString("PRIMER_APELLIDO"));
+                autor.setPrimer_nombre(rs.getString("PRIMER_NOMBRE"));
+                autor.setPrimer_apellido(rs.getString("PRIMER_APELLIDO"));
                 //autor.setPais_origen(rs.getString("PAIS_ORIGEN"));
                 listaAutor.add(autor);
             }
@@ -58,11 +58,11 @@ public class ModeloAutores {
         try {
             
             ps = con.prepareStatement(sql);
-            ps.setString(1, autor.getCod_autor());
-            ps.setString(2, autor.getNombre_autor());
-            ps.setString(3, autor.getSegundo_nombre_autor());
-            ps.setString(4, autor.getApellido_autor());
-            ps.setString(5, autor.getSegundo_apellido_autor());
+            ps.setString(1, autor.getCedula());
+            ps.setString(2, autor.getPrimer_nombre());
+            ps.setString(3, autor.getSegundo_nombre());
+            ps.setString(4, autor.getPrimer_apellido());
+            ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
             ps.setString(7, autor.getLengua_materna());
             ps.setString(8, autor.getPais_origen());
@@ -95,12 +95,12 @@ public class ModeloAutores {
         try {
             
             ps = con.prepareStatement(sql);
-            ps.setString(1, autor.getCod_autor());
-            ps.setString(2, autor.getNombre_autor());
-            ps.setString(3, autor.getSegundo_nombre_autor());
-            ps.setString(4, autor.getApellido_autor());
-            ps.setString(5, autor.getSegundo_apellido_autor());
-            ps.setDate(6,  autor.getFecha_nac());
+            ps.setString(1, autor.getCedula());
+            ps.setString(2, autor.getPrimer_nombre());
+            ps.setString(3, autor.getSegundo_nombre());
+            ps.setString(4, autor.getPrimer_apellido());
+            ps.setString(5, autor.getSegundo_apellido());
+            ps.setDate(6, (Date) autor.getFecha_nac());
             ps.setString(7, autor.getLengua_materna());
             ps.setString(8, autor.getPais_origen());
             ps.execute();
@@ -181,7 +181,7 @@ public class ModeloAutores {
         try {
             
             ps = con.prepareStatement(sql);
-            ps.setString(1, autor.getCod_autor());
+            ps.setString(1, autor.getCedula());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -212,7 +212,7 @@ public class ModeloAutores {
         try {
             
             ps = con.prepareStatement(sql);
-            ps.setString(1, autor.getCod_autor());
+            ps.setString(1, autor.getCedula());
             ps.execute();
             return true;
         } catch (SQLException sqle) {

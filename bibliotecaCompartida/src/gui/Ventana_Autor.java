@@ -505,7 +505,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1002, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,12 +561,12 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                     if(autor.ValidarNombresYapellidos(apellido_s)==false){
                                         JOptionPane.showMessageDialog(null, "SEGUNDO APELLIDO NO VÁLIDO");
                                     }else{
-                                        autor.setCod_autor(codigo);
-                                        autor.setNombre_autor(nombre);
-                                        autor.setSegundo_nombre_autor(nombre_s);
-                                        autor.setApellido_autor(apellido);
-                                        autor.setSegundo_apellido_autor(apellido_s);
-                                        //Date.valueOf(fecha_nac);
+                                        autor.setCedula(codigo);
+                                        autor.setPrimer_nombre(nombre);
+                                        autor.setPrimer_nombre(nombre_s);
+                                        autor.setPrimer_apellido(apellido);
+                                        autor.setSegundo_nombre(nombre_s);
+                                        autor.setSegundo_apellido(apellido_s);
                                         autor.setFecha_nac(Date.valueOf(fecha_nac));
                                         autor.setLengua_materna(lengua_mat);
                                         autor.setPais_origen(pais_origen);

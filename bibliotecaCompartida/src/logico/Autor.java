@@ -1,19 +1,13 @@
 package logico;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Autor extends Persona{
     
     private int id_autor;
-    private String cod_autor;
-    private String nombre_autor;
-    private String segundo_nombre_autor;
-    private String apellido_autor;
-    private String segundo_apellido_autor;
-    private Date fecha_nac;
     private String lengua_materna;
     private String pais_origen;
-    private boolean Estado;
+    
     public Autor() {
     }
 
@@ -21,92 +15,23 @@ public class Autor extends Persona{
         this.id_autor = id_autor;
     }    
 
-    public Autor(String nombre_autor) {
-        this.nombre_autor = nombre_autor;
+    public Autor(String cedula_aut) {
+        super(cedula_aut);
     }
-
     
-    public Autor(int id_autor, String nombre_autor, String apellido_autor) {
-        this.id_autor = id_autor;
-        this.nombre_autor = nombre_autor;
-        this.apellido_autor = apellido_autor;
-    }
-
-    public Autor(int id_autor, String cod_autor, String nombre_autor, String segundo_nombre_autor, String apellido_autor, String segundo_apellido_autor, Date fecha_nac, String lengua_materna, String pais_origen, boolean Estado) {
-        this.id_autor = id_autor;
-        this.cod_autor = cod_autor;
-        this.nombre_autor = nombre_autor;
-        this.segundo_nombre_autor = segundo_nombre_autor;
-        this.apellido_autor = apellido_autor;
-        this.segundo_apellido_autor = segundo_apellido_autor;
-        this.fecha_nac = fecha_nac;
+    public Autor(int id_aut, String lengua_materna, String pais_origen, int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado){
+        super(id, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nac, Estado);
+        this.id_autor = id_aut;
         this.lengua_materna = lengua_materna;
         this.pais_origen = pais_origen;
-        this.Estado = Estado;
     }
-    
+
     public int getId_autor() {
         return id_autor;
     }
 
     public void setId_autor(int id_autor) {
         this.id_autor = id_autor;
-    }
-
-    public String getNombre_autor() {
-        return nombre_autor;
-    }
-
-    public void setNombre_autor(String nombre_autor) {
-        this.nombre_autor = nombre_autor;
-    }
-
-    public String getApellido_autor() {
-        return apellido_autor;
-    }
-
-    public String getSegundo_nombre_autor() {
-        return segundo_nombre_autor;
-    }
-
-    public void setSegundo_nombre_autor(String segundo_nombre_autor) {
-        this.segundo_nombre_autor = segundo_nombre_autor;
-    }
-
-    public String getSegundo_apellido_autor() {
-        return segundo_apellido_autor;
-    }
-
-    public void setSegundo_apellido_autor(String segundo_apellido_autor) {
-        this.segundo_apellido_autor = segundo_apellido_autor;
-    }
-
-    public void setApellido_autor(String apellido_autor) {
-        this.apellido_autor = apellido_autor;
-    }
-
-    public String getPais_origen() {
-        return pais_origen;
-    }
-
-    public void setPais_origen(String pais_origen) {
-        this.pais_origen = pais_origen;
-    }
-
-    public String getCod_autor() {
-        return cod_autor;
-    }
-
-    public void setCod_autor(String cod_autor) {
-        this.cod_autor = cod_autor;
-    }
-
-    public Date getFecha_nac() {
-        return fecha_nac;
-    }
-
-    public void setFecha_nac(Date fecha_nac) {
-        this.fecha_nac = fecha_nac;
     }
 
     public String getLengua_materna() {
@@ -117,21 +42,13 @@ public class Autor extends Persona{
         this.lengua_materna = lengua_materna;
     }
 
-    public boolean isEstado() {
-        return Estado;
+    public String getPais_origen() {
+        return pais_origen;
     }
 
-    public void setEstado(boolean Estado) {
-        this.Estado = Estado;
+    public void setPais_origen(String pais_origen) {
+        this.pais_origen = pais_origen;
     }
-    
-    @Override
-    public String toString() {
-        //return  id_autor + " " + nombre_autor + " " + apellido_autor + " " + pais_origen;
-        return nombre_autor;
-    }
-
-
     
     public boolean ValidarNombresYapellidos(String nom)
     {
