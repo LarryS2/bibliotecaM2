@@ -179,7 +179,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", cedula=" + cedula + ", primer_nombre=" + primer_nombre + ", segundo_nombre=" + segundo_nombre + ", primer_apellido=" + primer_apellido + ", segundo_apellido=" + segundo_apellido + ", tipo_usuario=" + tipo_usuario + ", email=" + email + ", tipo_sangre=" + tipo_sangre + ", fecha_nac=" + fecha_nac + ", direccion=" + direccion + ", genero=" + genero + ", telefono=" + telefono + ", Estado=" + Estado + '}';
+        return cedula;
     }
 
     public boolean ValidarNombreYapellido(String nom) {
