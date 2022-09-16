@@ -37,6 +37,12 @@ public class Persona {
         this.tipo_usuario = tipo_usuario;
     }
     
+    public Persona(int id, String primer_nombre, String primer_apellido){
+        this.id = id;
+        this.primer_nombre = primer_nombre;
+        this.primer_apellido = primer_apellido;
+    }
+    
     public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado){
         this.id = id;
         this.cedula = cedula;
@@ -179,7 +185,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return cedula;
+        return primer_nombre + " " + primer_apellido;
     }
 
     public boolean ValidarNombreYapellido(String nom) {
