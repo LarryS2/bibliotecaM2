@@ -408,7 +408,6 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                                 .addComponent(labelFIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(22, 22, 22))
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
                                 .addComponent(txthorafin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)

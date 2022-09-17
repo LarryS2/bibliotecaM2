@@ -91,7 +91,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="labelfecha" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="27" max="32767" attributes="0"/>
                                       <Component id="fecha_publi_chooser" min="-2" pref="154" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -100,15 +100,10 @@
                                           <Component id="labelisbn" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtisbn" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jSeparator6" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtdewey" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jSeparator7" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtisbn" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jSeparator6" alignment="0" pref="210" max="32767" attributes="0"/>
+                                          <Component id="combodewey" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -219,36 +214,37 @@
                                   <Component id="jScrollPane2" min="-2" pref="94" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="labeldewey1" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="labeldewey1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="combodewey" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btneliminar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnbuscar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnrvolver" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="comboAutor" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="labelautor" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelisbn" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="txtisbn" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="txtdewey" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="comboAutor" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="labelautor" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labelisbn" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="txtisbn" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btneliminar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnbuscar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnrvolver" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -696,15 +692,6 @@
                 <Property name="text" type="java.lang.String" value="FECHA PUBLICACI&#xd3;N:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtdewey">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JSeparator" name="jSeparator7">
-            </Component>
             <Container class="javax.swing.JPanel" name="btneliminar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -856,6 +843,16 @@
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combodewey">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Dewey&#xa;&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

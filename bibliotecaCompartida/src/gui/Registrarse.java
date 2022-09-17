@@ -56,7 +56,7 @@ public class Registrarse extends javax.swing.JDialog {
             String tipo_user = "INVITADO";
 
             if (cedula.isEmpty() ||  nombre_pr.isEmpty() || apellido_pr.isEmpty() || 
-                email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen== "" ||
+                email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen.isEmpty() ||
                 password.isBlank()) {
                     JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
 
@@ -74,8 +74,6 @@ public class Registrarse extends javax.swing.JDialog {
                                     JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 8 caracteres, que incluyen una letra en minúscula, una en mayúscula y números, no contiene símbolos especiales");
                                 } else {
                                     if(password.equals(password_rep)){
-                                        if(me.RegistrarEstudiante(estudiante)){
-                                            
                                             estudiante.setCedula(cedula);
                                             estudiante.setPrimer_nombre(nombre_pr);
                                             estudiante.setSegundo_nombre(nombre_se);
@@ -89,6 +87,8 @@ public class Registrarse extends javax.swing.JDialog {
                                             estudiante.setTipo_usuario(tipo_user);
                                             estudiante.setPassword(password);
                                             estudiante.setEstado(estado); 
+                                        if(me.RegistrarEstudiante(estudiante)){
+                                            
                                             
                                             this.Vaciar_Campos();
                                             Mensaje("REGISTRO COMPLETADO", "REGISTRO");

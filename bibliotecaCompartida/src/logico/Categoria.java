@@ -64,8 +64,8 @@ public class Categoria {
         return nombre_cat;
     }
     
-    public boolean Validar_Nombre_Cat(String dire)
+    public boolean Validar_Nombre_Cat(String nomcat)
     {
-        return dire.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
+        return nomcat.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
 }

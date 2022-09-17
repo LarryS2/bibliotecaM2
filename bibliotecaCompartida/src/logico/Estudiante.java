@@ -6,6 +6,7 @@ public class Estudiante extends Persona{
     
     private int id_est;
     private String persona;
+    private int per;
     private String password;
     public Estudiante() {
     }
@@ -51,6 +52,14 @@ public class Estudiante extends Persona{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getPer() {
+        return per;
+    }
+
+    public void setPer(int per) {
+        this.per = per;
     }
 
     @Override

@@ -51,6 +51,10 @@ public final class Menu extends javax.swing.JFrame {
         btnlabelmultas = new javax.swing.JLabel();
         btnhorario = new javax.swing.JPanel();
         btnlabelhorario = new javax.swing.JLabel();
+        btnpanelpais = new javax.swing.JPanel();
+        btnlabelpais = new javax.swing.JLabel();
+        btndewey = new javax.swing.JPanel();
+        btnlabeldewey = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -392,6 +396,55 @@ public final class Menu extends javax.swing.JFrame {
             .addComponent(btnlabelhorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
+        btnpanelpais.setBackground(new java.awt.Color(0, 153, 153));
+
+        btnlabelpais.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnlabelpais.setForeground(new java.awt.Color(255, 255, 255));
+        btnlabelpais.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnlabelpais.setText("PAÍSES");
+        btnlabelpais.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlabelpais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnlabelpaisMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnpanelpaisLayout = new javax.swing.GroupLayout(btnpanelpais);
+        btnpanelpais.setLayout(btnpanelpaisLayout);
+        btnpanelpaisLayout.setHorizontalGroup(
+            btnpanelpaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnlabelpais, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        btnpanelpaisLayout.setVerticalGroup(
+            btnpanelpaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnlabelpais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+        );
+
+        btndewey.setBackground(new java.awt.Color(0, 153, 153));
+
+        btnlabeldewey.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnlabeldewey.setForeground(new java.awt.Color(255, 255, 255));
+        btnlabeldewey.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnlabeldewey.setText("DEWEY");
+        btnlabeldewey.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlabeldewey.setPreferredSize(new java.awt.Dimension(62, 17));
+        btnlabeldewey.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnlabeldeweyMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btndeweyLayout = new javax.swing.GroupLayout(btndewey);
+        btndewey.setLayout(btndeweyLayout);
+        btndeweyLayout.setHorizontalGroup(
+            btndeweyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnlabeldewey, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        btndeweyLayout.setVerticalGroup(
+            btndeweyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnlabeldewey, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -401,6 +454,10 @@ public final class Menu extends javax.swing.JFrame {
             .addGroup(backroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnpanelpais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btndewey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
@@ -410,7 +467,10 @@ public final class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panemenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(btnhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpanelpais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btndewey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
@@ -493,26 +553,44 @@ public final class Menu extends javax.swing.JFrame {
         horarios.setVisible(true);
     }//GEN-LAST:event_btnlabelhorarioMouseClicked
 
+    private void btnlabelpaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelpaisMouseClicked
+        Ventana_paises paises = new  Ventana_paises(null, true);
+        paises.setLocationRelativeTo(null);
+        paises.setVisible(true);
+    }//GEN-LAST:event_btnlabelpaisMouseClicked
+
+    private void btnlabeldeweyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeldeweyMouseClicked
+        Ventana_Dewey dewey = new Ventana_Dewey(null, true);
+        dewey.setLocationRelativeTo(null);
+        dewey.setVisible(true);
+    }//GEN-LAST:event_btnlabeldeweyMouseClicked
+
     
     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
+    private javax.swing.JPanel btndewey;
     private javax.swing.JPanel btnhorario;
     private javax.swing.JPanel btnidioma;
     private javax.swing.JLabel btnlabeLcateg;
     private javax.swing.JLabel btnlabeLeditorial;
     private javax.swing.JLabel btnlabelautor;
+    private javax.swing.JLabel btnlabelautor2;
+    private javax.swing.JLabel btnlabeldewey;
     private javax.swing.JLabel btnlabelhorario;
     private javax.swing.JLabel btnlabelidioma;
     private javax.swing.JLabel btnlabellibros;
     private javax.swing.JLabel btnlabelmultas;
+    private javax.swing.JLabel btnlabelpais;
     private javax.swing.JLabel btnlabelsalir;
     private javax.swing.JLabel btnlabeluser;
     private javax.swing.JLabel btnlabelzonas;
     private javax.swing.JPanel btnmultas;
+    private javax.swing.JPanel btnpanelpais;
     private javax.swing.JPanel btnregistroautores;
+    private javax.swing.JPanel btnregistroautores2;
     private javax.swing.JPanel btnregistrocat;
     private javax.swing.JPanel btnregistroeditorial;
     private javax.swing.JPanel btnregistrolibros;
