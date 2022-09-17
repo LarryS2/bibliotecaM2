@@ -7,6 +7,7 @@ package gui;
 
 import Modelo.ModeloPais;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Pais;
 
@@ -64,6 +65,8 @@ public class Ventana_paises extends javax.swing.JDialog {
         labelid = new javax.swing.JLabel();
         labelidpais = new javax.swing.JLabel();
         txtcodigopais = new javax.swing.JFormattedTextField();
+        checkFiltro = new javax.swing.JCheckBox();
+        checkCancellDelete = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,6 +111,11 @@ public class Ventana_paises extends javax.swing.JDialog {
             }
         });
 
+        tablapaises = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tablapaises.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -115,7 +123,17 @@ public class Ventana_paises extends javax.swing.JDialog {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablapaises.setFocusable(false);
+        tablapaises.getTableHeader().setReorderingAllowed(false);
         tablapaises.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablapaisesMouseClicked(evt);
@@ -291,6 +309,16 @@ public class Ventana_paises extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        checkFiltro.setText("FILTRAR ELIMINADOS");
+        checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkFiltroMouseClicked(evt);
+            }
+        });
+
+        checkCancellDelete.setText("CANCELAR ELIMINACION");
+        checkCancellDelete.setEnabled(false);
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -304,32 +332,41 @@ public class Ventana_paises extends javax.swing.JDialog {
                         .addGap(0, 25, Short.MAX_VALUE))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backroundLayout.createSequentialGroup()
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelcodpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labelnompais, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtnombrepais, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtcodigopais))))))
-                            .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labeldescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdescpais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                                    .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(labeldescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtdescpais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(labelcodpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(labelnompais, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtnombrepais, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                    .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(txtcodigopais))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkFiltro)
+                                .addGap(18, 18, 18))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addComponent(checkCancellDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,9 +402,13 @@ public class Ventana_paises extends javax.swing.JDialog {
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtdescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeldescpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(checkCancellDelete))))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
@@ -378,7 +419,10 @@ public class Ventana_paises extends javax.swing.JDialog {
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(checkFiltro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -409,10 +453,28 @@ public class Ventana_paises extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void enableCheck(){
+        checkCancellDelete.setEnabled(false);
+        
+        try{
+            ModeloPais mdp = new ModeloPais();
+            ArrayList<Pais> listaPais = mdp.getPaisEliminado();
+            int id = Integer.parseInt(labelidpais.getText().trim());
 
+            for(int i = 0; i < listaPais.size(); i++){
+                if(id == listaPais.get(i).getId_pais()){
+                    checkCancellDelete.setEnabled(true);
+                    i = listaPais.size();
+                }
+            }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA ANTES");
+        }
+    }
+    
     public void Agregar() {
         try {
-            
             Pais pais = new Pais();
             String codigo = txtcodigopais.getText().trim();
             String nombre = txtnombrepais.getText().trim();
@@ -445,15 +507,104 @@ public class Ventana_paises extends javax.swing.JDialog {
         }
     }
     
+    public void Modificar(){
+        try{
+            Pais pais = new Pais();
+            int id = Integer.parseInt(labelidpais.getText().trim());
+            String codigo = txtcodigopais.getText().trim();
+            String nombre = txtnombrepais.getText().trim();
+            String desc = txtdescpais.getText().trim();
+            
+            if(codigo.isEmpty() || nombre.isEmpty()){
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            }else{
+                if(!pais.Validar_Nombre_Pais(nombre)){
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
+                }else{
+                    pais.setId_pais(id);
+                    pais.setCodigo_pais(codigo);
+                    pais.setNombre_pais(nombre);
+                    if(!desc.isEmpty()){
+                        pais.setDesc_pais(desc);
+                    }
+                    if(mp.ActualizarPais(pais)){
+                        JOptionPane.showMessageDialog(null, "SE HA ACTUALIZADO CORRECTAMENTE");
+                        ModeloPais.getTabla();
+                        LimpiarCampos();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
+                    }
+                }
+            }
+        }catch(HeadlessException | NumberFormatException |NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
     
+    public void ModificarEliminado(){
+        try{
+            Pais pais = new Pais();
+            int id = Integer.parseInt(labelidpais.getText().trim());
+            String codigo = txtcodigopais.getText().trim();
+            String nombre = txtnombrepais.getText().trim();
+            String desc = txtdescpais.getText().trim();
+            boolean bo1;
+            bo1 = !checkCancellDelete.isSelected();
+            
+            if(codigo.isEmpty() || nombre.isEmpty()){
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            }else{
+                if(!pais.Validar_Nombre_Pais(nombre)){
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
+                }else{
+                    pais.setId_pais(id);
+                    pais.setCodigo_pais(codigo);
+                    pais.setNombre_pais(nombre);
+                    if(!desc.isEmpty()){
+                        pais.setDesc_pais(desc);
+                    }
+                    pais.setEstado(bo1);
+                    if(mp.ActualizarPaisEliminado(pais)){
+                        JOptionPane.showMessageDialog(null, "SE HA ACTUALIZADO CORRECTAMENTE");
+                        ModeloPais.getTablaEliminados();
+                        LimpiarCampos();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
+                    }
+                }
+            }
+        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
     
-    
-    
-    
+    public void Eliminar(){
+        try{
+            Pais pais = new Pais();
+            int id = Integer.parseInt(labelidpais.getText().trim());
+            
+            
+                pais.setId_pais(id);
+                if(mp.EliminarPais(pais)){
+                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                    ModeloPais.getTabla();
+                    LimpiarCampos();
+                }else{
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                    LimpiarCampos();
+                }
+            
+        }catch(HeadlessException | NumberFormatException |NullPointerException e){
+            JOptionPane.showMessageDialog(null, "ELIJA UN FILA DE LA TABLA");
+        }
+    }
+
     public void LimpiarCampos() {
         labelidpais.setText(null);
+        txtnombrepais.setText(null);
         txtcodigopais.setText(null);
         txtdescpais.setText(null);
+        checkCancellDelete.setSelected(false);
     }
     
     
@@ -474,6 +625,7 @@ public class Ventana_paises extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
         } else {
             labelcodpais.disable();
+            checkCancellDelete.setEnabled(false);
             idp = Integer.parseInt((String) tablapaises.getValueAt(fila, 0).toString());
             String codigo = (String) tablapaises.getValueAt(fila, 1);
             String nombre = (String) tablapaises.getValueAt(fila, 2);
@@ -483,6 +635,7 @@ public class Ventana_paises extends javax.swing.JDialog {
             txtcodigopais.setText(codigo);
             txtnombrepais.setText(nombre);
             txtdescpais.setText(descripcion);
+            enableCheck();
         }
     }//GEN-LAST:event_tablapaisesMouseClicked
 
@@ -491,23 +644,21 @@ public class Ventana_paises extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        //Modificar();
+        if(!checkFiltro.isSelected()){
+            Modificar();
+            LimpiarCampos();
+        }else{
+            ModificarEliminado();
+            LimpiarCampos();
+        }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-//        try {
-//
-//            Idioma idioma = new Idioma();
-//            //int id = Integer.parseInt(txtid.getText().trim());
-//            if (mi.EliminarIdioma(idioma)) {
-//                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
-//                LimpiarCampos();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO");
-//            }
-//        } catch (HeadlessException | NumberFormatException e) {
-//
-//        }
+        if(!checkFiltro.isSelected()){
+            Eliminar();
+        }else{
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
+        }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
     private void btnlabellimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabellimpiarMouseClicked
@@ -528,45 +679,15 @@ public class Ventana_paises extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnlabelbuscarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana_paises.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana_paises.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana_paises.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana_paises.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
+        if(checkFiltro.isSelected()){
+            ModeloPais.getTablaEliminados();
+        }else{
+            ModeloPais.getTabla();
+            checkCancellDelete.setEnabled(false);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_checkFiltroMouseClicked
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            Ventana_paises dialog = new Ventana_paises(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -582,6 +703,8 @@ public class Ventana_paises extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnlimpiar;
     private javax.swing.JPanel btnrvolver;
+    private javax.swing.JCheckBox checkCancellDelete;
+    private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

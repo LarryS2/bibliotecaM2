@@ -19,8 +19,37 @@ public class ModeloAutores {
     *
     *Método para mandar un objeto de tipo Autor al combobox de la vista Libros//
     *
-     */
+    */
     public ArrayList<Autor> getAutor() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Autor> listaAutor = new ArrayList<>();
+
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT ID, PRIMER_NOMBRE, PRIMER_APELLIDO FROM autor WHERE ESTADO = False");
+
+            while (rs.next()) {
+                Autor autor = new Autor();
+                autor.setId_autor(rs.getInt("ID"));
+                autor.setPrimer_nombre(rs.getString("PRIMER_NOMBRE"));
+                autor.setPrimer_apellido(rs.getString("PRIMER_APELLIDO"));
+                listaAutor.add(autor);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return listaAutor;
+    }
+    
+    public ArrayList<Autor> getAutorEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
@@ -39,6 +68,12 @@ public class ModeloAutores {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
         return listaAutor;
     }
@@ -195,6 +230,12 @@ public class ModeloAutores {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
     }
 
@@ -231,6 +272,12 @@ public class ModeloAutores {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
     }
 

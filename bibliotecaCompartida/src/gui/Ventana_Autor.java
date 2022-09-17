@@ -559,20 +559,23 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     public void enableCheck(){
         checkCancellDelete.setEnabled(false);
         
-        ModeloAutores mas = new ModeloAutores();
-        int id = Integer.parseInt(campoid.getText());
-        ArrayList<Autor> listaAutores = mas.getAutor();
-        
-        for(int i = 0; i < listaAutores.size(); i++){
-            if(id == listaAutores.get(i).getId_autor()){
-                checkCancellDelete.setEnabled(true);
-                i = listaAutores.size();
+        try{
+            ModeloAutores mas = new ModeloAutores();
+            int id = Integer.parseInt(campoid.getText());
+            ArrayList<Autor> listaAutores = mas.getAutorEliminado();
+
+            for(int i = 0; i < listaAutores.size(); i++){
+                if(id == listaAutores.get(i).getId_autor()){
+                    checkCancellDelete.setEnabled(true);
+                    i = listaAutores.size();
+                }
             }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
 
     public void Registro() {
-
         try {
             Autor autor = new Autor();
             String codigo = txtcodigoautor.getText().trim();
@@ -665,48 +668,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 //        }
     }
 
-//    public void Agregar(){
-//        try{
-//            int id = Integer.parseInt(txtcodigoautor.getText().trim());
-//
-//            String nombre = txtnombreprimero.getText().trim();
-//            String apellido = xtapellidosegundo.getText().trim();
-//            String pais_origen = combopaisorigen.getSelectedItem().toString();
-//
-//            try {
-//                if(nombre.isEmpty() || apellido.isEmpty()){
-//                    JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-//                    Limpiar_Tabla();
-//                } else{
-//                    if(id>0){
-//                        if(combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
-//                            JOptionPane.showMessageDialog(null, "SELECCIONE UN PÁIS");
-//                            Limpiar_Tabla();
-//                        }else{
-//                            String sql = "INSERT INTO AUTOR (id_aut, nombre_aut, apellido_aut, pais_origen_aut) VALUES ('"+id+"','"+nombre+"','"+apellido+"','"+pais_origen+"')";
-//                            con1 = Conexion.getConnection(); 
-//                            st = con1.createStatement();
-//                            st.executeUpdate(sql); 
-//                            JOptionPane.showMessageDialog(null, "AUTOR REGISTRADO CON ÉXITO");
-//                            Limpiar_Tabla();
-//                            Vaciar_Campos();
-//                        }
-//                    }else{
-//                        JOptionPane.showMessageDialog(null, "INGRESE UN ID VÁLIDO");
-//                        Limpiar_Tabla();
-//                    }
-//                }
-//            } catch (HeadlessException | SQLException e) {
-//                JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO REGISTRAR AL AUTOR");
-//                Limpiar_Tabla();
-//            }
-//        }catch(HeadlessException | NumberFormatException e){
-//            JOptionPane.showMessageDialog(null, e);
-//            Limpiar_Tabla();
-//        }
-//    }
     public void Modificar(){
-
+        try{
             Autor autor = new Autor();
             int id = Integer.parseInt(campoid.getText().trim());
             String codigo = txtcodigoautor.getText().trim();
@@ -749,6 +712,9 @@ public final class Ventana_Autor extends javax.swing.JDialog {
            } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
+        }catch(HeadlessException | NumberFormatException e){
+            System.out.println(e);
+        }
     }
     
     public void ModificarEliminado(){
@@ -797,7 +763,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
         }catch(HeadlessException | NumberFormatException | NullPointerException e){
-            
+            JOptionPane.showMessageDialog(null, "ELIJA UNA FILA DE LA TABLA");
         }
     }
     
@@ -881,8 +847,12 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        Eliminar();
-        LimpiarCampos();
+        if(!checkFiltro.isSelected()){
+            Eliminar();
+            LimpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
+        }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
     private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
