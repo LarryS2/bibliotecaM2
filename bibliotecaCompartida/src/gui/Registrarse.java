@@ -41,13 +41,13 @@ public class Registrarse extends javax.swing.JDialog {
             String direccion = txtdireccion.getText().trim();
             boolean estado = true;
             
-            char gen = ' ';
+            String gen = "";
             if(radiomasculino.isSelected()){
-                gen = 'M';
+                gen = "M";
             }
             else {
                 if(radiofemenino.isSelected()){
-                    gen = 'F';
+                    gen = "F";
                 }
             }
             String tipo_sangre = combotiposangre.getSelectedItem().toString();
@@ -56,7 +56,7 @@ public class Registrarse extends javax.swing.JDialog {
             String tipo_user = "INVITADO";
 
             if (cedula.isEmpty() ||  nombre_pr.isEmpty() || apellido_pr.isEmpty() || 
-                email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen==' ' ||
+                email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen== "" ||
                 password.isBlank()) {
                     JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
 

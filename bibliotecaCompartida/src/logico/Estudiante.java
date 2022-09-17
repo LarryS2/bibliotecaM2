@@ -22,7 +22,7 @@ public class Estudiante extends Persona{
         super(cedula, tipo_usuario);
     }
 
-    public Estudiante(int id_est, String persona, String password, int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, char genero, String telefono, boolean Estado) {
+    public Estudiante(int id_est, String persona, String password, int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
         super(id, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, tipo_usuario, email, tipo_sangre, fecha_nac, direccion, genero, telefono, Estado);
         this.id_est = id_est;
         this.persona = persona;

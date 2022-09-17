@@ -17,7 +17,7 @@ public class Persona {
     private String tipo_sangre;
     private Date fecha_nac;
     private String direccion;
-    private char genero;
+    private String genero;
     private String telefono;
     private boolean Estado;
 
@@ -37,6 +37,12 @@ public class Persona {
         this.tipo_usuario = tipo_usuario;
     }
     
+    public Persona(int id, String primer_nombre, String primer_apellido){
+        this.id = id;
+        this.primer_nombre = primer_nombre;
+        this.primer_apellido = primer_apellido;
+    }
+    
     public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado){
         this.id = id;
         this.cedula = cedula;
@@ -48,7 +54,7 @@ public class Persona {
         this.Estado = Estado;
     }
 
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, char genero, String telefono, boolean Estado) {
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -153,11 +159,11 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
@@ -179,7 +185,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return cedula;
+        return primer_nombre + " " + primer_apellido;
     }
 
     public boolean ValidarNombreYapellido(String nom) {
@@ -242,8 +248,8 @@ public class Persona {
 
     public boolean Validar_fecha(String fecha) {
         try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
-            String fechaCad = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+            String fechaCad = new SimpleDateFormat("dd/MM/yyyy").format(date);
             return fecha.equals(fechaCad);
         } catch (ParseException pe) {
         } catch (Exception e) {
@@ -251,3 +257,4 @@ public class Persona {
         return false;
     }
 }
+

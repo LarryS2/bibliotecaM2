@@ -34,7 +34,7 @@ public final class Mi_Perfil extends javax.swing.JDialog {
                 String apellido = ControladorUsuario.listausuarios.get(i).getPrimer_apellido();
                 String email = ControladorUsuario.listausuarios.get(i).getEmail();
                 String telefono = ControladorUsuario.listausuarios.get(i).getTelefono();
-                char genero = ControladorUsuario.listausuarios.get(i).getGenero();
+                String genero = ControladorUsuario.listausuarios.get(i).getGenero();
                 
                 labelcedula.setText(cedula);
                 labelnombreinv.setText(nombre);

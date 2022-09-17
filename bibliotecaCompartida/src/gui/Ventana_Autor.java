@@ -19,13 +19,14 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 
     /**
      * Creates new form Autor
+     *
      * @param parent
      * @param modal
      */
-    
     Conexion con = new Conexion();
     int ida;
     ModeloAutores ma = new ModeloAutores();
+
     public Ventana_Autor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -83,6 +84,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelfecha = new javax.swing.JLabel();
         combolengua = new javax.swing.JComboBox<>();
         labelfecha1 = new javax.swing.JLabel();
+        checkFiltro = new javax.swing.JCheckBox();
+        checkCancellDelete = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,7 +105,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             .addGroup(panelsuperior1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(labellog1)
-                .addContainerGap(580, Short.MAX_VALUE))
+                .addContainerGap(635, Short.MAX_VALUE))
         );
         panelsuperior1Layout.setVerticalGroup(
             panelsuperior1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,6 +115,11 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
+        tablaautores = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tablaautores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -128,6 +136,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tablaautores.setFocusable(false);
+        tablaautores.getTableHeader().setReorderingAllowed(false);
         tablaautores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaautoresMouseClicked(evt);
@@ -356,71 +366,89 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelfecha1.setForeground(new java.awt.Color(102, 102, 102));
         labelfecha1.setText("FECHA NACIMIENTO:");
 
+        checkFiltro.setText("FILTRAR ELIMINADOS");
+        checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkFiltroMouseClicked(evt);
+            }
+        });
+
+        checkCancellDelete.setText("CANCELAR ELIMINACION");
+        checkCancellDelete.setEnabled(false);
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelsuperior1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(backroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, backroundLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(labelapesegundo)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(labelpais, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(labelfecha1))
+                                            .addComponent(labelfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                    .addComponent(txtapellidosegundo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                    .addComponent(combopaisorigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fecha_nac_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(combolengua, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelnomprimero, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelnomsegundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelape1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtnombreprimero, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtnombresegundo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelced, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtcodigoautor)
+                                    .addComponent(campoid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(checkCancellDelete))
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelapesegundo)
+                                .addGap(582, 582, 582)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(labelpais, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(labelfecha1))
-                                    .addComponent(labelfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(txtapellidosegundo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(combopaisorigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fecha_nac_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combolengua, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelnomprimero, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelnomsegundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelape1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtnombreprimero, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtnombresegundo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelced, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtcodigoautor)
-                            .addComponent(campoid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnragregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkFiltro)
+                                .addGap(239, 239, 239)))))
                 .addGap(24, 24, 24))
         );
         backroundLayout.setVerticalGroup(
@@ -480,19 +508,23 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelpais, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                             .addComponent(combopaisorigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49))
+                        .addGap(18, 18, 18)
+                        .addComponent(checkCancellDelete)
+                        .addGap(8, 8, 8))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkFiltro))
                         .addGap(12, 12, 12)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(11, 11, 11)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,7 +537,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1002, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,19 +547,32 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llenarIdiomaAutor(){
+    public void llenarIdiomaAutor() {
         Modeloidioma modidioma = new Modeloidioma();
         ArrayList<Idioma> listaIdiomas = modidioma.getIdioma();
         combolengua.removeAllItems();
-        for(int i = 0; i < listaIdiomas.size(); i++){
-            combolengua.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma(),listaIdiomas.get(i).getDescripcion()));
-        }  
+        for (int i = 0; i < listaIdiomas.size(); i++) {
+            combolengua.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma(), listaIdiomas.get(i).getDescripcion()));
+        }
     }
     
-    
-    
-    public void Registro(){
-    
+    public void enableCheck(){
+        checkCancellDelete.setEnabled(false);
+        
+        ModeloAutores mas = new ModeloAutores();
+        int id = Integer.parseInt(campoid.getText());
+        ArrayList<Autor> listaAutores = mas.getAutor();
+        
+        for(int i = 0; i < listaAutores.size(); i++){
+            if(id == listaAutores.get(i).getId_autor()){
+                checkCancellDelete.setEnabled(true);
+                i = listaAutores.size();
+            }
+        }
+    }
+
+    public void Registro() {
+
         try {
             Autor autor = new Autor();
             String codigo = txtcodigoautor.getText().trim();
@@ -536,31 +581,31 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String apellido = txtapellido.getText().trim();
             String apellido_s = txtapellidosegundo.getText().trim();
             String lengua_mat = combolengua.getSelectedItem().toString();
-            String fecha_nac = ((JTextField)fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
+            String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
             String pais_origen = combopaisorigen.getSelectedItem().toString();
-            
-            if (codigo.isEmpty() || nombre.isEmpty() || nombre_s.isEmpty() || apellido.isEmpty() ||
-                    apellido_s.isEmpty() || fecha_nac.isEmpty()) {
+
+            if (codigo.isEmpty() || nombre.isEmpty() || nombre_s.isEmpty() || apellido.isEmpty()
+                    || apellido_s.isEmpty() || fecha_nac.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
                 if (pais_origen.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "SELECCIONE UN PAÍS");
                 } else {
-                    if(lengua_mat.isEmpty()){
+                    if (lengua_mat.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "SELECCIONE UN IDIOMA");
-                    }else{
-                        if(autor.ValidarNombresYapellidos(nombre)==false){
+                    } else {
+                        if (autor.ValidarNombreYapellido(nombre) == false) {
                             JOptionPane.showMessageDialog(null, "PRIMER NOMBRE NO VÁLIDO");
-                            }else{
-                            if(autor.ValidarNombresYapellidos(nombre_s)==false){
+                        } else {
+                            if (autor.ValidarNombreYapellido(nombre_s) == false) {
                                 JOptionPane.showMessageDialog(null, "SEGUNDO NOMBRE NO VÁLIDO");
-                            }else{
-                                if(autor.ValidarNombresYapellidos(apellido)==false){
+                            } else {
+                                if (autor.ValidarNombreYapellido(apellido) == false) {
                                     JOptionPane.showMessageDialog(null, "PRIMER APELLIDO NO VÁLIDO");
-                                }else{
-                                    if(autor.ValidarNombresYapellidos(apellido_s)==false){
+                                } else {
+                                    if (autor.ValidarNombreYapellido(apellido_s) == false) {
                                         JOptionPane.showMessageDialog(null, "SEGUNDO APELLIDO NO VÁLIDO");
-                                    }else{
+                                    } else {
                                         autor.setCedula(codigo);
                                         autor.setPrimer_nombre(nombre);
                                         autor.setPrimer_nombre(nombre_s);
@@ -579,7 +624,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                             JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL AUTOR");
                                             ModeloAutores.Limpiar_Tabla();
                                             ModeloAutores.getTabla();
-                                        }  
+                                        }
                                     }
                                 }
                             }
@@ -590,25 +635,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         } catch (HeadlessException | IllegalArgumentException e) {
             System.out.println(e);
         }
-//        String sql = "SELECT * FROM AUTOR";
-//        try {
-//            con1 = con.getConnection(); 
-//            st = con1.createStatement();
-//            rs = st.executeQuery(sql);
-//            Object [] Autor = new Object[4];
-//            model = (DefaultTableModel) tablaautores.getModel();
-//            
-//            while (rs.next()) {                
-//                Autor [0] = rs.getInt("id_aut");
-//                Autor [1] = rs.getString("nombre_aut");
-//                Autor [2] = rs.getString("apellido_aut");
-//                Autor [3] = rs.getString("pais_origen_aut");
-//                model.addRow(Autor);
-//                tablaautores.setModel(model);
-//            }
-//        } catch (SQLException e) { 
-//        }
-//    }
 //    
 //    public void consultar_Parametro(){
 //        try{
@@ -638,8 +664,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 //            JOptionPane.showMessageDialog(null, "NO SE PUDO HACER LA BÚSQUEDA");
 //        }
     }
-    
-    
+
 //    public void Agregar(){
 //        try{
 //            int id = Integer.parseInt(txtcodigoautor.getText().trim());
@@ -680,61 +705,118 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 //            Limpiar_Tabla();
 //        }
 //    }
+    public void Modificar(){
+        Autor autor = new Autor();
+        int id = Integer.parseInt(campoid.getText().trim());
+        String codigo = txtcodigoautor.getText().trim();
+        String primer_nombre = txtnombreprimero.getText().trim();
+        String primer_apellido = txtapellido.getText().trim();
+        String segundo_nombre = txtnombresegundo.getText().trim();
+        String segundo_apellido = txtapellidosegundo.getText().trim();
+        String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
+        String pais_origen = combopaisorigen.getSelectedItem().toString();
+        String lengua = combolengua.getSelectedItem().toString();
+        
+        try {
+            if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
+                    || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+                LimpiarCampos();
+            } else{
+                if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
+                    LimpiarCampos();
+                }else{
+                    autor.setId_autor(id);
+                    autor.setCedula(codigo);
+                    autor.setPrimer_nombre(primer_nombre);
+                    autor.setSegundo_nombre(segundo_nombre);
+                    autor.setPrimer_apellido(primer_apellido);
+                    autor.setSegundo_apellido(segundo_apellido);
+                    autor.setFecha_nac(Date.valueOf(fecha_nac));
+                    autor.setPais_origen(pais_origen);
+                    autor.setLengua_materna(lengua);
+                    if(ma.ModificarAutor(autor)){
+                        JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
+                        ModeloAutores.getTabla();
+                        LimpiarCampos();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                    }
+                }
+            }
+       } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
+        }
+    }
     
-//    public void Modificar(){
-//        int id = Integer.parseInt(txtcodigoautor.getText().trim());
-//
-//        String nombre = txtnombreprimero.getText().trim();
-//        String apellido = xtapellidosegundo.getText().trim();
-//        String pais_origen = combopaisorigen.getSelectedItem().toString();
-//        
-//        try {
-//            if(nombre.isEmpty() || apellido.isEmpty()){
-//                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-//                Limpiar_Tabla();
-//            } else{
-//                if(combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
-//                    JOptionPane.showMessageDialog(null, "SELECCIONE UN PÁIS");
-//                    Limpiar_Tabla();
-//                }else{
-//                    String sql = "UPDATE AUTOR SET id_aut='"+idc+"', nombre_aut='"+nombre+"', apellido_aut='"+apellido+"', pais_origen_aut='"+pais_origen+
-//                            "' WHERE id_aut="+idc;
-//                    con1 = con.getConnection(); 
-//                    st = con1.createStatement();
-//                    st.executeUpdate(sql); 
-//                    JOptionPane.showMessageDialog(null, "AUTOR MODIFICADO CON ÉXITO");
-//                    Limpiar_Tabla();
-//                    Vaciar_Campos();
-//                }
-//            }
-//        } catch (HeadlessException | SQLException e) {
-//            JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
-//            Limpiar_Tabla();
-//        }
-//    }
+    public void ModificarEliminado(){
+        Autor autor = new Autor();
+        int id = Integer.parseInt(campoid.getText().trim());
+        String codigo = txtcodigoautor.getText().trim();
+        String primer_nombre = txtnombreprimero.getText().trim();
+        String primer_apellido = txtapellido.getText().trim();
+        String segundo_nombre = txtnombresegundo.getText().trim();
+        String segundo_apellido = txtapellidosegundo.getText().trim();
+        String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
+        String pais_origen = combopaisorigen.getSelectedItem().toString();
+        String lengua = combolengua.getSelectedItem().toString();
+        boolean bo1;
+        bo1 = !checkCancellDelete.isSelected();
+        
+        try {
+            if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
+                    || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+                LimpiarCampos();
+            } else{
+                if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
+                    LimpiarCampos();
+                }else{
+                    autor.setId_autor(id);
+                    autor.setCedula(codigo);
+                    autor.setPrimer_nombre(primer_nombre);
+                    autor.setPrimer_apellido(primer_apellido);
+                    autor.setSegundo_nombre(segundo_nombre);
+                    autor.setSegundo_apellido(segundo_apellido);
+                    autor.setFecha_nac(Date.valueOf(fecha_nac));
+                    autor.setPais_origen(pais_origen);
+                    autor.setLengua_materna(lengua);
+                    autor.setEstado(bo1);
+                    if(ma.ModificarAutorEliminado(autor)){
+                        JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
+                        ModeloAutores.getTablaEliminados();
+                        LimpiarCampos();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                    }
+                }
+            }
+       } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
+        }
+    }
     
+    public void Eliminar() {
+        try {
+            Autor autor = new Autor();
+            int fila = Integer.parseInt(campoid.getText().trim());
+
+            autor.setId(fila);
+            if (ma.EliminarAutor(autor)) {
+                JOptionPane.showMessageDialog(null, "AUTOR ELIMINADO CON ÉXITO");
+                ModeloAutores.getTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL AUTOR");
+                ModeloAutores.getTabla();
+            }
+        }catch(HeadlessException | NumberFormatException e){
+            System.out.println(e);
+        }
+    }
     
-//    public void Eliminar(){
-//        int fila = tablaautores.getSelectedRow();
-//        try {
-//            if (fila<0) {
-//                System.out.println("PRIMERO SELECCIONE UNA FILA");
-//                Limpiar_Tabla();
-//            }else{
-//                String sql = "DELETE FROM AUTOR WHERE id_aut="+idc;
-//                con1 = con.getConnection(); 
-//                st = con1.createStatement();
-//                st.executeUpdate(sql); 
-//                JOptionPane.showMessageDialog(null, "AUTOR ELIMINADO CON ÉXITO");
-//                Limpiar_Tabla();
-//                Vaciar_Campos();
-//            }
-//        } catch (HeadlessException | SQLException e) {
-//        }
-//    }
-    
-    
-    public void LimpiarCampos(){
+    public void LimpiarCampos() {
         campoid.setText(null);
         txtcodigoautor.setText(null);
         txtnombreprimero.setText(null);
@@ -744,33 +826,33 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         combolengua.setSelectedIndex(0);
         fecha_nac_chooser.cleanup();
         combopaisorigen.setSelectedIndex(0);
+        checkCancellDelete.setSelected(false);
     }
-        
-    
+
     private void txtcodigoautorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoautorKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
-            if(txtcodigoautor.getText().length()>=10) {
-                evt.consume();    
+        if (Character.isDigit(validar)) {
+            if (txtcodigoautor.getText().length() >= 10) {
+                evt.consume();
             }
-        } else{
-            evt.consume();   
+        } else {
+            evt.consume();
         }
     }//GEN-LAST:event_txtcodigoautorKeyTyped
 
     private void txtnombreprimeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreprimeroKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
+        if (Character.isDigit(validar)) {
             evt.consume();
-        }else{
-            if (txtnombreprimero.getText().length()>=50) {
+        } else {
+            if (txtnombreprimero.getText().length() >= 50) {
                 evt.consume();
             }
         }
     }//GEN-LAST:event_txtnombreprimeroKeyTyped
 
     private void txtapellidosegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosegundoKeyTyped
-        if (txtapellidosegundo.getText().length()>=50) {
+        if (txtapellidosegundo.getText().length() >= 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtapellidosegundoKeyTyped
@@ -786,13 +868,18 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabelagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-//        Modificar();
-//        Registro();
+        if(checkCancellDelete.isEnabled()){
+            ModificarEliminado();
+            LimpiarCampos();
+        }else{
+            Modificar();
+            LimpiarCampos();
+        }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-//        Eliminar();
-//        Registro();
+        Eliminar();
+        LimpiarCampos();
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
     private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
@@ -801,21 +888,22 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 
     private void tablaautoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaautoresMouseClicked
         int fila = tablaautores.getSelectedRow();
-        if(fila == -1){
+        if (fila == -1) {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
-        }else{
+        } else {
             campoid.disable();
-            ida =Integer.parseInt((String)tablaautores.getValueAt(fila, 0).toString());
-            String codigo = (String)tablaautores.getValueAt(fila, 1);
-            String nombre = (String)tablaautores.getValueAt(fila, 2);
-            String segundo_nombre = (String)tablaautores.getValueAt(fila, 3); 
-            String apellido = (String)tablaautores.getValueAt(fila, 4);
-            String segundo_apellido = (String)tablaautores.getValueAt(fila, 5);
-            String lengua_materna = (String)tablaautores.getValueAt(fila, 6).toString();
-            Date fecha_p = Date.valueOf((String)tablaautores.getValueAt(fila, 6).toString());
-            String pais_origen = (String)tablaautores.getValueAt(fila, 8).toString();
-            
-            campoid.setText(""+ida);
+            checkCancellDelete.setEnabled(false);
+            ida = Integer.parseInt((String) tablaautores.getValueAt(fila, 0).toString());
+            String codigo = (String) tablaautores.getValueAt(fila, 1);
+            String nombre = (String) tablaautores.getValueAt(fila, 2);
+            String segundo_nombre = (String) tablaautores.getValueAt(fila, 3);
+            String apellido = (String) tablaautores.getValueAt(fila, 4);
+            String segundo_apellido = (String) tablaautores.getValueAt(fila, 5);
+            String lengua_materna = (String) tablaautores.getValueAt(fila, 6).toString();
+            Date fecha_p = Date.valueOf((String) tablaautores.getValueAt(fila, 6).toString());
+            String pais_origen = (String) tablaautores.getValueAt(fila, 8).toString();
+
+            campoid.setText("" + ida);
             txtcodigoautor.setText(codigo);
             txtnombreprimero.setText(nombre);
             txtnombresegundo.setText(segundo_nombre);
@@ -823,7 +911,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             txtapellidosegundo.setText(segundo_apellido);
             combolengua.setSelectedItem(lengua_materna);
             fecha_nac_chooser.setDate(fecha_p);
-            combopaisorigen.setSelectedItem(pais_origen);            
+            combopaisorigen.setSelectedItem(pais_origen);
+            enableCheck();
         }
     }//GEN-LAST:event_tablaautoresMouseClicked
 
@@ -838,6 +927,15 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtapellidoKeyTyped
+
+    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
+        if(checkFiltro.isSelected()){
+            ModeloAutores.getTablaEliminados();
+        }else{
+            ModeloAutores.getTabla();
+            checkCancellDelete.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkFiltroMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -854,6 +952,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private javax.swing.JPanel btnragregar;
     private javax.swing.JPanel btnrvolver;
     private javax.swing.JLabel campoid;
+    private javax.swing.JCheckBox checkCancellDelete;
+    private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JComboBox<Idioma> combolengua;
     private javax.swing.JComboBox<String> combopaisorigen;
     private com.toedter.calendar.JDateChooser fecha_nac_chooser;
