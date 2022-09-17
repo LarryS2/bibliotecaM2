@@ -55,14 +55,14 @@ public class Login extends javax.swing.JFrame {
 
         backround.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelsuperior.setBackground(new java.awt.Color(0, 153, 153));
+        panelsuperior.setBackground(new java.awt.Color(0, 134, 190));
 
         labellog.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         labellog.setForeground(new java.awt.Color(255, 255, 255));
         labellog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labellog.setText("INICIAR SESIÓN");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bookshelf.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoista (2).png"))); // NOI18N
 
         javax.swing.GroupLayout panelsuperiorLayout = new javax.swing.GroupLayout(panelsuperior);
         panelsuperior.setLayout(panelsuperiorLayout);
@@ -93,7 +93,7 @@ public class Login extends javax.swing.JFrame {
         labeluser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labeluser.setText("USUARIO");
 
-        btnregistro.setBackground(new java.awt.Color(0, 153, 153));
+        btnregistro.setBackground(new java.awt.Color(0, 156, 190));
 
         labelbtnregistro.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         labelbtnregistro.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,7 +124,14 @@ public class Login extends javax.swing.JFrame {
         );
 
         txtuser.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtuser.setForeground(new java.awt.Color(204, 204, 204));
+        txtuser.setText("Ingrese su cedula");
         txtuser.setBorder(null);
+        txtuser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtuserMousePressed(evt);
+            }
+        });
         txtuser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtuserKeyTyped(evt);
@@ -136,7 +143,12 @@ public class Login extends javax.swing.JFrame {
         labelcontra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelcontra.setText("CONTRASEÑA");
 
-        btnlogin.setBackground(new java.awt.Color(0, 153, 153));
+        btnlogin.setBackground(new java.awt.Color(0, 156, 190));
+        btnlogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnloginMouseEntered(evt);
+            }
+        });
 
         btnlabeliniciarsesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnlabeliniciarsesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,7 +179,14 @@ public class Login extends javax.swing.JFrame {
         );
 
         passworduser.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        passworduser.setForeground(new java.awt.Color(204, 204, 204));
+        passworduser.setText("********");
         passworduser.setBorder(null);
+        passworduser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passworduserMousePressed(evt);
+            }
+        });
         passworduser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passworduserKeyTyped(evt);
@@ -247,6 +266,65 @@ public class Login extends javax.swing.JFrame {
         reg.setVisible(true);
     }//GEN-LAST:event_labelbtnregistroMouseClicked
 
+    private void txtuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyTyped
+        char validar = evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            if(txtuser.getText().length()>=10) {
+                evt.consume();    
+            }
+        } else{
+            evt.consume();   
+        }
+    }//GEN-LAST:event_txtuserKeyTyped
+
+    private void passworduserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passworduserKeyTyped
+        if (passworduser.getPassword().length>=16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_passworduserKeyTyped
+
+    private void labelbtnregistroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtnregistroMouseEntered
+        btnregistro.setBackground(new Color(0, 156, 190));
+    }//GEN-LAST:event_labelbtnregistroMouseEntered
+
+    private void labelbtnregistroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtnregistroMouseExited
+        btnregistro.setBackground(new Color(0, 133, 190));
+    }//GEN-LAST:event_labelbtnregistroMouseExited
+
+    private void btnloginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnloginMouseEntered
+
+    private void btnlabeliniciarsesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeliniciarsesionMouseEntered
+        btnlogin.setBackground(new Color(0,156,190));
+    }//GEN-LAST:event_btnlabeliniciarsesionMouseEntered
+
+    private void btnlabeliniciarsesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeliniciarsesionMouseExited
+        btnlogin.setBackground(new Color(0,133,190));
+    }//GEN-LAST:event_btnlabeliniciarsesionMouseExited
+
+    private void txtuserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtuserMousePressed
+        if(txtuser.getText().equals("Ingrese su cedula")){
+            txtuser.setText("");
+            txtuser.setForeground(Color.black);
+        }
+        if(String.valueOf(passworduser.getPassword()).isEmpty()){
+            passworduser.setText("********");
+            passworduser.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtuserMousePressed
+
+    private void passworduserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passworduserMousePressed
+        if(txtuser.getText().isEmpty()){
+            txtuser.setText("Ingrese su cedula");
+            txtuser.setForeground(Color.gray);
+        }
+        if(String.valueOf(passworduser.getPassword()).equals("********")){
+            passworduser.setText("");
+            passworduser.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_passworduserMousePressed
+
     private void btnlabeliniciarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeliniciarsesionMouseClicked
         multi = new Menu();
         multi_u = new Menu_Invitado();
@@ -286,39 +364,6 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CAMPO DE USUARIO VACÍO");
         }
     }//GEN-LAST:event_btnlabeliniciarsesionMouseClicked
-
-    private void btnlabeliniciarsesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeliniciarsesionMouseEntered
-        btnlogin.setBackground(new Color(0, 120, 120));
-    }//GEN-LAST:event_btnlabeliniciarsesionMouseEntered
-
-    private void txtuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyTyped
-        char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
-            if(txtuser.getText().length()>=10) {
-                evt.consume();    
-            }
-        } else{
-            evt.consume();   
-        }
-    }//GEN-LAST:event_txtuserKeyTyped
-
-    private void passworduserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passworduserKeyTyped
-        if (passworduser.getPassword().length>=16) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_passworduserKeyTyped
-
-    private void btnlabeliniciarsesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeliniciarsesionMouseExited
-        btnlogin.setBackground(new Color(0, 153, 153));
-    }//GEN-LAST:event_btnlabeliniciarsesionMouseExited
-
-    private void labelbtnregistroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtnregistroMouseEntered
-        btnregistro.setBackground(new Color(0, 120, 120));
-    }//GEN-LAST:event_labelbtnregistroMouseEntered
-
-    private void labelbtnregistroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtnregistroMouseExited
-        btnregistro.setBackground(new Color(0, 153, 153));
-    }//GEN-LAST:event_labelbtnregistroMouseExited
 
     /**
      * @param args the command line arguments
