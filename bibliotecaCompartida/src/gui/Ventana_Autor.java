@@ -706,95 +706,98 @@ public final class Ventana_Autor extends javax.swing.JDialog {
 //        }
 //    }
     public void Modificar(){
-        Autor autor = new Autor();
-        int id = Integer.parseInt(campoid.getText().trim());
-        String codigo = txtcodigoautor.getText().trim();
-        String primer_nombre = txtnombreprimero.getText().trim();
-        String primer_apellido = txtapellido.getText().trim();
-        String segundo_nombre = txtnombresegundo.getText().trim();
-        String segundo_apellido = txtapellidosegundo.getText().trim();
-        String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
-        String pais_origen = combopaisorigen.getSelectedItem().toString();
-        String lengua = combolengua.getSelectedItem().toString();
-        
-        try {
-            if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
-                    || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
-                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-                LimpiarCampos();
-            } else{
-                if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
-                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
+
+            Autor autor = new Autor();
+            int id = Integer.parseInt(campoid.getText().trim());
+            String codigo = txtcodigoautor.getText().trim();
+            String primer_nombre = txtnombreprimero.getText().trim();
+            String primer_apellido = txtapellido.getText().trim();
+            String segundo_nombre = txtnombresegundo.getText().trim();
+            String segundo_apellido = txtapellidosegundo.getText().trim();
+            String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
+            String pais_origen = combopaisorigen.getSelectedItem().toString();
+            String lengua = combolengua.getSelectedItem().toString();
+
+            try {
+                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
+                        || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                    JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                     LimpiarCampos();
-                }else{
-                    autor.setId_autor(id);
-                    autor.setCedula(codigo);
-                    autor.setPrimer_nombre(primer_nombre);
-                    autor.setSegundo_nombre(segundo_nombre);
-                    autor.setPrimer_apellido(primer_apellido);
-                    autor.setSegundo_apellido(segundo_apellido);
-                    autor.setFecha_nac(Date.valueOf(fecha_nac));
-                    autor.setPais_origen(pais_origen);
-                    autor.setLengua_materna(lengua);
-                    if(ma.ModificarAutor(autor)){
-                        JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
-                        ModeloAutores.getTabla();
+                } else{
+                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                        JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                         LimpiarCampos();
                     }else{
-                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                        autor.setId_autor(id);
+                        autor.setCedula(codigo);
+                        autor.setPrimer_nombre(primer_nombre);
+                        autor.setSegundo_nombre(segundo_nombre);
+                        autor.setPrimer_apellido(primer_apellido);
+                        autor.setSegundo_apellido(segundo_apellido);
+                        autor.setFecha_nac(Date.valueOf(fecha_nac));
+                        autor.setPais_origen(pais_origen);
+                        autor.setLengua_materna(lengua);
+                        if(ma.ModificarAutor(autor)){
+                            JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
+                            ModeloAutores.getTabla();
+                            LimpiarCampos();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                        }
                     }
                 }
+           } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
-       } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
-        }
     }
     
     public void ModificarEliminado(){
-        Autor autor = new Autor();
-        int id = Integer.parseInt(campoid.getText().trim());
-        String codigo = txtcodigoautor.getText().trim();
-        String primer_nombre = txtnombreprimero.getText().trim();
-        String primer_apellido = txtapellido.getText().trim();
-        String segundo_nombre = txtnombresegundo.getText().trim();
-        String segundo_apellido = txtapellidosegundo.getText().trim();
-        String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
-        String pais_origen = combopaisorigen.getSelectedItem().toString();
-        String lengua = combolengua.getSelectedItem().toString();
-        boolean bo1;
-        bo1 = !checkCancellDelete.isSelected();
-        
-        try {
-            if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
-                    || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
-                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-                LimpiarCampos();
-            } else{
-                if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
-                    JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
-                    LimpiarCampos();
-                }else{
-                    autor.setId_autor(id);
-                    autor.setCedula(codigo);
-                    autor.setPrimer_nombre(primer_nombre);
-                    autor.setPrimer_apellido(primer_apellido);
-                    autor.setSegundo_nombre(segundo_nombre);
-                    autor.setSegundo_apellido(segundo_apellido);
-                    autor.setFecha_nac(Date.valueOf(fecha_nac));
-                    autor.setPais_origen(pais_origen);
-                    autor.setLengua_materna(lengua);
-                    autor.setEstado(bo1);
-                    if(ma.ModificarAutorEliminado(autor)){
-                        JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
-                        ModeloAutores.getTablaEliminados();
-                        LimpiarCampos();
+        try{
+            Autor autor = new Autor();
+            int id = Integer.parseInt(campoid.getText().trim());
+            String codigo = txtcodigoautor.getText().trim();
+            String primer_nombre = txtnombreprimero.getText().trim();
+            String primer_apellido = txtapellido.getText().trim();
+            String segundo_nombre = txtnombresegundo.getText().trim();
+            String segundo_apellido = txtapellidosegundo.getText().trim();
+            String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
+            String pais_origen = combopaisorigen.getSelectedItem().toString();
+            String lengua = combolengua.getSelectedItem().toString();
+            boolean bo1;
+            bo1 = !checkCancellDelete.isSelected();
+
+            try {
+                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
+                        || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                    JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+                } else{
+                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                        JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                     }else{
-                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                        autor.setId_autor(id);
+                        autor.setCedula(codigo);
+                        autor.setPrimer_nombre(primer_nombre);
+                        autor.setPrimer_apellido(primer_apellido);
+                        autor.setSegundo_nombre(segundo_nombre);
+                        autor.setSegundo_apellido(segundo_apellido);
+                        autor.setFecha_nac(Date.valueOf(fecha_nac));
+                        autor.setPais_origen(pais_origen);
+                        autor.setLengua_materna(lengua);
+                        autor.setEstado(bo1);
+                        if(ma.ModificarAutorEliminado(autor)){
+                            JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
+                            ModeloAutores.getTablaEliminados();
+                            //LimpiarCampos();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR");
+                        }
                     }
                 }
+           } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
-       } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
+        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+            
         }
     }
     
@@ -811,7 +814,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL AUTOR");
                 ModeloAutores.getTabla();
             }
-        }catch(HeadlessException | NumberFormatException e){
+        }catch(HeadlessException | NumberFormatException | NullPointerException e){
             System.out.println(e);
         }
     }
@@ -824,7 +827,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         txtapellido.setText(null);
         txtapellidosegundo.setText(null);
         combolengua.setSelectedIndex(0);
-        fecha_nac_chooser.cleanup();
+        fecha_nac_chooser.setCalendar(null);
         combopaisorigen.setSelectedIndex(0);
         checkCancellDelete.setSelected(false);
     }
