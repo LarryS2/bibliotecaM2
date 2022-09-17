@@ -14,29 +14,30 @@ import javax.swing.table.DefaultTableModel;
 import logico.Autor;
 
 public class ModeloAutores {
+
     /*
     *
     *Método para mandar un objeto de tipo Autor al combobox de la vista Libros//
     *
-    */
+     */
     public ArrayList<Autor> getAutor() {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
         ArrayList<Autor> listaAutor = new ArrayList<>();
-        
-        try{
+
+        try {
             st = con.createStatement();
             rs = st.executeQuery("SELECT ID, PRIMER_NOMBRE, PRIMER_APELLIDO FROM autor WHERE ESTADO = True");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Autor autor = new Autor();
                 autor.setId_autor(rs.getInt("ID"));
                 autor.setPrimer_nombre(rs.getString("PRIMER_NOMBRE"));
                 autor.setPrimer_apellido(rs.getString("PRIMER_APELLIDO"));
                 listaAutor.add(autor);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listaAutor;
@@ -46,16 +47,16 @@ public class ModeloAutores {
     *
     *Método para hacer el insert en la base de datos.
     *
-    */
-    public boolean RegistrarAutor(Autor autor){
-        
+     */
+    public boolean RegistrarAutor(Autor autor) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
+
         String sql = "INSERT INTO autor (CODIGO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NAC, LENGUA_MATERNA, PAIS_ORIGEN, ESTADO) VALUES(?,?,?,?,?,?,?,?, False)";
-        
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setString(1, autor.getCedula());
             ps.setString(2, autor.getPrimer_nombre());
@@ -78,21 +79,21 @@ public class ModeloAutores {
             }
         }
     }
-    
+
     /*
     *
     *Método para modificar autor//
     *
-    */
-    public boolean ModificarAutor(Autor autor){
-        
+     */
+    public boolean ModificarAutor(Autor autor) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
+
         String sql = "UPDATE autor SET CODIGO=?, PRIMER_NOMBRE=?, SEGUNDO_NOMBRE=?, PRIMER_APELLIDO=?, SEGUNDO_APELLIDO=?, FECHA_NAC=?, LENGUA_MATERNA=?, PAIS_ORIGEN=? WHERE ID=?";
-        
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setString(1, autor.getCedula());
             ps.setString(2, autor.getPrimer_nombre());
@@ -116,19 +117,18 @@ public class ModeloAutores {
             }
         }
     }
-    
+
     /*
     *
     *Metodo para modificar a los autores eliminados
-    */
-    
-    public boolean ModificarAutorEliminado(Autor autor){
-        
+     */
+    public boolean ModificarAutorEliminado(Autor autor) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
+
         String sql = "UPDATE autor SET CODIGO=?, PRIMER_NOMBRE=?, SEGUNDO_NOMBRE=?, PRIMER_APELLIDO=?, SEGUNDO_APELLIDO=?, FECHA_NAC=?, LENGUA_MATERNA=?, PAIS_ORIGEN=?, ESTADO = ? WHERE ID=?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, autor.getCedula());
@@ -154,22 +154,23 @@ public class ModeloAutores {
             }
         }
     }
-    
+
     /*
     *
     *Método para llenar la tabla de la vista autor//
     *
-    */
+     */
     static DefaultTableModel modelo = new DefaultTableModel();
-    public static void getTabla(){
+
+    public static void getTabla() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
         String sql = "SELECT ID, CODIGO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NAC, LENGUA_MATERNA, PAIS_ORIGEN NOMBRE FROM autor WHERE ESTADO = False";
         modelo = new DefaultTableModel();
         Ventana_Autor.tablaautores.setModel(modelo);
-        
-        try{
+
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -183,29 +184,29 @@ public class ModeloAutores {
             modelo.addColumn("FECHA NACIMIENTO");
             modelo.addColumn("LENGUA MATERNA");
             modelo.addColumn("PAÍS DE ORIGEN");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
     }
-    
-    public static void getTablaEliminados(){
+
+    public static void getTablaEliminados() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
         String sql = "SELECT ID, CODIGO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NAC, LENGUA_MATERNA, PAIS_ORIGEN NOMBRE FROM autor WHERE ESTADO = True";
         modelo = new DefaultTableModel();
         Ventana_Autor.tablaautores.setModel(modelo);
-        
-        try{
+
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -219,41 +220,41 @@ public class ModeloAutores {
             modelo.addColumn("FECHA NACIMIENTO");
             modelo.addColumn("LENGUA MATERNA");
             modelo.addColumn("PAÍS DE ORIGEN");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
     }
 
-    public static void Limpiar_Tabla(){
+    public static void Limpiar_Tabla() {
         for (int i = 0; i < Ventana_Autor.tablaautores.getRowCount(); i++) {
             modelo.removeRow(i);
-            i = i-1;
+            i = i - 1;
         }
-    } 
-    
+    }
+
     /*
     *
     *Método para eliminar autor//
     *
-    */
-    public boolean EliminarAutor(Autor autor){
-        
+     */
+    public boolean EliminarAutor(Autor autor) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
+
         String sql = "UPDATE autor SET ESTADO = True WHERE ID = ?";
-        
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setInt(1, autor.getId());
             ps.execute();
@@ -269,22 +270,22 @@ public class ModeloAutores {
             }
         }
     }
-    
+
     /*
     *
     *Método para buscar autor//
     *
-    */  
-    public boolean BuscarAutor(Autor autor){
-        
+     */
+    public boolean BuscarAutor(Autor autor) {
+
         PreparedStatement ps;
         ResultSet rs = null;
         Connection con = Conexion.getConnection();
-        
+
         String sql = "SELECT FROM autor WHERE =?";
-        
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setString(1, autor.getCedula());
             ps.execute();
