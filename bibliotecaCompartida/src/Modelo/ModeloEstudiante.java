@@ -30,9 +30,42 @@ public class ModeloEstudiante {
             ps.setString(5, est.getSegundo_apellido());
             ps.setString(6, est.getTipo_usuario());
             ps.setString(7, est.getEmail());
-//            ps.setDate(6, (Date) Bibliotecario.getFecha_nac());
-//            ps.setString(7, Bibliotecario.getLengua_materna());
-//            ps.setString(8, Bibliotecario.getPais_origen());
+            ps.setString(8, est.getTipo_sangre());
+            ps.setDate(9, (Date) est.getFecha_nac());
+            ps.setString(10, String.valueOf(est.getGenero()));
+            ps.setString(11, est.getDireccion());
+            ps.setString(12, est.getTelefono());
+            ps.setBoolean(13, est.isEstado());
+            
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+    
+    public boolean RegistrarEst(Estudiante est){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO estudiante (id_per_est, password_est)"
+                + " VALUES((SELECT id_per FROM persona WHERE id_per), ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            
+            ps.setString(1, est.getPersona());
+            ps.setString(2, est.getPassword());
             ps.execute();
             return true;
         } catch (SQLException sqle) {

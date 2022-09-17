@@ -91,7 +91,7 @@ public class TMusuario implements TableModel{
             }
             
             case 3: {
-                valor = user.getGenero();
+                //valor = user.getGenero();
                 break; 
             }
             

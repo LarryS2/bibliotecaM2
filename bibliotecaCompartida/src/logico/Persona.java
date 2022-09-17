@@ -17,7 +17,7 @@ public class Persona {
     private String tipo_sangre;
     private Date fecha_nac;
     private String direccion;
-    private String genero;
+    private char genero;
     private String telefono;
     private boolean Estado;
 
@@ -48,7 +48,7 @@ public class Persona {
         this.Estado = Estado;
     }
 
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, char genero, String telefono, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -153,11 +153,11 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public String getGenero() {
+    public char getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(char genero) {
         this.genero = genero;
     }
 
@@ -242,8 +242,8 @@ public class Persona {
 
     public boolean Validar_fecha(String fecha) {
         try {
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-            String fechaCad = new SimpleDateFormat("dd/MM/yyyy").format(date);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+            String fechaCad = new SimpleDateFormat("yyyy-MM-dd").format(date);
             return fecha.equals(fechaCad);
         } catch (ParseException pe) {
         } catch (Exception e) {
