@@ -829,7 +829,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         checkCancellDelete.setSelected(false);
     }
 
-
     private void txtcodigoautorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoautorKeyTyped
         char validar = evt.getKeyChar();
         if (Character.isDigit(validar)) {
