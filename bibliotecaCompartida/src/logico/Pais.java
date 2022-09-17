@@ -6,6 +6,23 @@ public class Pais {
     private String codigo_pais;
     private String nombre_pais;
     private String desc_pais;
+    private boolean estado;
+
+    public Pais() {
+    }
+
+    public Pais(int id_pais, String codigo_pais, String nombre_pais, String desc_pais, boolean estado) {
+        this.id_pais = id_pais;
+        this.codigo_pais = codigo_pais;
+        this.nombre_pais = nombre_pais;
+        this.desc_pais = desc_pais;
+        this.estado = estado;
+    }
+
+    public Pais(int id_pais, String nombre_pais) {
+        this.id_pais = id_pais;
+        this.nombre_pais = nombre_pais;
+    }
     
     /**
      * @return the id_pais
@@ -62,9 +79,21 @@ public class Pais {
     public void setDesc_pais(String desc_pais) {
         this.desc_pais = desc_pais;
     }
-    
-    public boolean Validar_Nombre_Pais(String nompa)
-    {
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return nombre_pais;
+    }
+
+    public boolean Validar_Nombre_Pais(String nompa) {
         return nompa.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
 }

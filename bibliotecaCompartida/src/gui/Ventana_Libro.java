@@ -83,7 +83,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         
         for(int i = 0; i < listAutores.size(); i++){
             //comboAutor.addItem(new Autor(listAutores.get(i).getId_autor(), listAutores.get(i).getNombre_autor(), listAutores.get(i).getApellido_autor()));
-            comboAutor.addItem(new Autor(listAutores.get(i).getPrimer_nombre()));
+            comboAutor.addItem(new Autor(listAutores.get(i).getId_autor(), listAutores.get(i).getPrimer_nombre(), listAutores.get(i).getPrimer_apellido()));
         }  
     }
     
