@@ -611,7 +611,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                     } else {
                                         autor.setCedula(codigo);
                                         autor.setPrimer_nombre(nombre);
-                                        autor.setPrimer_nombre(nombre_s);
                                         autor.setPrimer_apellido(apellido);
                                         autor.setSegundo_nombre(nombre_s);
                                         autor.setSegundo_apellido(apellido_s);
