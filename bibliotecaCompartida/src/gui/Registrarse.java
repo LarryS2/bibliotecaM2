@@ -57,7 +57,7 @@ public class Registrarse extends javax.swing.JDialog {
 
             if (cedula.isEmpty() ||  nombre_pr.isEmpty() || apellido_pr.isEmpty() || 
                 email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen.isEmpty() ||
-                password.isBlank()) {
+                password.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
 
             } else {
