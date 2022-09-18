@@ -66,7 +66,7 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         checkCancellDelete = new javax.swing.JCheckBox();
         checkFiltro = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -116,6 +116,11 @@ public class Ventana_Seccion extends javax.swing.JDialog {
 
         txtnombrezona.setBorder(null);
 
+        tablaseccion = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tablaseccion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -132,6 +137,8 @@ public class Ventana_Seccion extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tablaseccion.setFocusable(false);
+        tablaseccion.getTableHeader().setReorderingAllowed(false);
         tablaseccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaseccionMouseClicked(evt);
@@ -573,6 +580,7 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         txtcodigo.setText(null);
         txtnombrezona.setText(null);
         txtdesc.setText(null);
+        checkCancellDelete.setSelected(false);
     }
 
 
@@ -619,7 +627,6 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
         } else {
-
             campoid.disable();
             checkCancellDelete.setEnabled(false);
             ids = Integer.parseInt((String) tablaseccion.getValueAt(fila, 0).toString());
