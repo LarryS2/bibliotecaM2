@@ -1,13 +1,14 @@
 package logico;
 
-import java.util.Date;
+import java.time.LocalTime;
+//import java.time.LocalDate;
 
 public class Horario {
    
     private int id;
     private String codigo;
-    private Date hora_inicio;
-    private Date hora_fin;
+    private LocalTime hora_inicio;
+    private LocalTime hora_fin;
     private String descripcion;
     private boolean Estado;
 
@@ -18,14 +19,14 @@ public class Horario {
         this.id = id;
     }
     
-    public Horario(int id, Date hora_inicio, Date hora_fin, String descripcion) {
+    public Horario(int id, LocalTime hora_inicio, LocalTime hora_fin, String descripcion) {
         this.id = id;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
         this.descripcion = descripcion;
     }
 
-    public Horario(int id, String codigo, Date hora_inicio, Date hora_fin, String descripcion, boolean Estado) {
+    public Horario(int id, String codigo, LocalTime hora_inicio, LocalTime hora_fin, String descripcion, boolean Estado) {
         this.id = id;
         this.codigo = codigo;
         this.hora_inicio = hora_inicio;
@@ -49,19 +50,19 @@ public class Horario {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-    public Date getHora_inicio() {
+    public LocalTime getHora_inicio() {
         return hora_inicio;
     }
 
-    public void setHora_inicio(Date hora_inicio) {
+    public void setHora_inicio(LocalTime hora_inicio) {
         this.hora_inicio = hora_inicio;
     }
 
-    public Date getHora_fin() {
+    public LocalTime getHora_fin() {
         return hora_fin;
     }
 
-    public void setHora_fin(Date hora_fin) {
+    public void setHora_fin(LocalTime hora_fin) {
         this.hora_fin = hora_fin;
     }
 

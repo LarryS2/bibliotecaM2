@@ -4,7 +4,7 @@ import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import gui.Ventana_Horarios;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Time;
 import logico.Conexion;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
@@ -24,10 +24,10 @@ public class ModeloHorario {
             
             ps = con.prepareStatement(sql);
             ps.setString(1, hor.getCodigo());
-            ps.setDate(2, (Date) hor.getHora_inicio());
-            ps.setDate(3, (Date) hor.getHora_fin());
+            ps.setTime(2, Time.valueOf(hor.getHora_inicio()));
+            ps.setTime(3, Time.valueOf(hor.getHora_fin()));
             ps.setString(4, hor.getDescripcion());
-
+            ps.setBoolean(5, hor.isEstado());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -84,4 +84,7 @@ public class ModeloHorario {
             i = i-1;
         }
     }
+    
+    
+    
 }
