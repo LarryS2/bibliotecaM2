@@ -2,6 +2,7 @@ package gui;
 
 import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Idioma;
 
@@ -54,6 +55,8 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
         btnlabelbuscar = new javax.swing.JLabel();
         labelid = new javax.swing.JLabel();
         labelididioma = new javax.swing.JLabel();
+        checkFiltro = new javax.swing.JCheckBox();
+        checkCancelDelete = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,6 +110,11 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             }
         });
 
+        tablaIdiomas = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tablaIdiomas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -115,6 +123,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaIdiomas.getTableHeader().setReorderingAllowed(false);
         tablaIdiomas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaIdiomasMouseClicked(evt);
@@ -283,6 +292,16 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
 
         labelididioma.setEnabled(false);
 
+        checkFiltro.setText("FILTRAR ELIMINADOS");
+        checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkFiltroMouseClicked(evt);
+            }
+        });
+
+        checkCancelDelete.setText("CANCELAR ELIMINACIÓN");
+        checkCancelDelete.setEnabled(false);
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -296,32 +315,41 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                         .addGap(0, 25, Short.MAX_VALUE))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backroundLayout.createSequentialGroup()
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelcodidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labelnomidioma, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtnombreidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                .addComponent(txtcodigoidioma, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                .addComponent(labelididioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                            .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labeldescidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdescidioma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                                    .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(labeldescidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtdescidioma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(labelcodidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(labelnomidioma, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtnombreidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                    .addComponent(txtcodigoidioma, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                    .addComponent(labelididioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkFiltro)
+                                .addGap(18, 18, 18))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addComponent(checkCancelDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,9 +385,13 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtdescidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeldescidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(checkCancelDelete))))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
@@ -370,7 +402,10 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(checkFiltro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -395,7 +430,26 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+    
+    public void enableCheck(){
+        checkCancelDelete.setEnabled(false);
+        
+        try{
+            Modeloidioma modi = new Modeloidioma();
+            ArrayList<Idioma> listaIdioma = modi.getIdiomaEliminado();
+            int id = Integer.parseInt(labelididioma.getText().trim());
+            
+            for(int i = 0; i < listaIdioma.size(); i++){
+                if(id == listaIdioma.get(i).getId_idioma()){
+                    checkCancelDelete.setEnabled(true);
+                    i = listaIdioma.size();
+                }
+            }
+        }catch(NumberFormatException |NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
+    
     public void Agregar() {
         try {
             Idioma idioma = new Idioma();
@@ -455,18 +509,55 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                         idioma.setDescripcion(descripcion);
                         if (mi.ActualizarIdioma(idioma)) {
                             JOptionPane.showMessageDialog(null, "MODFICACIÓN EXITOSA");
-                            Modeloidioma.Limpiar_Tabla();
                             Modeloidioma.getTabla();
+                            LimpiarCampos();
                         } else {
                             JOptionPane.showMessageDialog(null, "NO SE PUDO MODIFICAR EL IDIOMA");
-                            Modeloidioma.Limpiar_Tabla();
-                            Modeloidioma.getTabla();
                         }
                     }
                 }
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
+    
+    public void ModificarEliminado() {
+        try {
+            Idioma idioma = new Idioma();
+            int id = Integer.parseInt(labelididioma.getText().trim());
+            String codigo = txtcodigoidioma.getText().trim();
+            String nombre = txtnombreidioma.getText().trim();
+            String descripcion = txtdescidioma.getText().trim();
+            boolean bo1;
+            bo1 = !checkCancelDelete.isSelected();
+
+            if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            } else {
+                if (idioma.ValidarNombre(nombre) == false) {
+                    JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
+                } else {
+                    if (idioma.ValidarDesc(descripcion) == false) {
+                        JOptionPane.showMessageDialog(null, "DESCRIPCIÓN NO VÁLIDA");
+                    } else {
+                        idioma.setCodigo_idioma(codigo);
+                        idioma.setId_idioma(id);
+                        idioma.setNombre_idioma(nombre);
+                        idioma.setDescripcion(descripcion);
+                        idioma.setEstado(bo1);
+                        if (mi.ActualizarIdiomaEliminado(idioma)) {
+                            JOptionPane.showMessageDialog(null, "MODFICACIÓN EXITOSA");
+                            Modeloidioma.getTablaEliminado();
+                            LimpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO MODIFICAR EL IDIOMA");
+                        }
+                    }
+                }
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
 
@@ -476,14 +567,15 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             int id = Integer.parseInt(labelididioma.getText().trim());
 
             idioma.setId_idioma(id);
-            if (mi.ActualizarIdioma(idioma)) {
+            if (mi.EliminarIdioma(idioma)) {
                 JOptionPane.showMessageDialog(null, "ELIMINACIÓN EXITOSA");
+                Modeloidioma.getTabla();
+                LimpiarCampos();
             } else {
                 JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL IDIOMA");
             }
-
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
     
@@ -492,6 +584,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
         txtcodigoidioma.setText(null);
         txtdescidioma.setText(null);
         txtnombreidioma.setText(null);
+        checkCancelDelete.setSelected(false);
     }
     
     private void txtcodigoidiomaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoidiomaKeyTyped
@@ -507,7 +600,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
 
     private void txtnombreidiomaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreidiomaKeyTyped
         char validar = evt.getKeyChar();
-        if (Character.isDigit(validar)) {
+        if (!Character.isLetter(validar)) {
             evt.consume();
         } else {
             if (txtnombreidioma.getText().length() >= 50) {
@@ -523,22 +616,20 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
 
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        Modificar();
+        if(!checkFiltro.isSelected()){
+            Modificar();
+            LimpiarCampos();
+        }else{
+            ModificarEliminado();
+            LimpiarCampos();
+        }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        try {
-
-            Idioma idioma = new Idioma();
-            //int id = Integer.parseInt(txtid.getText().trim()); 
-            if (mi.EliminarIdioma(idioma)) {
-                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
-                LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO");
-            }
-        } catch (HeadlessException | NumberFormatException e) {
-
+        if(!checkFiltro.isSelected()){
+            Eliminar();
+        }else{
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
         }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
@@ -553,7 +644,14 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabelvolverMouseClicked
 
     private void txtdescidiomaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescidiomaKeyTyped
-        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            evt.consume();
+        }else{
+            if(txtdescidioma.getText().length() >= 120){
+                evt.consume();
+            }
+        }
     }//GEN-LAST:event_txtdescidiomaKeyTyped
 
     private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
@@ -566,6 +664,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
         } else {
             labelcodidioma.disable();
+            checkCancelDelete.setEnabled(false);
             idi = Integer.parseInt((String) tablaIdiomas.getValueAt(fila, 0).toString());
             String codigo = (String) tablaIdiomas.getValueAt(fila, 1);
             String nombre = (String) tablaIdiomas.getValueAt(fila, 2);
@@ -575,8 +674,20 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             txtcodigoidioma.setText(codigo);
             txtnombreidioma.setText(nombre);
             txtdescidioma.setText(descripcion);
+            enableCheck();
         }
     }//GEN-LAST:event_tablaIdiomasMouseClicked
+
+    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
+        if(checkFiltro.isSelected()){
+            Modeloidioma.getTablaEliminado();
+            LimpiarCampos();
+        }else{
+            Modeloidioma.getTabla();
+            checkCancelDelete.setEnabled(false);
+            LimpiarCampos();
+        }
+    }//GEN-LAST:event_checkFiltroMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -592,6 +703,8 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnlimpiar;
     private javax.swing.JPanel btnrvolver;
+    private javax.swing.JCheckBox checkCancelDelete;
+    private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

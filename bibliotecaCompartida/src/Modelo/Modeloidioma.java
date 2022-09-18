@@ -20,7 +20,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO idioma (CODIGO, NOMBRE, DESCRIPCION) VALUES (?,?,?)";
+        String sql = "INSERT INTO idioma (CODIGO, NOMBRE, DESCRIPCION, estado_idio) VALUES (?,?,?,False)";
         
         try {
             
@@ -71,16 +71,43 @@ public class Modeloidioma {
         }
     }
     
+    public boolean ActualizarIdiomaEliminado(Idioma idioma){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "UPDATE idioma SET CODIGO=?, NOMBRE=?, DESCRIPCION=?, estado_idio = ? WHERE ID=? ";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, idioma.getCodigo_idioma());
+            ps.setString(2, idioma.getNombre_idioma());
+            ps.setString(3, idioma.getDescripcion());
+            ps.setBoolean(4, idioma.isEstado());
+            ps.setInt(5, idioma.getId_idioma());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
     
     public boolean EliminarIdioma(Idioma idioma){
         
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "DELETE FROM idioma WHERE ID=?";
+        String sql = "UPDATE idioma SET estado_idio = True WHERE ID = ?";
         
         try {
-            
             ps = con.prepareStatement(sql);
             ps.setInt(1, idioma.getId_idioma());
             ps.execute();
@@ -135,7 +162,7 @@ public class Modeloidioma {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT * FROM IDIOMA";
+        String sql = "SELECT ID, CODIGO, NOMBRE, DESCRIPCION FROM idioma WHERE estado_idio = False";
         modelo = new DefaultTableModel();
         Ventana_Idiomas.tablaIdiomas.setModel(modelo);
         
@@ -159,6 +186,49 @@ public class Modeloidioma {
             }    
         }catch(SQLException e){
             System.out.println(e.toString());
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+    public static void getTablaEliminado(){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT ID, CODIGO, NOMBRE, DESCRIPCION FROM idioma WHERE estado_idio = True";
+        modelo = new DefaultTableModel();
+        Ventana_Idiomas.tablaIdiomas.setModel(modelo);
+        
+        try{
+            st = con.prepareStatement(sql);
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("DESCRIPCION");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
     }
     
@@ -170,24 +240,27 @@ public class Modeloidioma {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM idioma");
+            rs = st.executeQuery("SELECT ID, NOMBRE FROM idioma WHERE estado_idio = False");
             
             while(rs.next()){
                 Idioma idioma = new Idioma();
                 idioma.setId_idioma(rs.getInt("ID"));
-                idioma.setCodigo_idioma(rs.getString("CODIGO"));
                 idioma.setNombre_idioma(rs.getString("NOMBRE"));
-                idioma.setDescripcion(rs.getString("DESCRIPCION"));
                 listaidiomas.add(idioma);
             }
         }catch(SQLException e){
-            
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
         return listaidiomas;
-    }   
+    }
     
-    /*Para la vista de autor*/
-    public ArrayList<Idioma> getIdiomaMaterno() {
+    public ArrayList<Idioma> getIdiomaEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
@@ -195,24 +268,25 @@ public class Modeloidioma {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM idioma");
+            rs = st.executeQuery("SELECT ID, NOMBRE FROM idioma WHERE estado_idio = True");
             
             while(rs.next()){
                 Idioma idioma = new Idioma();
                 idioma.setId_idioma(rs.getInt("ID"));
-                //idioma.setCodigo_idioma(rs.getString("CODIGO"));
                 idioma.setNombre_idioma(rs.getString("NOMBRE"));
-                //idioma.setDescripcion(rs.getString("DESCRIPCION"));
                 listaidiomas.add(idioma);
             }
         }catch(SQLException e){
-            
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
         return listaidiomas;
     }
-    
-    
-    
     
     public static void Limpiar_Tabla(){
         for (int i = 0; i < Ventana_Idiomas.tablaIdiomas.getRowCount(); i++) {
