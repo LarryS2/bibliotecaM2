@@ -466,7 +466,7 @@ public class Ventana_Seccion extends javax.swing.JFrame {
         if (Character.isLetter(validar)) {
             evt.consume();
         } else {
-            if (txtcodigo.getText().length() >= 6) {
+            if (txtcodigo.getText().length() >= 8) {
                 evt.consume();
             }
         }

@@ -402,7 +402,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             String codigo = txtcodigoidioma.getText().trim();
             String nombre = txtnombreidioma.getText().trim();
             String descripcion = txtdescidioma.getText().trim();
-
+            boolean estado = false;
             if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
@@ -415,6 +415,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
                         idioma.setCodigo_idioma(codigo);
                         idioma.setNombre_idioma(nombre);
                         idioma.setDescripcion(descripcion);
+                        idioma.setEstado(estado);
                         if (mi.RegistrarIdioma(idioma)) {
                             JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
                             Modeloidioma.Limpiar_Tabla();

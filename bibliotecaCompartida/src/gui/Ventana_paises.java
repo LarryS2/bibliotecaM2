@@ -479,27 +479,32 @@ public class Ventana_paises extends javax.swing.JDialog {
             String codigo = txtcodigopais.getText().trim();
             String nombre = txtnombrepais.getText().trim();
             String descripcion = txtdescpais.getText().trim();
-            
+            boolean estado = false;
             if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
-                if (pais.Validar_Nombre_Pais(nombre) == false) {
-                    JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
-                } else {
-                
-                    pais.setCodigo_pais(codigo);
-                    pais.setNombre_pais(nombre);
-                    pais.setDesc_pais(descripcion);
-                    if (mp.RegistrarPais(pais)) {
-                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                        ModeloPais.Limpiar_Tabla();
-                        ModeloPais.getTabla();
-                        LimpiarCampos();
+                if(codigo.length()<3){
+                    JOptionPane.showMessageDialog(null, "EL CÓDIGO DEL PAÍS CONTEMPLA 3 DÍGITOS");
+                }else{
+                    if (pais.Validar_Nombre_Pais(nombre) == false) {
+                        JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
                     } else {
-                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL PAÍS");
-                        ModeloPais.Limpiar_Tabla();
-                        ModeloPais.getTabla();
-                    }   
+
+                        pais.setCodigo_pais(codigo);
+                        pais.setNombre_pais(nombre);
+                        pais.setDesc_pais(descripcion);
+                        pais.setEstado(estado);
+                        if (mp.RegistrarPais(pais)) {
+                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                            ModeloPais.Limpiar_Tabla();
+                            ModeloPais.getTabla();
+                            LimpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL PAÍS");
+                            ModeloPais.Limpiar_Tabla();
+                            ModeloPais.getTabla();
+                        }   
+                    }
                 }
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {

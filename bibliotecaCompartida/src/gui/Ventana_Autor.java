@@ -1,6 +1,7 @@
 package gui;
 
 import Modelo.ModeloAutores;
+import Modelo.ModeloPais;
 import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
 import java.sql.Date;
@@ -10,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logico.Autor;
 import logico.Idioma;
+import logico.Pais;
 
 /**
  *
@@ -31,6 +33,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         llenarIdiomaAutor();
+        llenarPaisAutor();
+        //llenarComboAutor();
         ModeloAutores.getTabla();
     }
 
@@ -182,7 +186,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelpais.setForeground(new java.awt.Color(102, 102, 102));
         labelpais.setText("PAÍS DE ORIGEN:");
 
-        combopaisorigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Afganistán", "Alemania", "Arabia Saudita", "Argentina", "Australia", "Bélgica", "Bolivia", "Brasil", "Camboya", "Canadá", "Chile", "China", "Colombia", "Corea", "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "Escocia", "España", "Estados Unidos", "Estonia", "Etiopia", "Filipinas", "Finlandia", "Francia", "Gales", "Grecia", "Guatemala", "Haití", "Holanda", "Honduras", "Indonesia", "Inglaterra", "Irak", "Irán", "Irlanda", "Israel", "Italia", "Japón", "Jordania", "Laos", "Letonia", "Lituania", "Malasia", "Marruecos", "México", "Nicaragua", "Noruega", "Nueva Zelanda", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Puerto Rico", "Republica Dominicana", "Rumania", "Rusia", "Suecia", "Suiza", "Tailandia", "Taiwán", "Türkiye", "Ucrania", "Uruguay", "Venezuela", "Vietnam" }));
+        combopaisorigen.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         btnLimpiar.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -361,6 +365,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelfecha.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelfecha.setForeground(new java.awt.Color(102, 102, 102));
         labelfecha.setText("LENGUA MATERNA:");
+
+        combolengua.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         labelfecha1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelfecha1.setForeground(new java.awt.Color(102, 102, 102));
@@ -547,12 +553,40 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void llenarComboAutor(){
+        
+        Modeloidioma modidioma = new Modeloidioma();
+        ArrayList<Idioma> listaIdiomas = modidioma.getIdioma();
+        combolengua.removeAllItems();
+        for (int i = 0; i < listaIdiomas.size(); i++) {
+            combolengua.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma(), listaIdiomas.get(i).getDescripcion()));
+        }
+        
+//        ModeloPais modpa = new ModeloPais();
+//        ArrayList<Pais> listaPaises = modpa.getPais();
+//        combolengua.removeAllItems();
+//        for (int i = 0; i < listaPaises.size(); i++) {
+//            combopaisorigen.addItem(new Pais(listaPaises.get(i).getNombre_pais()));
+//        }
+        
+    }
+    
     public void llenarIdiomaAutor() {
         Modeloidioma modidioma = new Modeloidioma();
         ArrayList<Idioma> listaIdiomas = modidioma.getIdioma();
         combolengua.removeAllItems();
         for (int i = 0; i < listaIdiomas.size(); i++) {
             combolengua.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma(), listaIdiomas.get(i).getDescripcion()));
+        }
+    }
+    
+    public void llenarPaisAutor() {
+        ModeloPais modpa = new ModeloPais();
+        ArrayList<Pais> listaPaises = modpa.getPais();
+        combolengua.removeAllItems();
+        for (int i = 0; i < listaPaises.size(); i++) {
+            combopaisorigen.addItem(new Pais(listaPaises.get(i).getNombre_pais()));
         }
     }
     
@@ -928,7 +962,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JComboBox<Idioma> combolengua;
-    private javax.swing.JComboBox<String> combopaisorigen;
+    private javax.swing.JComboBox<Pais> combopaisorigen;
     private com.toedter.calendar.JDateChooser fecha_nac_chooser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

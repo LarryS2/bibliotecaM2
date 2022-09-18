@@ -181,7 +181,7 @@ public class Modeloidioma {
                 listaidiomas.add(idioma);
             }
         }catch(SQLException e){
-            
+            System.out.println(e);
         }
         return listaidiomas;
     }   
