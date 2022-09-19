@@ -22,7 +22,7 @@ public class ModeloDewey {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT id_dew, nombre_sup_dew FROM dewey WHERE estado_dew = False");
+            rs = st.executeQuery("SELECT id_dew, nombre_sup_cat_dew FROM dewey WHERE estado_dew = False");
             
             while(rs.next()){
                 Dewey dew = new Dewey();
