@@ -1,7 +1,6 @@
 package gui;
 
 import Modelo.ModeloAutores;
-import Modelo.ModeloPais;
 import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
 import java.sql.Date;
@@ -11,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logico.Autor;
 import logico.Idioma;
-import logico.Pais;
 
 /**
  *
@@ -33,7 +31,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         llenarIdiomaAutor();
-        llenarPais();
         ModeloAutores.getTabla();
     }
 
@@ -185,13 +182,15 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelpais.setForeground(new java.awt.Color(102, 102, 102));
         labelpais.setText("PAÍS DE ORIGEN:");
 
+        combopaisorigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "Afganistán", "Alemania", "Arabia Saudita", "Argentina", "Australia", "Bélgica", "Bolivia", "Brasil", "Camboya", "Canadá", "Chile", "China", "Colombia", "Corea", "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "Escocia", "España", "Estados Unidos", "Estonia", "Etiopia", "Filipinas", "Finlandia", "Francia", "Gales", "Grecia", "Guatemala", "Haití", "Holanda", "Honduras", "Indonesia", "Inglaterra", "Irak", "Irán", "Irlanda", "Israel", "Italia", "Japón", "Jordania", "Laos", "Letonia", "Lituania", "Malasia", "Marruecos", "México", "Nicaragua", "Noruega", "Nueva Zelanda", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Puerto Rico", "Republica Dominicana", "Rumania", "Rusia", "Suecia", "Suiza", "Tailandia", "Taiwán", "Türkiye", "Ucrania", "Uruguay", "Venezuela", "Vietnam" }));
+
         btnLimpiar.setBackground(new java.awt.Color(0, 153, 153));
 
         btnlabelLimpar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnlabelLimpar.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelLimpar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelLimpar.setText("LIMPIAR");
-        btnlabelLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabelLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabelLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelLimparMouseClicked(evt);
@@ -215,7 +214,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         btnlabelagregar.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelagregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelagregar.setText("AGREGAR");
-        btnlabelagregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabelagregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabelagregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelagregarMouseClicked(evt);
@@ -239,7 +238,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         btnlabelactualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelactualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelactualizar.setText("ACTUALIZAR");
-        btnlabelactualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabelactualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabelactualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelactualizarMouseClicked(evt);
@@ -263,7 +262,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         btnlabeleliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnlabeleliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabeleliminar.setText("ELIMINAR");
-        btnlabeleliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabeleliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabeleliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabeleliminarMouseClicked(evt);
@@ -287,7 +286,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         btnlabelbuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelbuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelbuscar.setText("BUSCAR");
-        btnlabelbuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabelbuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabelbuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelbuscarMouseClicked(evt);
@@ -311,7 +310,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         btnlabelvolver.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelvolver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelvolver.setText("VOLVER");
-        btnlabelvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnlabelvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlabelvolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelvolverMouseClicked(evt);
@@ -554,15 +553,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         combolengua.removeAllItems();
         for (int i = 0; i < listaIdiomas.size(); i++) {
             combolengua.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma(), listaIdiomas.get(i).getDescripcion()));
-        }
-    }
-    
-    public void llenarPais(){
-        ModeloPais mdpais = new ModeloPais();
-        ArrayList<Pais> listaPaises = mdpais.getPais();
-        
-        for(int i = 0; i < listaPaises.size(); i++){
-            combopaisorigen.addItem(new Pais(listaPaises.get(i).getId_pais(), listaPaises.get(i).getNombre_pais()));
         }
     }
     
@@ -937,7 +927,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JComboBox<Idioma> combolengua;
-    private javax.swing.JComboBox<Pais> combopaisorigen;
+    private javax.swing.JComboBox<String> combopaisorigen;
     private com.toedter.calendar.JDateChooser fecha_nac_chooser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

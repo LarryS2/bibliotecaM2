@@ -11,17 +11,17 @@ public class Pais {
     public Pais() {
     }
 
-    public Pais(int id_pais, String nombre_pais) {
-        this.id_pais = id_pais;
-        this.nombre_pais = nombre_pais;
-    }
-    
     public Pais(int id_pais, String codigo_pais, String nombre_pais, String desc_pais, boolean estado) {
         this.id_pais = id_pais;
         this.codigo_pais = codigo_pais;
         this.nombre_pais = nombre_pais;
         this.desc_pais = desc_pais;
         this.estado = estado;
+    }
+
+    public Pais(int id_pais, String nombre_pais) {
+        this.id_pais = id_pais;
+        this.nombre_pais = nombre_pais;
     }
     
     /**

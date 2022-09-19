@@ -50,7 +50,7 @@ public class ModeloPais {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT id_pais, nombre_pais FROM pais WHERE estado_pais = True");
+            rs = st.executeQuery("SELECT id_pais, nombre_pais FROM pais WHERE  estado_pais = True");
             
             while(rs.next()){
                 Pais pa = new Pais();
