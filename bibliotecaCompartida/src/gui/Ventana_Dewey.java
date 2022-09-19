@@ -7,6 +7,7 @@ package gui;
 
 import Modelo.ModeloDewey;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Dewey;
 
@@ -67,7 +68,8 @@ public class Ventana_Dewey extends javax.swing.JDialog {
         labelnomsubdewey = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         txtcodigo = new javax.swing.JFormattedTextField();
-        comboconsultas = new javax.swing.JComboBox<>();
+        checkFiltro = new javax.swing.JCheckBox();
+        checkCancelDelete = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -112,6 +114,11 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             }
         });
 
+        tabladewey = new javax.swing.JTable(){
+            public boolean isCellEditable(int rownIdex, int colIndex){
+                return false;
+            }
+        };
         tabladewey.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -120,6 +127,8 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabladewey.setFocusable(false);
+        tabladewey.getTableHeader().setReorderingAllowed(false);
         tabladewey.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabladeweyMouseClicked(evt);
@@ -306,13 +315,15 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
-        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+        checkFiltro.setText("FILTRAR ELIMINADOS");
+        checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboconsultasMouseClicked(evt);
+                checkFiltroMouseClicked(evt);
             }
         });
+
+        checkCancelDelete.setText("CANCELAR ELIMINACION");
+        checkCancelDelete.setEnabled(false);
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
@@ -323,31 +334,8 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backroundLayout.createSequentialGroup()
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelcoddew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labelnomdew, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtnombredewey, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                    .addComponent(labeliddewey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(115, 115, 115))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
@@ -370,7 +358,34 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtdescdewey, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkCancelDelete)
+                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(backroundLayout.createSequentialGroup()
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(backroundLayout.createSequentialGroup()
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(labelcoddew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelnomdew, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(backroundLayout.createSequentialGroup()
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(txtnombredewey, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                                    .addGap(18, 18, 18)
+                                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                            .addComponent(labeliddewey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(checkFiltro)
+                                    .addGap(93, 93, 93))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         backroundLayout.setVerticalGroup(
@@ -380,17 +395,17 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                                .addComponent(labeliddewey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                            .addComponent(labeliddewey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(19, 19, 19)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelcoddew, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGap(5, 5, 5)
-                                .addComponent(txtcodigo)))
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtcodigo)
+                                    .addComponent(checkFiltro))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,7 +426,8 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                             .addComponent(labeldescdewey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
+                        .addGap(16, 16, 16)
+                        .addComponent(checkCancelDelete))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
@@ -426,27 +442,54 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 799, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backround, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void enableCheck(){
+        checkCancelDelete.setEnabled(false);
+        
+        try{
+            Dewey dewey = new Dewey();
+            int id = Integer.parseInt(labeliddewey.getText());
+            ArrayList<Dewey> listaDewey = md.getDeweyEliminado();
+            
+            for(int i = 0; i < listaDewey.size(); i++){
+                if(id == listaDewey.get(i).getId()){
+                    checkCancelDelete.setEnabled(true);
+                    i = listaDewey.size();
+                }
+            }
+        }catch(NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
+    
     public void Agregar() {
         try {
             
@@ -459,10 +502,10 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             if (codigo.isEmpty() || nombre.isEmpty() || nombre_sub.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
-                if (dewey.Validar_Nombre_Cat(nombre) == false) {
+                if (dewey.Validar_Nombre_Dewey(nombre) == false) {
                     JOptionPane.showMessageDialog(null, "NOMBRE DE LA CATEGORÍA PRINCIPAL NO VÁLIDO");
                 } else {
-                    if(dewey.Validar_Nombre_Cat(nombre_sub) == false){
+                    if(dewey.Validar_Nombre_Dewey(nombre_sub) == false){
                         JOptionPane.showMessageDialog(null, "NOMBRE DE LA SUBCATEGORÍA NO VÁLIDO");
                     } else{ 
                         dewey.setCodigo(codigo);
@@ -475,7 +518,7 @@ public class Ventana_Dewey extends javax.swing.JDialog {
                             ModeloDewey.getTabla();
                             LimpiarCampos();
                         } else {
-                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL IDIOMA");
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL DEWEY");
                             ModeloDewey.Limpiar_Tabla();
                             ModeloDewey.getTabla();
                         }
@@ -487,31 +530,103 @@ public class Ventana_Dewey extends javax.swing.JDialog {
         }
     }
     
-    public void BuscarID() {
-        try {
-            Dewey dew = new Dewey();
-            String tipoconsulta = comboconsultas.getSelectedItem().toString();
-            if(tipoconsulta.equalsIgnoreCase("CÓDIGO")){
-                String codigo = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
-                dew.setCodigo(codigo);
-                if (md.ConsultarDewey(dew)) {
-                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
-                    ModeloDewey.Limpiar_Tabla();
-                    ModeloDewey.getTablaConsultaCod(dew);
-                    LimpiarCampos();
+    public void Modificar(){
+        try{
+            Dewey dewey = new Dewey();
+            int id = Integer.parseInt(labeliddewey.getText());
+            String codigo = txtcodigo.getText().trim();
+            String nombre = txtnombredewey.getText().trim();
+            String nombre_sub = txtnombresubdewey.getText().trim();
+            String descripcion = txtdescdewey.getText().trim();
+            
+            if (codigo.isEmpty() || nombre.isEmpty() || nombre_sub.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            } else {
+                if (dewey.Validar_Nombre_Dewey(nombre) == false) {
+                    JOptionPane.showMessageDialog(null, "NOMBRE DE LA CATEGORÍA PRINCIPAL NO VÁLIDO");
                 } else {
-                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
-                    ModeloDewey.Limpiar_Tabla();
-                    ModeloDewey.getTabla();
-                }   
+                    if(dewey.Validar_Nombre_Dewey(nombre_sub) == false){
+                        JOptionPane.showMessageDialog(null, "NOMBRE DE LA SUBCATEGORÍA NO VÁLIDO");
+                    } else{
+                        dewey.setId(id);
+                        dewey.setCodigo(codigo);
+                        dewey.setNombre_super_cat(nombre);
+                        dewey.setNombre_cat(nombre_sub);
+                        dewey.setDescripcion(descripcion);
+                        if (md.ActualizarDewey(dewey)) {
+                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                            ModeloDewey.getTabla();
+                            LimpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR EL DEWEY");
+                        }
+                    }
+                }
             }
-        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            System.out.println(e);
-        }    
+        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
     }
     
+    public void ModificarEliminado(){
+        try{
+            Dewey dewey = new Dewey();
+            int id = Integer.parseInt(labeliddewey.getText());
+            String codigo = txtcodigo.getText().trim();
+            String nombre = txtnombredewey.getText().trim();
+            String nombre_sub = txtnombresubdewey.getText().trim();
+            String descripcion = txtdescdewey.getText().trim();
+            boolean bo1 = !checkCancelDelete.isSelected();
+            
+            if (codigo.isEmpty() || nombre.isEmpty() || nombre_sub.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            } else {
+                if (dewey.Validar_Nombre_Dewey(nombre) == false) {
+                    JOptionPane.showMessageDialog(null, "NOMBRE DE LA CATEGORÍA PRINCIPAL NO VÁLIDO");
+                } else {
+                    if(dewey.Validar_Nombre_Dewey(nombre_sub) == false){
+                        JOptionPane.showMessageDialog(null, "NOMBRE DE LA SUBCATEGORÍA NO VÁLIDO");
+                    } else{ 
+                        dewey.setId(id);
+                        dewey.setCodigo(codigo);
+                        dewey.setNombre_super_cat(nombre);
+                        dewey.setNombre_cat(nombre_sub);
+                        dewey.setDescripcion(descripcion);
+                        dewey.setEstado(bo1);
+                        if (md.ActualizarDeweyEliminado(dewey)) {
+                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                            ModeloDewey.getTablaEliminado();
+                            LimpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR EL DEWEY");
+                        }
+                    }
+                }
+            }
+        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
+    }
     
-    
+    public void Eliminar(){
+        try {
+            Dewey dewey = new Dewey();
+            int id = Integer.parseInt(labeliddewey.getText().trim());
+
+            dewey.setId(id);
+            if (md.Eliminar(dewey)) {
+                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                ModeloDewey.getTabla();
+                LimpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                LimpiarCampos();
+            }
+
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "ELIJA UN FILA DE LA TABLA");
+        }
+    }
     
     public void LimpiarCampos() {
         labeliddewey.setText(null);
@@ -519,11 +634,12 @@ public class Ventana_Dewey extends javax.swing.JDialog {
         txtnombredewey.setText(null);
         txtnombresubdewey.setText(null);
         txtdescdewey.setText(null);
+        checkCancelDelete.setSelected(false);
     }
     
     private void txtnombredeweyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombredeweyKeyTyped
         char validar = evt.getKeyChar();
-        if (Character.isDigit(validar)) {
+        if (!Character.isLetter(validar)) {
             evt.consume();
         } else {
             if (txtnombredewey.getText().length() >= 50) {
@@ -538,6 +654,7 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
         } else {
             labelcoddew.disable();
+            checkCancelDelete.setEnabled(false);
             idd = Integer.parseInt((String) tabladewey.getValueAt(fila, 0).toString());
             String codigo = (String) tabladewey.getValueAt(fila, 1);
             String nombre = (String) tabladewey.getValueAt(fila, 2);
@@ -549,6 +666,7 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             txtnombredewey.setText(nombre);
             txtnombresubdewey.setText(nombre_sub);
             txtdescdewey.setText(descripcion);
+            enableCheck();
         }
     }//GEN-LAST:event_tabladeweyMouseClicked
 
@@ -557,29 +675,33 @@ public class Ventana_Dewey extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        //Modificar();
+        if (!checkFiltro.isSelected()) {
+            Modificar();
+            LimpiarCampos();
+        } else {
+            ModificarEliminado();
+            LimpiarCampos();
+        }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-//        try {
-//
-//            Idioma idioma = new Idioma();
-//            int id = Integer.parseInt(txtid.getText().trim());
-//            if (mi.EliminarIdioma(idioma)) {
-//                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
-//                LimpiarCampos();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO");
-//            }
-//        } catch (HeadlessException | NumberFormatException e) {
-//
-//        }
+        if (!checkFiltro.isSelected()) {
+            Eliminar();
+        } else {
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
+        }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
     private void btnlabellimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabellimpiarMouseClicked
-        LimpiarCampos();
-        ModeloDewey.Limpiar_Tabla();
-        ModeloDewey.getTabla();
+        if(!checkFiltro.isSelected()){
+            LimpiarCampos();
+            ModeloDewey.Limpiar_Tabla();
+            ModeloDewey.getTabla();
+        }else{
+            LimpiarCampos();
+            ModeloDewey.Limpiar_Tabla();
+            ModeloDewey.getTablaEliminado();
+        }
     }//GEN-LAST:event_btnlabellimpiarMouseClicked
 
     private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
@@ -598,51 +720,17 @@ public class Ventana_Dewey extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombresubdeweyKeyTyped
 
-    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
-        BuscarID();
-    }//GEN-LAST:event_comboconsultasMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Dewey.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Dewey.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Dewey.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Dewey.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
+        if (checkFiltro.isSelected()) {
+            ModeloDewey.getTablaEliminado();
+            LimpiarCampos();
+        } else {
+            ModeloDewey.getTabla();
+            checkCancelDelete.setEnabled(false);
+            LimpiarCampos();
         }
-        //</editor-fold>
+    }//GEN-LAST:event_checkFiltroMouseClicked
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Ventana_Dewey dialog = new Ventana_Dewey(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -658,7 +746,8 @@ public class Ventana_Dewey extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnlimpiar;
     private javax.swing.JPanel btnrvolver;
-    private javax.swing.JComboBox<String> comboconsultas;
+    private javax.swing.JCheckBox checkCancelDelete;
+    private javax.swing.JCheckBox checkFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

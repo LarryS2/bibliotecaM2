@@ -9,7 +9,9 @@ import Modelo.ModeloHorario;
 import java.awt.HeadlessException;
 import logico.Horario;
 import javax.swing.JOptionPane;
+import java.sql.Time;
 import java.time.LocalTime;
+import javax.swing.JTextField;
 /**
  *
  * @author Fiction
@@ -114,6 +116,8 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         labelidhorario = new javax.swing.JLabel();
         txthorainicio = new javax.swing.JFormattedTextField();
         txthorafin = new javax.swing.JFormattedTextField();
+        horainicio = new com.toedter.calendar.JDateChooser();
+        horainicio1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,11 +170,6 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablahorario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablahorarioMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tablahorario);
 
         btnrvolver.setBackground(new java.awt.Color(0, 153, 153));
@@ -328,6 +327,10 @@ public class Ventana_Horarios extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        horainicio.setDateFormatString("HH:MM");
+
+        horainicio1.setDateFormatString("HH:MM");
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -344,29 +347,32 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labeldesc)
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(backroundLayout.createSequentialGroup()
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(labelinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(backroundLayout.createSequentialGroup()
-                                                    .addGap(18, 18, 18)
-                                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                        .addComponent(txtcodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
-                                                .addGroup(backroundLayout.createSequentialGroup()
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(txthorainicio))))
-                                        .addGroup(backroundLayout.createSequentialGroup()
-                                            .addComponent(labelFIN)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtdecr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txthorafin)))))
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(labelinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(backroundLayout.createSequentialGroup()
+                                                        .addGap(18, 18, 18)
+                                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                            .addComponent(txtcodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                                                    .addGroup(backroundLayout.createSequentialGroup()
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(txthorainicio))))
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addComponent(labelFIN)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtdecr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txthorafin))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,6 +387,8 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                         .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77)
                         .addComponent(labelidhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(horainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         backroundLayout.setVerticalGroup(
@@ -388,9 +396,11 @@ public class Ventana_Horarios extends javax.swing.JDialog {
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(panelsuperior1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelidhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelidhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(horainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
@@ -398,7 +408,8 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                             .addComponent(labelcodcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(txtcodigo)))
+                                .addComponent(txtcodigo))
+                            .addComponent(horainicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -460,7 +471,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         if(Character.isLetter(validar)){
             evt.consume();
         } else{
-            if(txtcodigo.getText().length()>=4) {
+            if(txtcodigo.getText().length()>=10) {
                 evt.consume();
             }
         }
@@ -490,26 +501,6 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdecrKeyTyped
 
-    private void tablahorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablahorarioMouseClicked
-        int fila = tablahorario.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
-        } else {
-            labelidhorario.disable();
-            idh = Integer.parseInt((String) tablahorario.getValueAt(fila, 0).toString());
-            String codigo = (String) tablahorario.getValueAt(fila, 1);
-            String hora_inicio =  String.valueOf(tablahorario.getValueAt(fila, 2));
-            String hora_fin = String.valueOf(tablahorario.getValueAt(fila, 3));
-            String descripcion = (String) tablahorario.getValueAt(fila, 4);
-            
-            labelidhorario.setText("" + idh);
-            txtcodigo.setText(codigo);
-            txthorainicio.setText(hora_inicio);
-            txthorafin.setText(hora_fin);
-            txtdecr.setText(descripcion);
-        }
-    }//GEN-LAST:event_tablahorarioMouseClicked
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -523,6 +514,8 @@ public class Ventana_Horarios extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabeleliminar;
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnrvolver;
+    private com.toedter.calendar.JDateChooser horainicio;
+    private com.toedter.calendar.JDateChooser horainicio1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

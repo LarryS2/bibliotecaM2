@@ -53,7 +53,7 @@
                   <Component id="panelsuperior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panemenu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="255" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="237" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -62,7 +62,7 @@
         <Container class="javax.swing.JPanel" name="panelsuperior">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
+              <Color blue="be" green="86" red="0" type="rgb"/>
             </Property>
           </Properties>
 
@@ -70,32 +70,28 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="labellibro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="224" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="458" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="labellibro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labellibro">
+            <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="36" style="0"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/logoista (2).png"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="BIENVENIDO INVITADO "/>
               </Properties>
             </Component>
           </SubComponents>
@@ -122,7 +118,7 @@
                       <Component id="btnpedidos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="btnvermultas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Component id="btnlogout" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   </Group>

@@ -22,6 +22,7 @@ public class Ventana_paises extends javax.swing.JDialog {
      */
     ModeloPais mp = new ModeloPais();
     int idp;
+
     public Ventana_paises(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -453,57 +454,52 @@ public class Ventana_paises extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void enableCheck(){
+
+    public void enableCheck() {
         checkCancellDelete.setEnabled(false);
-        
-        try{
+
+        try {
             ModeloPais mdp = new ModeloPais();
             ArrayList<Pais> listaPais = mdp.getPaisEliminado();
             int id = Integer.parseInt(labelidpais.getText().trim());
 
-            for(int i = 0; i < listaPais.size(); i++){
-                if(id == listaPais.get(i).getId_pais()){
+            for (int i = 0; i < listaPais.size(); i++) {
+                if (id == listaPais.get(i).getId_pais()) {
                     checkCancellDelete.setEnabled(true);
                     i = listaPais.size();
                 }
             }
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA ANTES");
         }
     }
-    
+
     public void Agregar() {
         try {
             Pais pais = new Pais();
             String codigo = txtcodigopais.getText().trim();
             String nombre = txtnombrepais.getText().trim();
             String descripcion = txtdescpais.getText().trim();
-            boolean estado = false;
+
             if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
-                if(codigo.length()<3){
-                    JOptionPane.showMessageDialog(null, "EL CÓDIGO DEL PAÍS CONTEMPLA 3 DÍGITOS");
-                }else{
-                    if (pais.Validar_Nombre_Pais(nombre) == false) {
-                        JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
-                    } else {
+                if (pais.Validar_Nombre_Pais(nombre) == false) {
+                    JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
+                } else {
 
-                        pais.setCodigo_pais(codigo);
-                        pais.setNombre_pais(nombre);
-                        pais.setDesc_pais(descripcion);
-                        pais.setEstado(estado);
-                        if (mp.RegistrarPais(pais)) {
-                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                            ModeloPais.Limpiar_Tabla();
-                            ModeloPais.getTabla();
-                            LimpiarCampos();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL PAÍS");
-                            ModeloPais.Limpiar_Tabla();
-                            ModeloPais.getTabla();
-                        }   
+                    pais.setCodigo_pais(codigo);
+                    pais.setNombre_pais(nombre);
+                    pais.setDesc_pais(descripcion);
+                    if (mp.RegistrarPais(pais)) {
+                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                        ModeloPais.Limpiar_Tabla();
+                        ModeloPais.getTabla();
+                        LimpiarCampos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL PAÍS");
+                        ModeloPais.Limpiar_Tabla();
+                        ModeloPais.getTabla();
                     }
                 }
             }
@@ -511,43 +507,43 @@ public class Ventana_paises extends javax.swing.JDialog {
             System.out.println(e);
         }
     }
-    
-    public void Modificar(){
-        try{
+
+    public void Modificar() {
+        try {
             Pais pais = new Pais();
             int id = Integer.parseInt(labelidpais.getText().trim());
             String codigo = txtcodigopais.getText().trim();
             String nombre = txtnombrepais.getText().trim();
             String desc = txtdescpais.getText().trim();
-            
-            if(codigo.isEmpty() || nombre.isEmpty()){
+
+            if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-            }else{
-                if(!pais.Validar_Nombre_Pais(nombre)){
+            } else {
+                if (!pais.Validar_Nombre_Pais(nombre)) {
                     JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
-                }else{
+                } else {
                     pais.setId_pais(id);
                     pais.setCodigo_pais(codigo);
                     pais.setNombre_pais(nombre);
-                    if(!desc.isEmpty()){
+                    if (!desc.isEmpty()) {
                         pais.setDesc_pais(desc);
                     }
-                    if(mp.ActualizarPais(pais)){
+                    if (mp.ActualizarPais(pais)) {
                         JOptionPane.showMessageDialog(null, "SE HA ACTUALIZADO CORRECTAMENTE");
                         ModeloPais.getTabla();
                         LimpiarCampos();
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
                     }
                 }
             }
-        }catch(HeadlessException | NumberFormatException |NullPointerException e){
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
-    
-    public void ModificarEliminado(){
-        try{
+
+    public void ModificarEliminado() {
+        try {
             Pais pais = new Pais();
             int id = Integer.parseInt(labelidpais.getText().trim());
             String codigo = txtcodigopais.getText().trim();
@@ -555,51 +551,50 @@ public class Ventana_paises extends javax.swing.JDialog {
             String desc = txtdescpais.getText().trim();
             boolean bo1;
             bo1 = !checkCancellDelete.isSelected();
-            
-            if(codigo.isEmpty() || nombre.isEmpty()){
+
+            if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-            }else{
-                if(!pais.Validar_Nombre_Pais(nombre)){
+            } else {
+                if (!pais.Validar_Nombre_Pais(nombre)) {
                     JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
-                }else{
+                } else {
                     pais.setId_pais(id);
                     pais.setCodigo_pais(codigo);
                     pais.setNombre_pais(nombre);
-                    if(!desc.isEmpty()){
+                    if (!desc.isEmpty()) {
                         pais.setDesc_pais(desc);
                     }
                     pais.setEstado(bo1);
-                    if(mp.ActualizarPaisEliminado(pais)){
+                    if (mp.ActualizarPaisEliminado(pais)) {
                         JOptionPane.showMessageDialog(null, "SE HA ACTUALIZADO CORRECTAMENTE");
                         ModeloPais.getTablaEliminados();
                         LimpiarCampos();
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
                     }
                 }
             }
-        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
-    
-    public void Eliminar(){
-        try{
+
+    public void Eliminar() {
+        try {
             Pais pais = new Pais();
             int id = Integer.parseInt(labelidpais.getText().trim());
-            
-            
-                pais.setId_pais(id);
-                if(mp.EliminarPais(pais)){
-                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-                    ModeloPais.getTabla();
-                    LimpiarCampos();
-                }else{
-                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
-                    LimpiarCampos();
-                }
-            
-        }catch(HeadlessException | NumberFormatException |NullPointerException e){
+
+            pais.setId_pais(id);
+            if (mp.EliminarPais(pais)) {
+                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                ModeloPais.getTabla();
+                LimpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                LimpiarCampos();
+            }
+
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "ELIJA UN FILA DE LA TABLA");
         }
     }
@@ -611,11 +606,11 @@ public class Ventana_paises extends javax.swing.JDialog {
         txtdescpais.setText(null);
         checkCancellDelete.setSelected(false);
     }
-    
-    
+
+
     private void txtnombrepaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrepaisKeyTyped
         char validar = evt.getKeyChar();
-        if (Character.isDigit(validar)) {
+        if (!Character.isLetter(validar)) {
             evt.consume();
         } else {
             if (txtnombrepais.getText().length() >= 50) {
@@ -649,19 +644,19 @@ public class Ventana_paises extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        if(!checkFiltro.isSelected()){
+        if (!checkFiltro.isSelected()) {
             Modificar();
             LimpiarCampos();
-        }else{
+        } else {
             ModificarEliminado();
             LimpiarCampos();
         }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        if(!checkFiltro.isSelected()){
+        if (!checkFiltro.isSelected()) {
             Eliminar();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
         }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
@@ -685,11 +680,13 @@ public class Ventana_paises extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabelbuscarMouseClicked
 
     private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
-        if(checkFiltro.isSelected()){
+        if (checkFiltro.isSelected()) {
             ModeloPais.getTablaEliminados();
-        }else{
+            LimpiarCampos();
+        } else {
             ModeloPais.getTabla();
             checkCancellDelete.setEnabled(false);
+            LimpiarCampos();
         }
     }//GEN-LAST:event_checkFiltroMouseClicked
 

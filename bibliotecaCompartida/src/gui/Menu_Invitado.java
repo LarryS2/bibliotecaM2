@@ -29,7 +29,7 @@ public class Menu_Invitado extends javax.swing.JFrame {
 
         backround = new javax.swing.JPanel();
         panelsuperior = new javax.swing.JPanel();
-        labellibro = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         panemenu = new javax.swing.JPanel();
         btnperfil = new javax.swing.JPanel();
         btnlabelperfil = new javax.swing.JLabel();
@@ -46,27 +46,25 @@ public class Menu_Invitado extends javax.swing.JFrame {
 
         backround.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelsuperior.setBackground(new java.awt.Color(0, 153, 153));
+        panelsuperior.setBackground(new java.awt.Color(0, 134, 190));
 
-        labellibro.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
-        labellibro.setForeground(new java.awt.Color(255, 255, 255));
-        labellibro.setText("BIENVENIDO INVITADO ");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoista (2).png"))); // NOI18N
 
         javax.swing.GroupLayout panelsuperiorLayout = new javax.swing.GroupLayout(panelsuperior);
         panelsuperior.setLayout(panelsuperiorLayout);
         panelsuperiorLayout.setHorizontalGroup(
             panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsuperiorLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(labellibro)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addGap(458, 458, 458)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelsuperiorLayout.setVerticalGroup(
             panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsuperiorLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(labellibro)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panemenu.setBackground(new java.awt.Color(204, 204, 204));
@@ -205,7 +203,7 @@ public class Menu_Invitado extends javax.swing.JFrame {
                 .addComponent(btnpedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnvermultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
@@ -235,7 +233,7 @@ public class Menu_Invitado extends javax.swing.JFrame {
                 .addComponent(panelsuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panemenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 255, Short.MAX_VALUE))
+                .addGap(0, 237, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -291,7 +289,7 @@ public class Menu_Invitado extends javax.swing.JFrame {
     private javax.swing.JPanel btnpedidos;
     private javax.swing.JPanel btnperfil;
     private javax.swing.JPanel btnvermultas;
-    private javax.swing.JLabel labellibro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelsuperior;
     private javax.swing.JPanel panemenu;
     // End of variables declaration//GEN-END:variables

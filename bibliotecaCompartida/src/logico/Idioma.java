@@ -84,22 +84,19 @@ public class Idioma {
         //return id_idioma + " " + " " + nombre_idioma + " "  + descripcion;
         return nombre_idioma;
     }
-    
-    
 
-    
     public String MostrarVista(){
         return id_idioma+" "+nombre_idioma+" "+descripcion;
     }
     
     public boolean ValidarNombre(String nom)
     {
-        return nom.matches("^[A-Za-z]{2,}");
+        return nom.matches("^[\\D]{2,}");
     }
     
     public boolean ValidarDesc(String des)
     {
-        return des.matches("^[A-Za-z]{2,}");
+        return des.matches("^[\\D]{2,}");
     }
     
 }

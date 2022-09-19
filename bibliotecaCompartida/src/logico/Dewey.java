@@ -7,6 +7,7 @@ public class Dewey {
     private String nombre_super_cat;
     private String nombre_cat;
     private String descripcion;
+    private boolean estado;
 
     public Dewey() {
     }
@@ -20,12 +21,13 @@ public class Dewey {
         this.nombre_super_cat = nombre_super_cat;
     }
 
-    public Dewey(int id, String codigo, String nombre_super_cat, String nombre_cat, String descripcion) {
+    public Dewey(int id, String codigo, String nombre_super_cat, String nombre_cat, String descripcion, boolean estado) {
         this.id = id;
         this.codigo = codigo;
         this.nombre_super_cat = nombre_super_cat;
         this.nombre_cat = nombre_cat;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
     
     /**
@@ -98,12 +100,20 @@ public class Dewey {
         this.descripcion = descripcion;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         return nombre_super_cat;
     }
     
-    public boolean Validar_Nombre_Cat(String nomcat)
+    public boolean Validar_Nombre_Dewey(String nomcat)
     {
         return nomcat.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }

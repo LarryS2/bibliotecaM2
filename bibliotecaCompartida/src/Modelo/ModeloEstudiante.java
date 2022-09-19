@@ -7,55 +7,52 @@ import logico.Conexion;
 import java.sql.Statement;
 import java.sql.SQLException;
 import logico.Estudiante;
-import java.sql.ResultSet;
+
 
 public class ModeloEstudiante {
     
     public boolean RegistrarEstudiante(Estudiante est){
+        int id = 0;
         PreparedStatement ps;
         PreparedStatement psest;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO persona (cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per,"
+        String sql = "INSERT INTO persona (id_per, cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per,"
                 + " segundo_apellido_per, rol_per, email_per, tipo_sangre_per, fecha_nac_per, genero_per, direccion_per,"
-                + "telefono_per, estado_per) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "telefono_per, estado_per) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        String sqlest = "INSERT INTO estudiante (id_per_est, password_est)"
-                + " VALUES ((SELECT id_per FROM persona ORDER BY id_per DESC LIMIT 1), ?)"; 
-//        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, "
-//                + "p.primer_apellido_per, p.segundo_apellido_per, p.rol_per, p.email_per, p.tipo_sangre_per, "
-//                + "p.fecha_nac_per, p.genero_per, p.direccion_per, p.telefono_per, p.estado_per ";
+        String sqles = "INSERT INTO estudiante (id_per_est, password_est)"
+                + " VALUES((SELECT MAX(id_per) FROM persona), ?)"; 
         try {
             
             ps = con.prepareStatement(sql);
-            psest = con.prepareStatement(sqlest);
-            ps.setString(1, est.getCedula());
-            ps.setString(2, est.getPrimer_nombre());
-            ps.setString(3, est.getSegundo_nombre());
-            ps.setString(4, est.getPrimer_apellido());
-            ps.setString(5, est.getSegundo_apellido());
-            ps.setString(6, est.getTipo_usuario());
-            ps.setString(7, est.getEmail());
-            ps.setString(8, est.getTipo_sangre());
-            ps.setDate(9, (Date) est.getFecha_nac());
-            ps.setString(10, String.valueOf(est.getGenero()));
-            ps.setString(11, est.getDireccion());
-            ps.setString(12, est.getTelefono());
-            ps.setBoolean(13, est.isEstado());
+            ps.setInt(1, est.getId());
+            ps.setString(2, est.getCedula());
+            ps.setString(3, est.getPrimer_nombre());
+            ps.setString(4, est.getSegundo_nombre());
+            ps.setString(5, est.getPrimer_apellido());
+            ps.setString(6, est.getSegundo_apellido());
+            ps.setString(7, est.getTipo_usuario());
+            ps.setString(8, est.getEmail());
+            ps.setString(9, est.getTipo_sangre());
+            ps.setDate(10, (Date) est.getFecha_nac());
+            ps.setString(11, String.valueOf(est.getGenero()));
+            ps.setString(12, est.getDireccion());
+            ps.setString(13, est.getTelefono());
+            ps.setBoolean(14, est.isEstado());
             
-            psest.setString(1, est.getPassword());
+            //ps1.
+            ps.execute();
+//            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//            String ide = String.valueOf(ps);
+            //System.out.println(ide);
+            //id = Integer.parseInt(ide);
+            psest = con.prepareStatement(sqles);
             
-            int n = ps.executeUpdate();
-            if(n != 0){
-                int n2 = psest.executeUpdate();
-                if(n2 != 0){
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+            psest.setInt(1, est.getPer());
+            psest.setString(2, est.getPassword());
+            psest.execute();
+            return true;
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -67,8 +64,34 @@ public class ModeloEstudiante {
             }
         }
     }
-
-
-
+    
+    
+    public boolean RegistrarEst(Estudiante est){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO estudiante (id_per_est, password_est)"
+                + " VALUES((SELECT id_per FROM persona WHERE id_per), ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            
+            ps.setString(1, est.getPersona());
+            ps.setString(2, est.getPassword());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
     
 }

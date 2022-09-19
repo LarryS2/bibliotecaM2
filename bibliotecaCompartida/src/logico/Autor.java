@@ -7,8 +7,7 @@ public class Autor extends Persona {
     private int id_autor;
     private String lengua_materna;
     private String pais_origen;
-    private boolean estado;
-    
+
     public Autor() {
     }
 
@@ -53,16 +52,6 @@ public class Autor extends Persona {
 
     public void setPais_origen(String pais_origen) {
         this.pais_origen = pais_origen;
-    }
-
-    @Override
-    public boolean isEstado() {
-        return estado;
-    }
-
-    @Override
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
 
     public boolean ValidarNombresYapellidos(String nom) {

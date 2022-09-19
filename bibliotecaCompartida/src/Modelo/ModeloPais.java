@@ -22,9 +22,8 @@ public class ModeloPais {
         
         try{
             st = con.createStatement();
-            //rs = st.executeQuery("SELECT id_pais, nombre_pais FROM pais WHERE estado_pais = False");
-            rs = st.executeQuery("SELECT * FROM pais");
-
+            rs = st.executeQuery("SELECT id_pais, nombre_pais FROM pais WHERE estado_pais = False");
+            
             while(rs.next()){
                 Pais pa = new Pais();
                 pa.setId_pais(rs.getInt("id_pais"));
@@ -33,6 +32,12 @@ public class ModeloPais {
             }
         }catch(SQLException e){
             System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
         }
         return listaPais;
     }
@@ -70,7 +75,7 @@ public class ModeloPais {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) VALUES (?, ?, ?, False)";
         
         try {
             
@@ -78,7 +83,6 @@ public class ModeloPais {
             ps.setString(1, pais.getCodigo_pais());
             ps.setString(2, pais.getNombre_pais());
             ps.setString(3, pais.getDesc_pais());
-            ps.setBoolean(4, pais.isEstado());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -169,7 +173,6 @@ public class ModeloPais {
             }
         }
     }
-    
     
         
     static DefaultTableModel modelo;

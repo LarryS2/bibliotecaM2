@@ -84,7 +84,7 @@ public class Horario {
 
     @Override
     public String toString() {
-        return id + "";
+        return "Horario{" + "id=" + id + ", codigo=" + codigo + ", hora_inicio=" + hora_inicio + ", hora_fin=" + hora_fin + ", descripcion=" + descripcion + ", Estado=" + Estado + '}';
     }
     
     public boolean Validar_Hora(String hora){
