@@ -27,7 +27,7 @@ public class ModeloDewey {
             while(rs.next()){
                 Dewey dew = new Dewey();
                 dew.setId(rs.getInt("id_dew"));
-                dew.setNombre_cat(rs.getString("nombre_sup_cat_dew"));
+                dew.setNombre_super_cat(rs.getString("nombre_sup_cat_dew"));
                 listaDewey.add(dew);
             }
         }catch(SQLException e){
@@ -55,7 +55,7 @@ public class ModeloDewey {
             while(rs.next()){
                 Dewey dew = new Dewey();
                 dew.setId(rs.getInt("id_dew"));
-                dew.setNombre_cat(rs.getString("nombre_sup_cat_dew"));
+                dew.setNombre_super_cat(rs.getString("nombre_sup_cat_dew"));
                 listaDewey.add(dew);
             }
         }catch(SQLException e){
