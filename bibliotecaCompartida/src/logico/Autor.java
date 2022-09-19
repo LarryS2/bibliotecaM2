@@ -53,6 +53,11 @@ public class Autor extends Persona {
     public void setPais_origen(String pais_origen) {
         this.pais_origen = pais_origen;
     }
+    
+    @Override
+    public String toString(){
+        return super.toString();
+    }
 
     public boolean ValidarNombresYapellidos(String nom) {
         return nom.matches("^[A-Za-z]{2,}");

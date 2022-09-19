@@ -17,11 +17,11 @@ public class ModeloLibro {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO libro (CODIGO, TITULO, DESCRIPCION, ISBN, DEWEY, FECHA_PUBLICACION,"
-                + "NUM_PAGS, ID_AUTOR, ID_IDIOMA, ID_CATEGORIA, ID_EDITORIAL, ESTADO) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT ID FROM autor WHERE PRIMER_NOMBRE=?),"
-                + "(SELECT ID FROM idioma WHERE NOMBRE=?), (SELECT ID FROM categoria WHERE NOMBRE=?), "
-                + "(SELECT ID FROM editorial WHERE NOMBRE=?), ?)";
+        String sql = "INSERT INTO libro (CODIGO, TITULO, DESCRIPCION, ISBN, DEWEY, FECHA_PUBLICACION," +
+"                + \"NUM_PAGS, ID_AUTOR, ID_IDIOMA, ID_CATEGORIA, ID_EDITORIAL, ESTADO)" +
+"                + \"VALUES(?, ?, ?, ?, (SELECT id_dew FROM dewey WHERE nombre_sup_cat_dew=?), ?, ?, (SELECT ID FROM autor WHERE PRIMER_NOMBRE=?), " +
+"                + \"(SELECT ID FROM idioma WHERE NOMBRE=?), (SELECT ID FROM categoria WHERE NOMBRE=?)," +
+"                + \"(SELECT ID FROM editorial WHERE NOMBRE=?), False)";
         //java.sql.SQLSyntaxErrorException: Unknown column 'ID_AUTOR' in 'field list'
         try {
             
