@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JOptionPane;
 import logico.Tiempo;
 /**
  *
@@ -28,13 +29,7 @@ public final class Menu extends javax.swing.JFrame {
         btndewey = new javax.swing.JPanel();
         btnlabeldewey = new javax.swing.JLabel();
         backround = new javax.swing.JPanel();
-        Contenedor = new javax.swing.JPanel();
-        panelsuperior = new javax.swing.JPanel();
-        logo = new javax.swing.JLabel();
-        labelfecha = new javax.swing.JLabel();
-        labelhora = new javax.swing.JLabel();
         HideMenu = new javax.swing.JPanel();
-        Slide = new javax.swing.JLabel();
         libro = new javax.swing.JLabel();
         Autor = new javax.swing.JLabel();
         Categoria = new javax.swing.JLabel();
@@ -47,6 +42,11 @@ public final class Menu extends javax.swing.JFrame {
         Dewey = new javax.swing.JLabel();
         Pais = new javax.swing.JLabel();
         Usuario = new javax.swing.JLabel();
+        panelsuperior = new javax.swing.JPanel();
+        logo = new javax.swing.JLabel();
+        labelfecha = new javax.swing.JLabel();
+        labelhora = new javax.swing.JLabel();
+        Slide = new javax.swing.JLabel();
 
         panemenu.setBackground(new java.awt.Color(204, 204, 204));
         panemenu.setForeground(new java.awt.Color(153, 153, 153));
@@ -121,6 +121,136 @@ public final class Menu extends javax.swing.JFrame {
 
         backround.setBackground(new java.awt.Color(255, 255, 255));
 
+        HideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        HideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        libro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        libro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/libro.png"))); // NOI18N
+        libro.setText("LIBRO");
+        libro.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        libro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                libroMouseClicked(evt);
+            }
+        });
+        HideMenu.add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 40));
+
+        Autor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Autor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pluma-pluma.png"))); // NOI18N
+        Autor.setText("AUTOR");
+        Autor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Autor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AutorMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 100, 40));
+
+        Categoria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Categoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/categoria.png"))); // NOI18N
+        Categoria.setText("CATEGORIA");
+        Categoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Categoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CategoriaMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 100, 40));
+
+        Editorial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Editorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Editorial.png"))); // NOI18N
+        Editorial.setText("EDITORIAL");
+        Editorial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Editorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditorialMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Editorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 100, 40));
+
+        Idioma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Idioma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/idioma.png"))); // NOI18N
+        Idioma.setText("IDIOMA");
+        Idioma.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Idioma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IdiomaMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Idioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 100, 40));
+
+        Multas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Multas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/multa.png"))); // NOI18N
+        Multas.setText("MULTA");
+        Multas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Multas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MultasMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Multas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 100, 40));
+
+        Seccion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Seccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/secciones.png"))); // NOI18N
+        Seccion.setText("SECCION");
+        Seccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Seccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SeccionMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 100, 40));
+
+        Horario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Horario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendario.png"))); // NOI18N
+        Horario.setText("HORARIO");
+        Horario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Horario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HorarioMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Horario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 100, 40));
+
+        Salir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/660350 (1).png"))); // NOI18N
+        Salir.setText("SALIR");
+        Salir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SalirMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 100, 40));
+
+        Dewey.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Dewey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8352653 (1).png"))); // NOI18N
+        Dewey.setText("DEWEY");
+        Dewey.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        HideMenu.add(Dewey, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 100, 40));
+
+        Pais.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Pais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pais.png"))); // NOI18N
+        Pais.setText("PAIS");
+        Pais.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Pais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PaisMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 100, 40));
+
+        Usuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/921296 (1).png"))); // NOI18N
+        Usuario.setText("USUARIO");
+        Usuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UsuarioMouseClicked(evt);
+            }
+        });
+        HideMenu.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 100, 40));
+
         panelsuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/library control.png"))); // NOI18N
@@ -134,15 +264,29 @@ public final class Menu extends javax.swing.JFrame {
         labelhora.setForeground(new java.awt.Color(255, 255, 255));
         labelhora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        Slide.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Slide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
+        Slide.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Slide.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SlideMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelsuperiorLayout = new javax.swing.GroupLayout(panelsuperior);
         panelsuperior.setLayout(panelsuperiorLayout);
         panelsuperiorLayout.setHorizontalGroup(
             panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsuperiorLayout.createSequentialGroup()
-                .addContainerGap(409, Short.MAX_VALUE)
                 .addGroup(panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelsuperiorLayout.createSequentialGroup()
+                        .addComponent(Slide)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsuperiorLayout.createSequentialGroup()
+                        .addGap(361, 580, Short.MAX_VALUE)
+                        .addGroup(panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logo)
                 .addGap(26, 26, 26))
@@ -160,165 +304,26 @@ public final class Menu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(labelhora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsuperiorLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Slide))
         );
-
-        javax.swing.GroupLayout ContenedorLayout = new javax.swing.GroupLayout(Contenedor);
-        Contenedor.setLayout(ContenedorLayout);
-        ContenedorLayout.setHorizontalGroup(
-            ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelsuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        ContenedorLayout.setVerticalGroup(
-            ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContenedorLayout.createSequentialGroup()
-                .addComponent(panelsuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
-        );
-
-        HideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        HideMenu.setLayout(null);
-
-        Slide.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Slide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
-        Slide.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        HideMenu.add(Slide);
-        Slide.setBounds(0, 0, 230, 40);
-
-        libro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        libro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/libro.png"))); // NOI18N
-        libro.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        libro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                libroMouseClicked(evt);
-            }
-        });
-        HideMenu.add(libro);
-        libro.setBounds(0, 40, 230, 40);
-
-        Autor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Autor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pluma-pluma.png"))); // NOI18N
-        Autor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Autor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AutorMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Autor);
-        Autor.setBounds(0, 80, 230, 40);
-
-        Categoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Categoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/categoria.png"))); // NOI18N
-        Categoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Categoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CategoriaMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Categoria);
-        Categoria.setBounds(0, 120, 230, 40);
-
-        Editorial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Editorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Editorial.png"))); // NOI18N
-        Editorial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Editorial.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EditorialMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Editorial);
-        Editorial.setBounds(0, 160, 230, 40);
-
-        Idioma.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Idioma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/idioma.png"))); // NOI18N
-        Idioma.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Idioma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                IdiomaMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Idioma);
-        Idioma.setBounds(0, 200, 230, 40);
-
-        Multas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Multas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/multa.png"))); // NOI18N
-        Multas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Multas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MultasMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Multas);
-        Multas.setBounds(0, 240, 230, 40);
-
-        Seccion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Seccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/secciones.png"))); // NOI18N
-        Seccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Seccion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SeccionMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Seccion);
-        Seccion.setBounds(0, 280, 230, 40);
-
-        Horario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Horario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendario.png"))); // NOI18N
-        Horario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Horario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HorarioMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Horario);
-        Horario.setBounds(0, 320, 230, 40);
-
-        Salir.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Salir.setText("SALIR");
-        Salir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        HideMenu.add(Salir);
-        Salir.setBounds(0, 480, 230, 40);
-
-        Dewey.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Dewey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8352653 (1).png"))); // NOI18N
-        Dewey.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        HideMenu.add(Dewey);
-        Dewey.setBounds(0, 400, 230, 40);
-
-        Pais.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Pais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pais.png"))); // NOI18N
-        Pais.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Pais.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Pais);
-        Pais.setBounds(0, 360, 230, 40);
-
-        Usuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/921296 (1).png"))); // NOI18N
-        Usuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
-        Usuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsuarioMouseClicked(evt);
-            }
-        });
-        HideMenu.add(Usuario);
-        Usuario.setBounds(0, 440, 230, 40);
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelsuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(backroundLayout.createSequentialGroup()
+                .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(backroundLayout.createSequentialGroup()
+                .addComponent(panelsuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -329,7 +334,7 @@ public final class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(backround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -407,11 +412,59 @@ public final class Menu extends javax.swing.JFrame {
         paises.setLocationRelativeTo(null);
         paises.setVisible(true);
     }//GEN-LAST:event_PaisMouseClicked
+    
+    
+    int x = 100;
+    int a = 0;
+    private void SlideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SlideMouseClicked
+        if ( x == 100 ) {
+            HideMenu.setSize(100, 480);
+            Thread th = new Thread() {
+                @Override
+                public void run(){
+                    try {
+                        
+                        for ( int i = 100; i >= 28; i--){
+                            Thread.sleep(1);
+                            HideMenu.setSize(i, 480);
+                            
+                            a++;
+                        }
+                    } catch (InterruptedException e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }
+            };th.start();
+            x=28;
+        } else if( x == 28 ){
+            HideMenu.setSize(x, 480);
+            Thread th = new Thread(){
+                @Override
+                public void run(){
+                    try {
+                        for (int i = 0; i <= x; i++){
+                            Thread.sleep(1);
+                            HideMenu.setSize(i, 480);
+                        }
+                    } catch (InterruptedException e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }
+            };th.start();
+            x = 100;
+        }
+    }//GEN-LAST:event_SlideMouseClicked
+
+    private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
+        Login log = new Login();
+        log.setLocationRelativeTo(null);
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_SalirMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;
     private javax.swing.JLabel Categoria;
-    private javax.swing.JPanel Contenedor;
     private javax.swing.JLabel Dewey;
     private javax.swing.JLabel Editorial;
     private javax.swing.JPanel HideMenu;
