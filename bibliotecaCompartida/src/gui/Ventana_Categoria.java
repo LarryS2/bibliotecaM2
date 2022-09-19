@@ -7,7 +7,6 @@ package gui;
 
 import Modelo.ModeloCategoria;
 import java.awt.HeadlessException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Categoria;
 
@@ -66,8 +65,7 @@ public class Ventana_Categoria extends javax.swing.JDialog {
         labelidcat = new javax.swing.JLabel();
         btnlimpiar2 = new javax.swing.JPanel();
         btnlabellimpiar2 = new javax.swing.JLabel();
-        checkFiltro = new javax.swing.JCheckBox();
-        checkCancelDelete = new javax.swing.JCheckBox();
+        comboconsultas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -119,11 +117,6 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             }
         });
 
-        tablacategoria = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex){
-                return false;
-            }
-        };
         tablacategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -132,7 +125,6 @@ public class Ventana_Categoria extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablacategoria.setFocusable(false);
         tablacategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablacategoriaMouseClicked(evt);
@@ -290,15 +282,13 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             .addComponent(btnlabellimpiar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
-        checkFiltro.setText("FILTRAR ELIMINADOS");
-        checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
+        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkFiltroMouseClicked(evt);
+                comboconsultasMouseClicked(evt);
             }
         });
-
-        checkCancelDelete.setText("CANCELAR ELIMINACIÓN");
-        checkCancelDelete.setEnabled(false);
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
@@ -307,83 +297,53 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             .addComponent(panelsuperior1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkCancelDelete)
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(labelnomcat, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(backroundLayout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtnombrecat, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(labelidcat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGroup(backroundLayout.createSequentialGroup()
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(labelnomcat, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(backroundLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtnombrecat, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(labelidcat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(checkFiltro)
-                        .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(18, 18, 18)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnlimpiar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnagregar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGap(18, 34, Short.MAX_VALUE)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnagregar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnlimpiar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         backroundLayout.setVerticalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(panelsuperior1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(checkFiltro))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelidcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelcodcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtnombrecat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelnomcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(checkCancelDelete)))
-                                .addGap(11, 11, 11)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(133, 133, 133))
-                    .addGroup(backroundLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
                         .addComponent(btnagregar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,7 +355,30 @@ public class Ventana_Categoria extends javax.swing.JDialog {
                         .addComponent(btnlimpiar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(54, 54, 54))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelidcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelcodcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtnombrecat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelnomcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -406,30 +389,12 @@ public class Ventana_Categoria extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(backround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    public void enableCheck(){
-        checkCancelDelete.setEnabled(false);
-        try{
-            ModeloCategoria moc = new ModeloCategoria();
-            ArrayList<Categoria> listCategoria = moc.getCategoriaEliminada();
-            int id = Integer.parseInt(labelidcat.getText());
-            
-            for(int i = 0; i < listCategoria.size(); i++){
-                if(id == listCategoria.get(i).getId()){
-                    checkCancelDelete.setEnabled(true);
-                    i = listCategoria.size();
-                }
-            }
-        }catch(NumberFormatException | NullPointerException e){
-            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA PRIMERO");
-        }
-    }
+
     public void Agregar() {
         try {
             Categoria cate = new Categoria();
@@ -481,81 +446,67 @@ public class Ventana_Categoria extends javax.swing.JDialog {
                     cate.setNombre_cat(nombre);
                     if (mc.ModificarCategoria(cate)) {
                         JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS CON ÉXITO");
+                        ModeloCategoria.Limpiar_Tabla();
                         ModeloCategoria.getTabla();
                         LimpiarCampos();
                     } else {
                         JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
+                        ModeloCategoria.Limpiar_Tabla();
+                        ModeloCategoria.getTabla();
                     }
                 }
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+            System.out.println(e);
         }
     }
     
-    public void Eliminar(){
-        try{
-            Categoria cate = new Categoria();
-            int id = Integer.parseInt(labelidcat.getText());
-            
-            cate.setId(id);
-            if(mc.EliminarCategoria(cate)){
-                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-                ModeloCategoria.getTabla();
-                LimpiarCampos();
-            }else{
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
-                LimpiarCampos();
-            }
-        }catch(HeadlessException | NumberFormatException | NullPointerException e){
-            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
-        }
-    }
     
-    public void ModificarEliminado() {
+    
+    
+    
+    
+    public void BuscarID() {
         try {
             Categoria cate = new Categoria();
-            int id = Integer.parseInt(labelidcat.getText().trim());
-            String codigo = txtcodigo.getText().trim();
-            String nombre = txtnombrecat.getText().trim();
-            boolean bo1;
-            bo1 = !checkCancelDelete.isSelected();
-
-            if (codigo.isEmpty() || nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-            } else {
-                if (cate.Validar_Nombre_Cat(nombre) == false) {
-                    JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
+            String tipoconsulta = comboconsultas.getSelectedItem().toString();
+            if(comboconsultas.getSelectedIndex()==1){
+                String codigo = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
+                cate.setCodigo_cat(codigo);
+                if (mc.BuscarCategoria(cate)) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
+                    ModeloCategoria.Limpiar_Tabla();
+                    ModeloCategoria.getTablaConsultaCodigo(cate);
+                    LimpiarCampos();
                 } else {
-                    cate.setId(id);
-                    cate.setCodigo_cat(codigo);
-                    cate.setNombre_cat(nombre);
-                    cate.setEstado(bo1);
-                    if (mc.ModificarCategoriaEliminada(cate)) {
-                        JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS CON ÉXITO");
-                        ModeloCategoria.getTablaEliminado();
-                        LimpiarCampos();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
-                        LimpiarCampos();
-                    }
-                }
+                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
+                    ModeloCategoria.Limpiar_Tabla();
+                    ModeloCategoria.getTabla();
+                }   
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
-        }
+            System.out.println(e);
+        }    
     }
+    
+    
+    
+    
     
     public void LimpiarCampos() {
         labelidcat.setText(null);
         txtcodigo.setText(null);
         txtnombrecat.setText(null);
-        checkCancelDelete.setSelected(false);
     }
+    
+    
+    
+    
+    
     
     private void txtnombrecatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrecatKeyTyped
         char validar = evt.getKeyChar();
-        if(!Character.isLetter(validar)){
+        if(Character.isDigit(validar)){
             evt.consume();
         }else{
             if (txtnombrecat.getText().length()>=50) {
@@ -569,7 +520,7 @@ public class Ventana_Categoria extends javax.swing.JDialog {
         if(Character.isLetter(validar)){
             evt.consume();
         } else{
-            if(txtcodigo.getText().length()>=5) {
+            if(txtcodigo.getText().length()>=8) {
                 evt.consume();
             }
         }
@@ -584,19 +535,11 @@ public class Ventana_Categoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        if(!checkFiltro.isSelected()){
-            Modificar();
-        }else{
-            ModificarEliminado();
-        }
+        Modificar();
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        if(!checkFiltro.isSelected()){
-            Eliminar();
-        }else{
-            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
     private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
@@ -609,7 +552,6 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
         } else {
             labelidcat.disable();
-            checkCancelDelete.setEnabled(false);
             idc = Integer.parseInt((String) tablacategoria.getValueAt(fila, 0).toString());
             String codigo = (String) tablacategoria.getValueAt(fila, 1);
             String nombre = (String) tablacategoria.getValueAt(fila, 2);
@@ -617,7 +559,6 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             labelidcat.setText("" + idc);
             txtcodigo.setText(codigo);
             txtnombrecat.setText(nombre);
-            enableCheck();
         }
     }//GEN-LAST:event_tablacategoriaMouseClicked
 
@@ -627,16 +568,9 @@ public class Ventana_Categoria extends javax.swing.JDialog {
         ModeloCategoria.getTabla();
     }//GEN-LAST:event_btnlabellimpiar2MouseClicked
 
-    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
-        if(checkFiltro.isSelected()){
-            ModeloCategoria.getTablaEliminado();
-            LimpiarCampos();
-        }else{
-            ModeloCategoria.getTabla();
-            checkCancelDelete.setEnabled(false);
-            LimpiarCampos();
-        }
-    }//GEN-LAST:event_checkFiltroMouseClicked
+    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
+        BuscarID();
+    }//GEN-LAST:event_comboconsultasMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -652,8 +586,7 @@ public class Ventana_Categoria extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnlimpiar2;
     private javax.swing.JPanel btnrvolver;
-    private javax.swing.JCheckBox checkCancelDelete;
-    private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JComboBox<String> comboconsultas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

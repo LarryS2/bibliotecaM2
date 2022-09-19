@@ -78,6 +78,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         campoediid = new javax.swing.JLabel();
         btnlimpiar = new javax.swing.JPanel();
         btnlabellimpiar = new javax.swing.JLabel();
+        comboconsultas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -342,6 +343,14 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             .addComponent(btnlabellimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
+        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
+        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboconsultasMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -410,7 +419,10 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                                        .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,7 +459,9 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                             .addComponent(labeldireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -558,6 +572,32 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     }
     
         
+    public void BuscarID() {
+        try {
+            Editorial edi = new Editorial();
+            String tipoconsulta = comboconsultas.getSelectedItem().toString();
+            if(tipoconsulta.equalsIgnoreCase("CÓDIGO")){
+                String codigo = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
+                edi.setCodigo(codigo);
+                if (me.ConsultarCategoriaCodigo(edi)) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
+                    ModeloEditorial.Limpiar_Tabla();
+                    ModeloEditorial.getTablaConsultaCodigo(edi);
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
+                    ModeloEditorial.Limpiar_Tabla();
+                    ModeloEditorial.getTabla();
+                }   
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }    
+    }     
+        
+        
+        
+    
     public void LimpiarCampos() {
         campoediid.setText(null);
         txtcodigo.setText(null);
@@ -657,6 +697,10 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tablaEditorialMouseClicked
 
+    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
+        BuscarID();
+    }//GEN-LAST:event_comboconsultasMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
     private javax.swing.JPanel btnactualizar;
@@ -672,6 +716,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     private javax.swing.JPanel btnlimpiar;
     private javax.swing.JPanel btnrvolver;
     private javax.swing.JLabel campoediid;
+    private javax.swing.JComboBox<String> comboconsultas;
     private javax.swing.JComboBox<String> combotipo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

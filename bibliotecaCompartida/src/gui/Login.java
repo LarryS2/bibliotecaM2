@@ -62,7 +62,7 @@ public class Login extends javax.swing.JFrame {
         labellog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labellog.setText("INICIAR SESIÓN");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoista (2).png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/library control.png"))); // NOI18N
 
         javax.swing.GroupLayout panelsuperiorLayout = new javax.swing.GroupLayout(panelsuperior);
         panelsuperior.setLayout(panelsuperiorLayout);

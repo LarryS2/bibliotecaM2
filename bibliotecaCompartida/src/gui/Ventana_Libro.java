@@ -6,9 +6,25 @@ import Modelo.ModeloDewey;
 import Modelo.ModeloEditorial;
 import Modelo.ModeloLibro;
 import Modelo.Modeloidioma;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.sql.Date;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logico.Autor;
@@ -83,7 +99,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         
         for(int i = 0; i < listAutores.size(); i++){
             //comboAutor.addItem(new Autor(listAutores.get(i).getId_autor(), listAutores.get(i).getNombre_autor(), listAutores.get(i).getApellido_autor()));
-            comboAutor.addItem(new Autor(listAutores.get(i).getId_autor(), listAutores.get(i).getPrimer_nombre(), listAutores.get(i).getPrimer_apellido()));
+            comboAutor.addItem(new Autor(listAutores.get(i).getPrimer_nombre()));
         }  
     }
     
@@ -125,6 +141,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                     libro.setEstado(estado);
                     if (ml.RegistrarLibro(libro)) {
                         JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                        QR();
                         ModeloLibro.Limpiar_Tabla();
                         ModeloLibro.getTabla();
                         LimpiarCampos();
@@ -140,6 +157,68 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+ 
+ 
+    
+    public void FileChooser(){
+        String FilePath = "";
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            FilePath = chooser.getSelectedFile().getAbsolutePath();
+        }
+        
+    }
+ ///
+    public void QR(){
+        int size = 200;
+        String FileType = "png";
+        String FilePath = "";
+        String codigo = txtcodigo.getText().trim();
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            FilePath = chooser.getSelectedFile().getAbsolutePath();
+        }
+        
+        UUID uid = UUID.randomUUID();
+        String nombre = uid.toString();
+        QRCodeWriter qrcode = new QRCodeWriter();
+        
+        try {
+            BitMatrix matriz = qrcode.encode(codigo, BarcodeFormat.QR_CODE, size, size);
+            File archivo  = new File(FilePath+ "/" +nombre +"."+ FileType);
+            int dimensionMatriz = matriz.getWidth();
+            BufferedImage imagen = new BufferedImage(dimensionMatriz, dimensionMatriz, BufferedImage.TYPE_INT_BGR);
+            imagen.createGraphics();
+            
+            Graphics2D qr = (Graphics2D) imagen.getGraphics();
+            qr.setColor(Color.WHITE);
+            qr.fillRect(0, 0, size, size);
+            qr.setColor(Color.BLACK);
+            
+            for (int i = 0; i < dimensionMatriz; i++) {
+                for (int j = 0; j < dimensionMatriz; j++) {
+                    if(matriz.get(i, j)){
+                        qr.fillRect(i, j, 1, 1);
+                    }
+                }
+            }
+
+            //Imagen Generada
+            ImageIO.write(imagen, FileType, archivo);
+            Image MiQR = new ImageIcon(FilePath+ "/" +nombre +"."+ FileType).getImage();
+            ImageIcon icon = new ImageIcon(MiQR.getScaledInstance(labelqr.getWidth(), labelqr.getHeight(), 0));
+            labelqr.setIcon(icon);
+            
+        } catch (WriterException | IOException ex) {
+            Logger.getLogger(Ventana_Libro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+ ////   
+    
+    
     
     public void LimpiarCampos() {
         labelidlibro.setText(null);
@@ -202,6 +281,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         labelid = new javax.swing.JLabel();
         labelidlibro = new javax.swing.JLabel();
         combodewey = new javax.swing.JComboBox<>();
+        labelqr = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,6 +311,11 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         );
 
         txtcodigo.setBorder(null);
+        txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcodigoKeyTyped(evt);
+            }
+        });
 
         labelcod.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelcod.setForeground(new java.awt.Color(102, 102, 102));
@@ -533,7 +618,8 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtautor1)
-                            .addComponent(comboeditorial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(comboeditorial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(labelqr, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(116, 116, 116)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnregistrolibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,46 +676,51 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labeldewey1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combodewey, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22))
-                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backroundLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelautor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelisbn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(backroundLayout.createSequentialGroup()
-                                    .addComponent(txtisbn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGroup(backroundLayout.createSequentialGroup()
-                            .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fecha_publi_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtpags, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelpags, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelgenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(labelqr, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(comboAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelautor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelisbn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(backroundLayout.createSequentialGroup()
+                                                .addComponent(txtisbn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fecha_publi_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtpags, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelpags, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelgenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(153, 153, 153))
         );
@@ -714,6 +805,17 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablalibrosMouseClicked
 
+    private void txtcodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        } else {
+            if (txtcodigo.getText().length() >= 13) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtcodigoKeyTyped
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -758,6 +860,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     private javax.swing.JLabel labelisbn;
     private javax.swing.JLabel labellibro;
     private javax.swing.JLabel labelpags;
+    private javax.swing.JLabel labelqr;
     private javax.swing.JLabel labeltitulo;
     public static javax.swing.JTable tablalibros;
     private javax.swing.JTextArea txtareadescripcion;
