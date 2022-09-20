@@ -215,6 +215,7 @@ public class ModeloCategoria {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
+        //String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE estado_cat = False";
         String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE estado_cat = False";
         modelo = new DefaultTableModel();
         Ventana_Categoria.tablacategoria.setModel(modelo);
