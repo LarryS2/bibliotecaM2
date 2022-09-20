@@ -115,14 +115,13 @@ public class Editorial {
         return nombre;
     }
     
-
     public boolean ValidarNombreEd(String ed)
     {
         return ed.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
     public boolean ValidarNombreRep(String nom)
     {
-        return nom.matches("^[A-Za-z]{2,}");
+        return nom.matches("^[\\D]{2,}");
     }
     
     
