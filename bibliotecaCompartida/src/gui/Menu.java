@@ -227,6 +227,11 @@ public final class Menu extends javax.swing.JFrame {
         Dewey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8352653 (1).png"))); // NOI18N
         Dewey.setText("DEWEY");
         Dewey.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
+        Dewey.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeweyMouseClicked(evt);
+            }
+        });
         HideMenu.add(Dewey, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 100, 40));
 
         Pais.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -461,6 +466,13 @@ public final class Menu extends javax.swing.JFrame {
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_SalirMouseClicked
+
+    private void DeweyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeweyMouseClicked
+        Ventana_Dewey dew = new Ventana_Dewey(null, true);
+        dew.setLocationRelativeTo(null);
+        dew.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_DeweyMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;

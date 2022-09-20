@@ -529,7 +529,7 @@ public class Registrar_Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel panelsuperior;
     private javax.swing.JRadioButton radiofemenino;
     private javax.swing.JRadioButton radiomasculino;
-    private javax.swing.JTable tablaPersona;
+    public static javax.swing.JTable tablaPersona;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtemail;

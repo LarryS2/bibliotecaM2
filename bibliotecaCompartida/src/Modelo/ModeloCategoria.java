@@ -184,18 +184,13 @@ public class ModeloCategoria {
         }
     }
     
-    /*
-    *
-    *Método para buscar autor//
-    *
-    */  
     public boolean BuscarCategoria(Categoria cat){
         
         PreparedStatement ps;
         ResultSet rs = null;
         Connection con = Conexion.getConnection();
         
-        String sql = "SELECT FROM autor WHERE =?";
+        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE CODIGO=?";
         
         try {
             
@@ -214,7 +209,6 @@ public class ModeloCategoria {
             }
         }
     }
-    
     
     static DefaultTableModel modelo;
     public static void getTabla(){
@@ -255,6 +249,36 @@ public class ModeloCategoria {
         Ventana_Categoria.tablacategoria.setModel(modelo);
         try{
             st = con.prepareStatement(sql);
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("NOMBRE");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+    
+    public static void getTablaConsultaCodigo(Categoria cat){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE CODIGO=?";
+        modelo = new DefaultTableModel();
+        Ventana_Categoria.tablacategoria.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, cat.getCodigo_cat());
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
             int columns = rsMd.getColumnCount();

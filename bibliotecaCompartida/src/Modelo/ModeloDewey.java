@@ -180,7 +180,7 @@ public class ModeloDewey {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_dew, codigo_dew, nombre_cat_dew, nombre_sup_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = False";
+        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = False";
         modelo = new DefaultTableModel();
         Ventana_Dewey.tabladewey.setModel(modelo);
         try{
@@ -217,7 +217,7 @@ public class ModeloDewey {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_dew, codigo_dew, nombre_cat_dew, nombre_sup_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = True";
+        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = True";
         modelo = new DefaultTableModel();
         Ventana_Dewey.tabladewey.setModel(modelo);
         try{
@@ -247,6 +247,63 @@ public class ModeloDewey {
             } catch (SQLException sqle) {
                 System.err.println(sqle);
             }
+        }
+    }
+    
+    public boolean ConsultarDewey(Dewey dew){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "SELECT * FROM dewey WHERE codigo_dew=?";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, dew.getCodigo());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+    public static void getTablaConsultaCod(Dewey dew){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE codigo_dew=?";
+        modelo = new DefaultTableModel();
+        Ventana_Dewey.tabladewey.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, dew.getCodigo()); 
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("CATEGORÍA");
+            modelo.addColumn("SUBCATEGORÍA");
+            modelo.addColumn("DESCRIPCIÓN");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
         }
     }
     
