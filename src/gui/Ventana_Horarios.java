@@ -73,6 +73,76 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         }
     } 
 
+    
+    public void Modificar() {
+        try {
+            Horario horario = new Horario();
+            int id = Integer.parseInt(labelidhorario.getText().trim());
+            String codigo = txtcodigo.getText().trim();
+            String hora_inicio =  txthorainicio.getText();
+            String hora_fin = txthorafin.getText();
+            String descripcion = txtdecr.getText().trim();
+            boolean estado = true;
+            if (codigo.isEmpty() || hora_inicio.isEmpty() || hora_fin.isEmpty() || descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            } else {
+                if(codigo.length()==4){
+                    if (horario.Validar_Hora(hora_inicio) == false) {
+                        JOptionPane.showMessageDialog(null, "HORA DE INICIO NO VÁLIDA");
+                    } else {
+                        if (horario.Validar_Hora(hora_fin) == false) {
+                            JOptionPane.showMessageDialog(null, "HORA DE FIN NO VÁLIDA");
+                        } else {
+                            
+                            horario.setId(id);
+                            horario.setCodigo(codigo);
+                            horario.setHora_inicio(LocalTime.parse(hora_inicio));
+                            horario.setHora_fin(LocalTime.parse(hora_fin));
+                            horario.setDescripcion(descripcion);
+                            horario.setEstado(estado);
+                            if (mh.ActualizarHorario(horario)) {
+                                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                                ModeloHorario.Limpiar_Tabla();
+                                ModeloHorario.getTabla();
+                                LimpiarCampos();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR EL HORARIO");
+                                ModeloHorario.Limpiar_Tabla();
+                                ModeloHorario.getTabla();
+                            }
+                        }
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(null, "EL  CÓDIGO TIENE 4 DÍGITOS");
+                }
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+        }
+    }
+    
+    public void BuscarID() {
+        try {
+            Horario hor = new Horario();
+            String tipoconsulta = comboconsultas.getSelectedItem().toString();
+            if(tipoconsulta.equalsIgnoreCase("CÓDIGO")){
+                String codigo = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
+                hor.setCodigo(codigo);
+                if (mh.ConsultarHorario(hor)) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
+                    ModeloHorario.Limpiar_Tabla();
+                    ModeloHorario.getTablaConsultaCodigo(hor);
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
+                    ModeloHorario.Limpiar_Tabla();
+                    ModeloHorario.getTabla();
+                }   
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }    
+    }    
+
     public void LimpiarCampos() {
         labelidhorario.setText(null);
         txtcodigo.setText(null);
@@ -116,8 +186,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         labelidhorario = new javax.swing.JLabel();
         txthorainicio = new javax.swing.JFormattedTextField();
         txthorafin = new javax.swing.JFormattedTextField();
-        horainicio = new com.toedter.calendar.JDateChooser();
-        horainicio1 = new com.toedter.calendar.JDateChooser();
+        comboconsultas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -170,6 +239,11 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablahorario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablahorarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablahorario);
 
         btnrvolver.setBackground(new java.awt.Color(0, 153, 153));
@@ -327,9 +401,13 @@ public class Ventana_Horarios extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        horainicio.setDateFormatString("HH:MM");
-
-        horainicio1.setDateFormatString("HH:MM");
+        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
+        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboconsultasMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
@@ -340,56 +418,50 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                                .addGap(0, 3, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labeldesc)
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(backroundLayout.createSequentialGroup()
-                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(labelinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addGroup(backroundLayout.createSequentialGroup()
-                                                        .addGap(18, 18, 18)
-                                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                            .addComponent(txtcodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
-                                                    .addGroup(backroundLayout.createSequentialGroup()
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(txthorainicio))))
-                                            .addGroup(backroundLayout.createSequentialGroup()
-                                                .addComponent(labelFIN)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtdecr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txthorafin))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnagregar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(9, Short.MAX_VALUE))
-                    .addGroup(backroundLayout.createSequentialGroup()
                         .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77)
                         .addComponent(labelidhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(horainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
+                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labeldesc)
+                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(backroundLayout.createSequentialGroup()
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(labelcodcat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(labelinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(backroundLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                .addComponent(txtcodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                                        .addGroup(backroundLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txthorainicio))))
+                                .addGroup(backroundLayout.createSequentialGroup()
+                                    .addComponent(labelFIN)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtdecr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txthorafin)))))
+                        .addGap(0, 187, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnagregar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +472,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                     .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelidhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(horainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
@@ -408,8 +480,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
                             .addComponent(labelcodcat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(txtcodigo))
-                            .addComponent(horainicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtcodigo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -486,7 +557,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        // TODO add your handling code here:
+        Modificar();
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
@@ -501,6 +572,30 @@ public class Ventana_Horarios extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdecrKeyTyped
 
+    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
+        BuscarID();
+    }//GEN-LAST:event_comboconsultasMouseClicked
+
+    private void tablahorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablahorarioMouseClicked
+        int fila = tablahorario.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
+        } else {
+            labelidhorario.disable();
+            idh = Integer.parseInt((String) tablahorario.getValueAt(fila, 0).toString());
+            String codigo = (String) tablahorario.getValueAt(fila, 1);
+            String hora_inicio =  String.valueOf(tablahorario.getValueAt(fila, 2));
+            String hora_fin = String.valueOf(tablahorario.getValueAt(fila, 3));
+            String descripcion = (String) tablahorario.getValueAt(fila, 4);
+            
+            labelidhorario.setText("" + idh);
+            txtcodigo.setText(codigo);
+            txthorainicio.setText(hora_inicio);
+            txthorafin.setText(hora_fin);
+            txtdecr.setText(descripcion);
+        }
+    }//GEN-LAST:event_tablahorarioMouseClicked
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
@@ -514,8 +609,7 @@ public class Ventana_Horarios extends javax.swing.JDialog {
     private javax.swing.JLabel btnlabeleliminar;
     private javax.swing.JLabel btnlabelvolver;
     private javax.swing.JPanel btnrvolver;
-    private com.toedter.calendar.JDateChooser horainicio;
-    private com.toedter.calendar.JDateChooser horainicio1;
+    private javax.swing.JComboBox<String> comboconsultas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

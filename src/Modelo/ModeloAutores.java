@@ -196,7 +196,6 @@ public class ModeloAutores {
     *
      */
     static DefaultTableModel modelo = new DefaultTableModel();
-
     public static void getTabla() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
@@ -239,6 +238,67 @@ public class ModeloAutores {
         }
     }
 
+    
+    public boolean ConsultarAutor(Autor aut){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "SELECT * FROM autor WHERE CODIGO = ?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, aut.getCedula());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+        
+    public static void getTablaConsultaCod(Autor aut){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT * FROM autor WHERE CODIGO = ?";
+        modelo = new DefaultTableModel();
+        Ventana_Autor.tablaautores.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, aut.getCedula()); 
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("PRIMER NOMBRE");
+            modelo.addColumn("SEGUNDO NOMBRE");
+            modelo.addColumn("PRIMER APELLIDO");
+            modelo.addColumn("SEGUNDO APELLIDO");
+            modelo.addColumn("FECHA NACIMIENTO");
+            modelo.addColumn("LENGUA MATERNA");
+            modelo.addColumn("PAÍS DE ORIGEN");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+    
     public static void getTablaEliminados() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;

@@ -89,6 +89,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelfecha1 = new javax.swing.JLabel();
         checkFiltro = new javax.swing.JCheckBox();
         checkCancellDelete = new javax.swing.JCheckBox();
+        comboconsultas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -377,6 +378,14 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         checkCancellDelete.setText("CANCELAR ELIMINACION");
         checkCancellDelete.setEnabled(false);
 
+        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
+        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboconsultasMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -445,11 +454,13 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 2, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(checkFiltro)
-                                .addGap(239, 239, 239)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(120, 120, 120)))))
                 .addGap(24, 24, 24))
         );
         backroundLayout.setVerticalGroup(
@@ -516,8 +527,10 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkFiltro))
-                        .addGap(12, 12, 12)
+                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(checkFiltro)
+                                .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,34 +660,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         } catch (HeadlessException | IllegalArgumentException e) {
             System.out.println(e);
         }
-//    
-//    public void consultar_Parametro(){
-//        try{
-//            String id = JOptionPane.showInputDialog(null, "INGRESE EL EL PAÍS DE ORIGEN");
-////            int id_ = Integer.parseInt(id);
-//            
-//            String sql = "SELECT * FROM AUTOR WHERE pais_origen_aut=\""+id+"\"";
-//            try {
-//                con1 = con.getConnection(); 
-//                st = con1.createStatement();
-//                rs = st.executeQuery(sql);
-//                Limpiar_Tabla();
-//                Object [] Autor = new Object[4];
-//                model = (DefaultTableModel) tablaautores.getModel();
-//
-//                while (rs.next()) {                
-//                    Autor [0] = rs.getInt("id_aut");
-//                    Autor [1] = rs.getString("nombre_aut");
-//                    Autor [2] = rs.getString("apellido_aut");
-//                    Autor [3] = rs.getString("pais_origen_aut");
-//                    model.addRow(Autor);
-//                    tablaautores.setModel(model);
-//                }
-//            } catch (SQLException e) { 
-//            }
-//        }catch(HeadlessException | NumberFormatException e){
-//            JOptionPane.showMessageDialog(null, "NO SE PUDO HACER LA BÚSQUEDA");
-//        }
     }
 
     public void Modificar(){
@@ -794,6 +779,29 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         }
     }
     
+    public void BuscarID() {
+        try {
+            Autor aut = new Autor();
+            String tipoconsulta = comboconsultas.getSelectedItem().toString();
+            if(tipoconsulta.equalsIgnoreCase("CÓDIGO")){
+                String cedula = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
+                aut.setCedula(cedula);
+                if (ma.BuscarAutor(aut)) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
+                    ModeloAutores.Limpiar_Tabla();
+                    ModeloAutores.getTablaConsultaCod(aut);
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
+                    ModeloAutores.Limpiar_Tabla();
+                    ModeloAutores.getTabla();
+                }   
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }    
+    }
+    
     public void LimpiarCampos() {
         campoid.setText(null);
         txtcodigoautor.setText(null);
@@ -801,9 +809,9 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         txtnombresegundo.setText(null);
         txtapellido.setText(null);
         txtapellidosegundo.setText(null);
-        combolengua.setSelectedIndex(0);
+        //combolengua.setSelectedIndex(0);
         fecha_nac_chooser.setCalendar(null);
-        combopaisorigen.setSelectedIndex(0);
+        //combopaisorigen.setSelectedIndex(0);
         checkCancellDelete.setSelected(false);
     }
 
@@ -919,6 +927,10 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_checkFiltroMouseClicked
 
+    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
+        BuscarID();
+    }//GEN-LAST:event_comboconsultasMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
     private javax.swing.JPanel btnLimpiar;
@@ -936,6 +948,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private javax.swing.JLabel campoid;
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JComboBox<String> comboconsultas;
     private javax.swing.JComboBox<Idioma> combolengua;
     private javax.swing.JComboBox<Pais> combopaisorigen;
     private com.toedter.calendar.JDateChooser fecha_nac_chooser;
