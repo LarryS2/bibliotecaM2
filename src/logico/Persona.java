@@ -71,6 +71,16 @@ public class Persona {
         this.Estado = Estado;
     }
 
+public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String direccion, String telefono) {
+        this.cedula = cedula;
+        this.primer_nombre = primer_nombre;
+        this.segundo_nombre = segundo_nombre;
+        this.primer_apellido = primer_apellido;
+        this.segundo_apellido = segundo_apellido;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
     public int getId() {
         return id;
     }
