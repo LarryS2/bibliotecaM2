@@ -48,75 +48,66 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="527" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labeldesc" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="labelcodcat" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="labelinicio" alignment="0" pref="115" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jSeparator1" pref="210" max="32767" attributes="0"/>
-                                                              <Component id="txtcodigo" pref="210" max="32767" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                      <Group type="102" attributes="0">
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="txthorainicio" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="labelFIN" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="80" max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jSeparator3" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Component id="jSeparator2" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Component id="jSeparator4" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Component id="txtdecr" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Component id="txthorafin" max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="horainicio" min="-2" pref="168" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btneliminar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnagregar1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnactualizar" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnbuscar" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btnrvolver" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="9" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="labelid" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                           <Component id="labelidhorario" min="-2" pref="210" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="horainicio1" min="-2" pref="168" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="comboconsultas" min="-2" pref="113" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="527" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labeldesc" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="labelcodcat" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="labelinicio" alignment="0" pref="115" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jSeparator1" pref="210" max="32767" attributes="0"/>
+                                                  <Component id="txtcodigo" pref="210" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="txthorainicio" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="labelFIN" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jSeparator3" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="jSeparator2" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="jSeparator4" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="txtdecr" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="txthorafin" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="187" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Component id="btneliminar" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnagregar1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnactualizar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnbuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnrvolver" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -130,7 +121,7 @@
                           <Component id="labelid" alignment="0" max="32767" attributes="0"/>
                           <Component id="labelidhorario" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="horainicio1" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboconsultas" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -141,7 +132,6 @@
                                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                   <Component id="txtcodigo" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="horainicio" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -297,6 +287,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablahorarioMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -575,15 +568,24 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="horainicio">
+        <Component class="javax.swing.JComboBox" name="comboconsultas">
           <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="HH:MM"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="CONSULTAS"/>
+                <StringItem index="1" value="C&#xd3;DIGO"/>
+              </StringArray>
+            </Property>
           </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="horainicio1">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="HH:MM"/>
-          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comboconsultasMouseClicked"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

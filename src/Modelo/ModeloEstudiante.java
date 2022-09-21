@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import logico.Conexion;
-import java.sql.Statement;
 import java.sql.SQLException;
 import logico.Estudiante;
 

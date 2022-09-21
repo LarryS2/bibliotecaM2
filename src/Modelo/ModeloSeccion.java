@@ -6,13 +6,11 @@ import logico.Seccion;
 import java.sql.PreparedStatement;
 import logico.Conexion;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import logico.Autor;
 
 public class ModeloSeccion {
 

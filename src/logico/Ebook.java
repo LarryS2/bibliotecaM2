@@ -1,5 +1,7 @@
 package logico;
 
+import java.util.Date;
+
 
 public class Ebook extends Libro{
     
@@ -13,12 +15,11 @@ public class Ebook extends Libro{
         super(codigo);
     }
 
-    public Ebook(int id_e, String url, String codigo, String isbn, String id_autor, String id_idioma, String id_categoria, String id_editorial, String titulo, String descripcion) {
-        super(codigo, isbn, id_autor, id_idioma, id_categoria, id_editorial, titulo, descripcion);
+    public Ebook(int id_e, String url, int id, String codigo, String isbn, int dewey, int id_autor, int id_idioma, int id_categoria, int id_editorial, String titulo, String descripcion, Date fecha_Publicacion, int cantidad, int numero_pags, boolean Estado) {
+        super(id, codigo, isbn, dewey, id_autor, id_idioma, id_categoria, id_editorial, titulo, descripcion, fecha_Publicacion, cantidad, numero_pags, Estado);
         this.id_e = id_e;
         this.url = url;
     }
-
 
     public String getUrl() {
         return url;
