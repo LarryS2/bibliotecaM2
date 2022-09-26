@@ -47,7 +47,12 @@ public class Libro {
         this.numero_pags = numero_pags;
         this.Estado = Estado;
     }
-    
+
+    public Libro(String codigo, String titulo, String isbn) {
+        this.codigo = codigo;
+        this.isbn = isbn;
+        this.titulo = titulo;
+    }
 
     public int getId() {
         return id;
@@ -163,6 +168,10 @@ public class Libro {
     @Override
     public String toString() {
         return "Libro{" + "codigo=" + codigo + ", isbn=" + isbn + ", dewey=" + dewey + ", id_autor=" + id_autor + ", id_idioma=" + id_idioma + ", id_categoria=" + id_categoria + ", id_editorial=" + id_editorial + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fecha_Publicacion=" + fecha_Publicacion + ", cantidad=" + cantidad + ", numero_pags=" + numero_pags + '}';
+    }
+    
+    public String mostrar(){
+        return codigo + " " + titulo + " " + isbn;
     }
     
     /*6 números, comienza por cero*/

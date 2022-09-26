@@ -18,7 +18,7 @@ public class ModeloLibro {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO libro (CODIGO, TITULO, DESCRIPCION, ISBN, DEWEY, FECHA_PUBLICACION,"
+        String sql = "INSERT INTO libro (CODIGO_LIB, TITULO, DESCRIPCION, ISBN, DEWEY, FECHA_PUBLICACION,"
                 + "NUM_PAGS, ID_AUTOR, ID_IDIOMA, ID_CATEGORIA, ID_EDITORIAL, ESTADO) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
