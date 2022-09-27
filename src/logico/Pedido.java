@@ -1,6 +1,6 @@
 package logico;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Pedido {
     private int id_pedido;
@@ -24,14 +24,6 @@ public class Pedido {
         this.id_est = id_est;
         this.fecha_inicio_pedido = fecha_inicio_pedido;
         this.fecha_fin_pedido = fecha_fin_pedido;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
 
     public int getId_pedido() {
@@ -66,6 +58,14 @@ public class Pedido {
         this.fecha_fin_pedido = fecha_fin_pedido;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
     @Override
     public String toString() {
         return id_pedido + " " + id_est + " " + fecha_inicio_pedido + " " + fecha_fin_pedido;
