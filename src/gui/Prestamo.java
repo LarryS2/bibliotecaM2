@@ -963,8 +963,12 @@ public class Prestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_DetallePedidoFocusLost
 
     private void SaveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveDateActionPerformed
-        guardarEnc();
-        guardarDet();
+        if(modelo.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR, ASEGURESE QUE EXISTAN LIBROS\nA SER PEDIDOS");
+        }else{
+            guardarEnc();
+            guardarDet();
+        }
     }//GEN-LAST:event_SaveDateActionPerformed
 
     private void DescarteDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescarteDateActionPerformed
