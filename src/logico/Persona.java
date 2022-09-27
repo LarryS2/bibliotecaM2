@@ -36,14 +36,14 @@ public class Persona {
         this.cedula = cedula;
         this.tipo_usuario = tipo_usuario;
     }
-    
-    public Persona(int id, String primer_nombre, String primer_apellido){
+
+    public Persona(int id, String primer_nombre, String primer_apellido) {
         this.id = id;
         this.primer_nombre = primer_nombre;
         this.primer_apellido = primer_apellido;
     }
-    
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado){
+
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -71,7 +71,7 @@ public class Persona {
         this.Estado = Estado;
     }
 
-public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String direccion, String telefono) {
+    public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String telefono, String direccion) {
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
         this.segundo_nombre = segundo_nombre;
@@ -267,4 +267,3 @@ public Persona(String cedula, String primer_nombre, String segundo_nombre, Strin
         return false;
     }
 }
-

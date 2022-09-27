@@ -12,15 +12,15 @@ import logico.Libro;
  *
  * @author Lenin
  */
-public class ViewSelectBook extends javax.swing.JDialog {
+public class ViewSelectBook extends javax.swing.JFrame {
 
     /**
      * Creates new form ViewSelectBook
      */
-    public static Libro b1;
-    public ViewSelectBook(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public static Libro lib;
+    public ViewSelectBook() {
         initComponents();
+        this.setLocationRelativeTo(null);
         ModeloGetTablas.getTablaLibro();
     }
 
@@ -33,7 +33,6 @@ public class ViewSelectBook extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GrupoSelect = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
@@ -47,17 +46,18 @@ public class ViewSelectBook extends javax.swing.JDialog {
         tablaLibro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SELECCIONE UNA FILA");
+        setAlwaysOnTop(true);
+        setIconImages(null);
+        setLocation(new java.awt.Point(0, 0));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("BUSCAR LIBRO:");
 
-        GrupoSelect.add(buttCod);
         buttCod.setText("POR CODIGO");
 
-        GrupoSelect.add(butTit);
         butTit.setText("POR TÍTULO");
 
-        GrupoSelect.add(butCat);
         butCat.setText("POR CATEGORÍA");
 
         ContainBut.setBackground(new java.awt.Color(225, 225, 225));
@@ -195,27 +195,27 @@ public class ViewSelectBook extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelButtonMouseClicked
 
     private void tablaLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaLibroMouseClicked
-        if(evt.getClickCount() == 2){
-            int fila = tablaLibro.getSelectedRow();
-            if(tablaLibro.getSelectedRow() != -1){
-                String cedula = (String) tablaLibro.getValueAt(fila, 0);
-                String nombreu = (String) tablaLibro.getValueAt(fila, 1);
-                String nombred = (String) tablaLibro.getValueAt(fila, 2);
-                String apellidou = (String) tablaLibro.getValueAt(fila, 3);
-                String apellidod = (String) tablaLibro.getValueAt(fila, 4);
-                String telefono = (String) tablaLibro.getValueAt(fila, 5);
-                String direccion = (String) tablaLibro.getValueAt(fila, 6);
-                
-                //b1 = new Libro(cedula, nombreu, nombred, apellidou, apellidod, telefono, direccion);
-                this.dispose();
+        try{
+            if (evt.getClickCount() == 2) {
+                int fila = tablaLibro.getSelectedRow();
+                if (tablaLibro.getSelectedRow() != -1) {
+
+                    String codigo = tablaLibro.getValueAt(fila, 0).toString();
+                    String titulo = tablaLibro.getValueAt(fila, 1).toString();
+                    String isbn = tablaLibro.getValueAt(fila, 2).toString();
+                    lib = new Libro(codigo, titulo, isbn);
+                    this.dispose();
+                }
             }
+        }catch(Exception e){
+            System.out.println("Fallo algo: " + e);
         }
     }//GEN-LAST:event_tablaLibroMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CancelButton;
     private javax.swing.JPanel ContainBut;
-    private javax.swing.ButtonGroup GrupoSelect;
     private javax.swing.JRadioButton butCat;
     private javax.swing.JRadioButton butTit;
     private javax.swing.JRadioButton buttCod;

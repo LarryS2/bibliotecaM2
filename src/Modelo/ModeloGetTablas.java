@@ -1,8 +1,7 @@
 
 package Modelo;
 
-import VistasSeleccion.ViewSelectBook;
-import VistasSeleccion.VistaSelectCliente;
+import gui.Prestamo;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ public class ModeloGetTablas {
         ResultSet rs;
         String sql = "SELECT cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, telefono_per, direccion_per FROM persona WHERE estado_per = False";
         modelo = new DefaultTableModel();
-        VistaSelectCliente.tablaCliente.setModel(modelo);
+        Prestamo.tablaCliente.setModel(modelo);
         try{
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
@@ -62,9 +61,9 @@ public class ModeloGetTablas {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT E.CODIGO_LIB, E.TITULO, E.ISBN, L.NOMBRE, CONCAT(A.PRIMER_NOMBRE, ' ', A.PRIMER_APELLIDO ) AS 'AUTOR' FROM libro E, categoria L, autor A WHERE E.ID_CATEGORIA = L.ID AND E.ID_AUTOR = A.ID;";
+        String sql = "SELECT E.CODIGO_LIB, E.TITULO, E.ISBN, L.NOMBRE AS 'CATEGORIA', CONCAT(A.PRIMER_NOMBRE, ' ', A.PRIMER_APELLIDO ) AS 'NOMBRE AUTOR', E.FECHA_PUBLICACION FROM libro E, categoria L, autor A WHERE E.ID_CATEGORIA = L.ID AND E.ID_AUTOR = A.ID;";
         modelo = new DefaultTableModel();
-        ViewSelectBook.tablaLibro.setModel(modelo);
+        Prestamo.tablaLibro.setModel(modelo);
         try{
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
@@ -73,8 +72,9 @@ public class ModeloGetTablas {
             modelo.addColumn("Código");
             modelo.addColumn("Título");
             modelo.addColumn("ISBN");
-            modelo.addColumn("CATEGORIA");
-            modelo.addColumn("AUTOR");
+            modelo.addColumn("Categoria");
+            modelo.addColumn("Nombre Autor");
+            modelo.addColumn("Fecha de Publicación");
             
             while(rs.next()){
                 Object[] filas = new Object[columns];
