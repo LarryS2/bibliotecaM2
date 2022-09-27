@@ -18,6 +18,7 @@ import java.awt.HeadlessException;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import logico.Detalle_Pedido;
+
 /**
  *
  * @author Lenin
@@ -25,7 +26,8 @@ import logico.Detalle_Pedido;
 public class Prestamo extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
-    ModeloPedido mp;
+    ModeloPedido mp = new ModeloPedido();
+
     public Prestamo() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -44,8 +46,8 @@ public class Prestamo extends javax.swing.JFrame {
             txtDireccion.setText(p1.getDireccion());
         }
     }
-    
-    public void titleCol(){
+
+    public void titleCol() {
         modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
         modelo.addColumn("Titulo");
@@ -93,72 +95,72 @@ public class Prestamo extends javax.swing.JFrame {
     public void eliminarFila(int fila) {
         modelo.removeRow(fila);
     }
-    
-    public void enableDelete(){
+
+    public void enableDelete() {
         buttonEliminar.setEnabled(false);
-        if(DetallePedido.getSelectedRow() != -1){
+        if (DetallePedido.getSelectedRow() != -1) {
             buttonEliminar.setEnabled(true);
+        } else {
+            buttonEliminar.setEnabled(false);
         }
     }
-    
-    public void guardarEnc(){
-        try{
-            Pedido pd = new Pedido();
-            String fecha_ini = ((JTextField)fecha_in.getDateEditor().getUiComponent()).getText();
-            String fecha_fi = ((JTextField)fecha_fin.getDateEditor().getUiComponent()).getText();
-            
-            if(!txtCedula.getText().isEmpty()){
+
+    public void guardarEnc() {
+        try {
+            Pedido pd;
+            String fecha_ini = ((JTextField) fecha_in.getDateEditor().getUiComponent()).getText();
+            String fecha_fi = ((JTextField) fecha_fin.getDateEditor().getUiComponent()).getText();
+
+            if (!txtCedula.getText().isEmpty()) {
                 int id = ModeloPedido.getIdPerson(txtCedula.getText());
-                if(!fecha_ini.isEmpty() || !fecha_fi.isEmpty()){
-                    pd.setId_est(id);
-                    pd.setFecha_inicio_pedido(Date.valueOf(fecha_ini));
-                    pd.setFecha_fin_pedido(Date.valueOf(fecha_fi));
-                    if(mp.RegistrarPedidoEnc(pd)){
+                if (!fecha_ini.isEmpty() || !fecha_fi.isEmpty()) {
+                    pd = new Pedido(id, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi));
+                    if (mp.RegistrarPedidoEnc(pd)) {
                         JOptionPane.showMessageDialog(null, "SE HA GENERADO EL PEDIDO CON ÉXITO");
                         limpiar_texto(Pedido);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR, REVISE SUS CAMPOS");
                     }
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "ASEGURESE DE LLENAR LOS CAMPOS DEPENDIENTES DE LAS FECHAS");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "SELECCIONE EL ESTUDIANTE");
             }
-        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR");
         }
     }
-    
-    public void guardarDet(){
-        try{
+
+    public void guardarDet() {
+        try {
             int a = 0;
             Detalle_Pedido dpe = new Detalle_Pedido();
             String idp = ModeloPedido.idPedido();
             int idpe = Integer.parseInt(idp);
-            for(int i = 0; i < DetallePedido.getRowCount(); i++){
+            for (int i = 0; i < DetallePedido.getRowCount(); i++) {
                 String cod = DetallePedido.getValueAt(i, 0).toString();
                 dpe.setDescripcion(cod);
                 dpe.setId_pe(idpe);
-                if(mp.registrarDetalle(dpe)){
+                if (mp.registrarDetalle(dpe)) {
                     a++;
                 }
             }
-            if(a != 0){
+            if (a != 0) {
                 JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO");
             }
-        }catch(NumberFormatException | NullPointerException e){
+        } catch (NumberFormatException | NullPointerException e) {
             System.out.println(e);
         }
     }
-    
-    public void limpiar_texto(JPanel panel){
-        for(int i = 0; panel.getComponents().length > i; i++){
-            if(panel.getComponents()[i] instanceof JTextField){
-                ((JTextField)panel.getComponents()[i]).setText("");
-            }
-            else if(panel.getComponents()[i] instanceof JDateChooser){
-                ((JDateChooser)panel.getComponents()[i]).setCalendar(null);
+
+    public void limpiar_texto(JPanel panel) {
+        for (int i = 0; panel.getComponents().length > i; i++) {
+            if (panel.getComponents()[i] instanceof JTextField) {
+                ((JTextField) panel.getComponents()[i]).setText("");
+            } else if (panel.getComponents()[i] instanceof JDateChooser) {
+                ((JDateChooser) panel.getComponents()[i]).setCalendar(null);
             }
         }
     }
@@ -883,9 +885,14 @@ public class Prestamo extends javax.swing.JFrame {
     private void buttonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEliminarMouseClicked
         try {
             int fila = DetallePedido.getSelectedRow();
-            eliminarFila(fila);
+            if(fila != -1){
+                eliminarFila(fila);
+                ContarFilas.setText(String.valueOf(DetallePedido.getRowCount()));
+            }else{
+                JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception e) {
-            System.out.println("Fallo algo: " + e);
+            System.out.println("Fallo algo");
         }
     }//GEN-LAST:event_buttonEliminarMouseClicked
 
@@ -952,7 +959,7 @@ public class Prestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_DetallePedidoMouseClicked
 
     private void DetallePedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DetallePedidoFocusLost
-        // TODO add your handling code here:
+        enableDelete();
     }//GEN-LAST:event_DetallePedidoFocusLost
 
     private void SaveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveDateActionPerformed
@@ -961,7 +968,7 @@ public class Prestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveDateActionPerformed
 
     private void DescarteDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescarteDateActionPerformed
-        JOptionPane.showMessageDialog(null, ModeloPedido.getIdPerson(txtCedula.getText())+ ModeloPedido.idPedido());
+        JOptionPane.showMessageDialog(null, ModeloPedido.getIdPerson(txtCedula.getText()));
     }//GEN-LAST:event_DescarteDateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

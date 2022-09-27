@@ -42,7 +42,7 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "INSERT INTO pedido (id_est_ped, fecha_inicio_ped, fecha_fin_ped, estado_ped) VALUES (?, ?, ?, ?, false)";
+        String sql = "INSERT INTO pedido (id_est_ped, fecha_inicio_ped, fecha_fin_ped, estado_ped) VALUES (?, ?, ?, false)";
 
         try {
             ps = con.prepareStatement(sql);
