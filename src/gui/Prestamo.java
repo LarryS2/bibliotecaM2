@@ -141,7 +141,7 @@ public class Prestamo extends javax.swing.JFrame {
             int idpe = Integer.parseInt(idp);
             for (int i = 0; i < DetallePedido.getRowCount(); i++) {
                 String cod = DetallePedido.getValueAt(i, 0).toString();
-                dpe.setDescripcion(cod);
+                dpe.setDescripcion(String.valueOf(ModeloPedido.idLibro(new Libro(cod))));
                 dpe.setId_pe(idpe);
                 if (mp.registrarDetalle(dpe)) {
                     a++;
@@ -891,7 +891,7 @@ public class Prestamo extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA","Advertencia",JOptionPane.WARNING_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             System.out.println("Fallo algo");
         }
     }//GEN-LAST:event_buttonEliminarMouseClicked
@@ -964,7 +964,7 @@ public class Prestamo extends javax.swing.JFrame {
 
     private void SaveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveDateActionPerformed
         if(modelo.getRowCount() == 0){
-            JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR, ASEGURESE QUE EXISTAN LIBROS\nA SER PEDIDOS");
+            JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR\nASEGURESE QUE EXISTAN LIBROS\nA SER PEDIDOS");
         }else{
             guardarEnc();
             guardarDet();

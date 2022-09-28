@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import logico.Detalle_Pedido;
+import logico.Libro;
 
 public class ModeloPedido {
     public static int getIdPerson(String cedula){
@@ -160,6 +161,33 @@ public class ModeloPedido {
             }
         }
         return idp;
+    }
+    
+    public static int idLibro(Libro libro){
+        int idl = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT ID FROM libro WHERE CODIGO_LIB = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, libro.getCodigo());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                idl = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return idl;
     }
     
     public boolean registrarDetalle(Detalle_Pedido dp){
