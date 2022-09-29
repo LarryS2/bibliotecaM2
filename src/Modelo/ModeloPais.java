@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import logico.Ciudad;
+import logico.Zona;
 
 public class ModeloPais {
    
@@ -97,12 +99,17 @@ public class ModeloPais {
         return id;
     }
     
+    
+    //Registro completo de país, ciudad y zona(barrio)
+    
+    
     public boolean RegistrarPais(Pais pais){
         
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) VALUES (?, ?, ?, False)";
+        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) "
+                + "VALUES (?, ?, ?, ?)";
         
         try {
             
@@ -110,6 +117,7 @@ public class ModeloPais {
             ps.setString(1, pais.getCodigo_pais());
             ps.setString(2, pais.getNombre_pais());
             ps.setString(3, pais.getDesc_pais());
+            ps.setBoolean(4, pais.isEstado());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -123,6 +131,68 @@ public class ModeloPais {
             }
         }
     }
+    
+    
+    public boolean RegistrarCiudad(Ciudad ciu){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO ciudad (id_ciu_pais, nombre_ciu, estado_ciu) "
+                + " VALUES ((SELECT id_pais FROM pais ORDER BY id_pais DESC LIMIT 1), "
+                + "?, ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ciu.getNombre_ciudad());
+            ps.setBoolean(2, ciu.isEstado());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+
+    public boolean RegistrarZona(Zona bar){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO barrio (id_ciu_bar, nombre_bar, calle_prin_bar, "
+                + "calle_sec_bar, estado_bar) "
+                + " VALUES ((SELECT id_ciu FROM ciudad ORDER BY id_ciu DESC LIMIT 1), "
+                + "?, ?, ?, ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, bar.getNombre_bar());
+            ps.setString(2, bar.getCalle_prin());
+            ps.setString(3, bar.getCalle_sec());
+            ps.setBoolean(4, bar.isEstado_bar());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
     
     public boolean ActualizarPais(Pais pais){
         
