@@ -1,6 +1,7 @@
 package gui;
 
 import Modelo.ModeloEstudiante;
+import Modelo.ModeloPersona;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -8,24 +9,27 @@ import java.sql.Date;
 import javax.swing.JTextField;
 import logico.ControladorUsuario;
 import logico.Estudiante;
+import logico.Persona;
 import logico.Validador_Cedula;
 
 public class Registrarse extends javax.swing.JFrame {
 
     /**
      * Creates new form Registrarse
+     *
      * @param parent
      * @param modal
      */
     Validador_Cedula vali_c;
     ControladorUsuario control;
     ModeloEstudiante me = new ModeloEstudiante();
+
     public Registrarse(java.awt.Frame parent, boolean modal) {
         initComponents();
     }
-    
-    public void Registro(){
-        try{
+
+    public void Registro() {
+        try {
             Estudiante estudiante = new Estudiante();
             String cedula = txtcedula.getText().trim();
             String nombre_pr = txtprimernombre.getText().trim();
@@ -37,13 +41,12 @@ public class Registrarse extends javax.swing.JFrame {
             String fecha_ini = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
             String direccion = txtdireccion.getText().trim();
             boolean estado = false;
-            
+
             String gen = "";
-            if(radiomasculino.isSelected()){
+            if (radiomasculino.isSelected()) {
                 gen = "M";
-            }
-            else {
-                if(radiofemenino.isSelected()){
+            } else {
+                if (radiofemenino.isSelected()) {
                     gen = "F";
                 }
             }
@@ -52,64 +55,60 @@ public class Registrarse extends javax.swing.JFrame {
             String password_rep = txtpasswordrep.getText().trim();
             String tipo_user = "INVITADO";
 
-            if (cedula.isEmpty() ||  nombre_pr.isEmpty() || apellido_pr.isEmpty() || 
-                email.isEmpty() || telefono.isEmpty() || fecha_ini.isEmpty() || gen.isEmpty() ||
-                password.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
+            if (cedula.isEmpty() || nombre_pr.isEmpty() || apellido_pr.isEmpty()
+                    || email.isEmpty() || telefono.isEmpty() || fecha_ini.isEmpty() || gen.isEmpty()
+                    || password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
 
             } else {
-                if(tipo_sangre.equalsIgnoreCase("SELECCIONAR")) {
+                if (tipo_sangre.equalsIgnoreCase("SELECCIONAR")) {
                     JOptionPane.showMessageDialog(null, "VERIFQUE LOS CAMPOS DE SELECCIÓN");
                 } else {
-                    if (estudiante.ValidarNombreYapellido(nombre_pr)==false || estudiante.ValidarNombreYapellido(apellido_pr)==false
-                            || estudiante.ValidarCorreo(email)==false || estudiante.ValidarTelefono(telefono)==false) {
+                    if (estudiante.ValidarNombreYapellido(nombre_pr) == false || estudiante.ValidarNombreYapellido(apellido_pr) == false
+                            || estudiante.ValidarCorreo(email) == false || estudiante.ValidarTelefono(telefono) == false) {
                         JOptionPane.showMessageDialog(null, "HAY CAMPOS CON INFORMACIÓN NO VÁLIDA");
                     } else {
-                        if(estudiante.ValidarCedula(cedula)){
-                            if(Validar_no_Rep(cedula)) {
-                                if (estudiante.ValidarPassword(password)==false) {
-                                    JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 8 caracteres, que incluyen una letra en minúscula, una en mayúscula y números, no contiene símbolos especiales");
-                                } else {
-                                    if(password.equals(password_rep)){
-                                            estudiante.setCedula(cedula);
-                                            estudiante.setPrimer_nombre(nombre_pr);
-                                            estudiante.setSegundo_nombre(nombre_se);
-                                            estudiante.setPrimer_apellido(apellido_pr);
-                                            estudiante.setSegundo_apellido(apellido_se);
-                                            estudiante.setEmail(email);
-                                            estudiante.setTelefono(telefono);
-                                            estudiante.setFecha_nac(Date.valueOf(fecha_ini));
-                                            estudiante.setGenero(gen);
-                                            estudiante.setTipo_sangre(tipo_sangre);
-                                            estudiante.setTipo_usuario(tipo_user);
-                                            estudiante.setPassword(password);
-                                            estudiante.setEstado(estado); 
-                                            estudiante.setDireccion(direccion);
-                                        if(me.RegistrarEstudiante(estudiante)){
-                                            
-                                            
-                                            this.Vaciar_Campos();
-                                            Mensaje("REGISTRO COMPLETADO", "REGISTRO");
-                                        } else {
-                                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
-                                        }
-                                    }else{
-                                        JOptionPane.showMessageDialog(null, "LAS CONTRASEÑAS NO COINCIDEN");
+                        if (estudiante.ValidarCedula(cedula)) {
+                            if (estudiante.ValidarPassword(password) == false) {
+                                JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 8 caracteres, que incluyen una letra en minúscula, una en mayúscula y números, no contiene símbolos especiales");
+                            } else {
+                                if (password.equals(password_rep)) {
+                                    estudiante.setCedula(cedula);
+                                    estudiante.setPrimer_nombre(nombre_pr);
+                                    estudiante.setSegundo_nombre(nombre_se);
+                                    estudiante.setPrimer_apellido(apellido_pr);
+                                    estudiante.setSegundo_apellido(apellido_se);
+                                    estudiante.setEmail(email);
+                                    estudiante.setTelefono(telefono);
+                                    estudiante.setFecha_nac(Date.valueOf(fecha_ini));
+                                    estudiante.setGenero(gen);
+                                    estudiante.setTipo_sangre(tipo_sangre);
+                                    estudiante.setTipo_usuario(ModeloPersona.getIdTipo(new Persona(tipo_user)));
+                                    estudiante.setPassword(password);
+                                    estudiante.setEstado(estado);
+                                    estudiante.setDireccion(direccion);
+                                    if (me.RegistrarEstudiante(estudiante)) {
+
+                                        this.Vaciar_Campos();
+                                        Mensaje("REGISTRO COMPLETADO", "REGISTRO");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
                                     }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "LAS CONTRASEÑAS NO COINCIDEN");
                                 }
                             }
-                        }else {
+                        } else {
                             JOptionPane.showMessageDialog(null, "EL NÚMERO DE CÉDULA NO ES VÁLIDO");
                         }
                     }
                 }
             }
-        }catch(HeadlessException e){
-            
+        } catch (HeadlessException e) {
+
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -587,13 +586,13 @@ public class Registrarse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelbtncancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtncancelarMouseClicked
-        Login log  = new Login();
+        Login log = new Login();
         //JOptionPane.showConfirmDialog(null, "¿ESTÁ SEGURO QUE DESEA SALIR?");
         this.dispose();
 
         log.setLocationRelativeTo(null);
         log.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_labelbtncancelarMouseClicked
 
     private void btnlabelregistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelregistroMouseClicked
@@ -602,21 +601,21 @@ public class Registrarse extends javax.swing.JFrame {
 
     private void txtcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isLetter(validar)){
-         evt.consume();
-        } else{
-            if(txtcedula.getText().length()>=10) {
-                evt.consume();    
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        } else {
+            if (txtcedula.getText().length() >= 10) {
+                evt.consume();
             }
         }
     }//GEN-LAST:event_txtcedulaKeyTyped
 
     private void txtprimernombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprimernombreKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
+        if (Character.isDigit(validar)) {
             evt.consume();
-        }else{
-            if (txtprimernombre.getText().length()>=50) {
+        } else {
+            if (txtprimernombre.getText().length() >= 50) {
                 evt.consume();
             }
         }
@@ -624,34 +623,34 @@ public class Registrarse extends javax.swing.JFrame {
 
     private void txtprimerapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprimerapellidoKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
+        if (Character.isDigit(validar)) {
             evt.consume();
-        }else {   
-            if (txtprimerapellido.getText().length()>=50) {
+        } else {
+            if (txtprimerapellido.getText().length() >= 50) {
                 evt.consume();
             }
         }
     }//GEN-LAST:event_txtprimerapellidoKeyTyped
 
     private void txtemailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtemailKeyTyped
-        if (txtemail.getText().length()>=150) {
+        if (txtemail.getText().length() >= 150) {
             evt.consume();
         }
     }//GEN-LAST:event_txtemailKeyTyped
 
     private void txttelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyTyped
         char validar = evt.getKeyChar();
-        if(Character.isLetter(validar)){
+        if (Character.isLetter(validar)) {
             evt.consume();
-        }else{
-            if (txttelefono.getText().length()>=10) {
+        } else {
+            if (txttelefono.getText().length() >= 10) {
                 evt.consume();
             }
         }
     }//GEN-LAST:event_txttelefonoKeyTyped
 
     private void txtpasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyTyped
-        if (txtpassword.getPassword().length>=16) {
+        if (txtpassword.getPassword().length >= 16) {
             evt.consume();
         }
     }//GEN-LAST:event_txtpasswordKeyTyped
@@ -690,7 +689,7 @@ public class Registrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdireccionKeyTyped
 
     private void txtpasswordrepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordrepKeyTyped
-        if (txtpasswordrep.getPassword().length>=16) {
+        if (txtpasswordrep.getPassword().length >= 16) {
             evt.consume();
         }
     }//GEN-LAST:event_txtpasswordrepKeyTyped
@@ -700,28 +699,15 @@ public class Registrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombresegundoKeyTyped
 
     private void txtapellidosegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosegundoKeyTyped
-        if (txtapellidosegundo.getText().length()>=50) {
+        if (txtapellidosegundo.getText().length() >= 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtapellidosegundoKeyTyped
 
-    
-    private boolean Validar_no_Rep(String ced) {
-        boolean rep = true;
-        for (int i = 0; i < ControladorUsuario.listausuarios.size(); i++) {
-            if (ced.equals(ControladorUsuario.listausuarios.get(i).getCedula())) {
-                JOptionPane.showMessageDialog(null, "YA EXISTE UN REGISTRO CON ESA CÉDULA");
-                rep = false;
-                i = ControladorUsuario.listausuarios.size();
-            }
-        }
-        return rep;
-    }
-    
     public static void Mensaje(String mensaje, String titulo) {
         JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void Vaciar_Campos() {
         txtcedula.setText("");
         txtprimernombre.setText("");

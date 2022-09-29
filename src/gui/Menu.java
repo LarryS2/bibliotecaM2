@@ -2,23 +2,47 @@ package gui;
 
 import javax.swing.JOptionPane;
 import logico.Tiempo;
+import java.util.*;
+
 /**
  *
  * @author santi
  */
-public final class Menu extends javax.swing.JFrame {
-
+public final class Menu extends javax.swing.JFrame implements Runnable{
+    String hora, minutos,segundos;
+    Thread hilo;
+    
     public Menu() {
         initComponents();
         ShowTime();
+        hilo = new Thread(this);
+        hilo.start();
     }
     
     Tiempo time = new Tiempo();
     
     public void ShowTime() {
         labelfecha.setText(time.fecha_completa); 
-        labelhora.setText(time.hora_completa);
     }
+    
+    public void hora(){
+        Calendar calendar = new GregorianCalendar();
+        Date horaactual = new Date();
+        calendar.setTime(horaactual);
+        hora = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR_OF_DAY);
+        minutos  = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
+        segundos = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
+    }
+    
+    public void run(){
+        Thread current = Thread.currentThread();
+        
+        while(current==hilo){
+            hora();
+            labelhora.setText(hora+":"+minutos+":"+segundos);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -292,7 +316,7 @@ public final class Menu extends javax.swing.JFrame {
                         .addGap(361, 580, Short.MAX_VALUE)
                         .addGroup(panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logo)
                 .addGap(26, 26, 26))
@@ -329,7 +353,7 @@ public final class Menu extends javax.swing.JFrame {
             .addComponent(panelsuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(261, 261, 261)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -342,7 +366,7 @@ public final class Menu extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))))
         );
 
