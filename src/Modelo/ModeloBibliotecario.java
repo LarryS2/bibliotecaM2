@@ -36,7 +36,7 @@ public class ModeloBibliotecario {
             ps.setString(3, bib.getSegundo_nombre());
             ps.setString(4, bib.getPrimer_apellido());
             ps.setString(5, bib.getSegundo_apellido());
-            ps.setString(6, bib.getTipo_usuario());
+            ps.setInt(6, bib.getTipo_usuario());
             ps.setString(7, bib.getEmail());
             ps.setString(8, bib.getTipo_sangre());
             ps.setDate(9, (Date) bib.getFecha_nac());

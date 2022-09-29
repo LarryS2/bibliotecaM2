@@ -16,7 +16,7 @@ public class ModeloEstudiante {
         Connection con = Conexion.getConnection();
         
         String sql = "INSERT INTO persona (cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per,"
-                + " segundo_apellido_per, rol_per, email_per, tipo_sangre_per, fecha_nac_per, genero_per, direccion_per,"
+                + " segundo_apellido_per, id_rol_per, email_per, tipo_sangre_per, fecha_nac_per, genero_per, direccion_per,"
                 + "telefono_per, estado_per) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         String sqlest = "INSERT INTO estudiante (id_per_est, password_est)"
@@ -33,7 +33,7 @@ public class ModeloEstudiante {
             ps.setString(3, est.getSegundo_nombre());
             ps.setString(4, est.getPrimer_apellido());
             ps.setString(5, est.getSegundo_apellido());
-            ps.setString(6, est.getTipo_usuario());
+            ps.setInt(6, est.getTipo_usuario());
             ps.setString(7, est.getEmail());
             ps.setString(8, est.getTipo_sangre());
             ps.setDate(9, (Date) est.getFecha_nac());

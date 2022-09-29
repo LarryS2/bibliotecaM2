@@ -20,7 +20,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO idioma (CODIGO, NOMBRE, DESCRIPCION, estado_idio) VALUES (?,?,?,False)";
+        String sql = "INSERT INTO idioma (codigo_idi, nombre_idi, descr_idi, estado_idi) VALUES (?,?,?,False)";
         
         try {
             
@@ -48,7 +48,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE idioma SET CODIGO=?, NOMBRE=?, DESCRIPCION=? WHERE ID=? ";
+        String sql = "UPDATE idioma SET codigo_idi=?, nombre_idi=?, descr_idi=? WHERE id_idi=? ";
         
         try {
             
@@ -77,7 +77,7 @@ public class Modeloidioma {
         Connection con = Conexion.getConnection();
         ResultSet rs;
         
-        String sql = "SELECT ID FROM idioma WHERE NOMBRE = ?";
+        String sql = "SELECT id_idi FROM idioma WHERE nombre_idi = ?";
         
         try{
             ps = con.prepareStatement(sql);
@@ -103,7 +103,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE idioma SET CODIGO=?, NOMBRE=?, DESCRIPCION=?, estado_idio = ? WHERE ID=? ";
+        String sql = "UPDATE idioma SET codigo_idi=?, nombre_idi=?, descr_idi=?, estado_idi = ? WHERE id_idi=? ";
         
         try {
             ps = con.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE idioma SET estado_idio = True WHERE ID = ?";
+        String sql = "UPDATE idioma SET estado_idi = True WHERE id_idi = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -157,7 +157,7 @@ public class Modeloidioma {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         ResultSet rs;
-        String sql = "SELECT * FROM idioma WHERE CODIGO=?";
+        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE codigo_idi=?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -165,10 +165,10 @@ public class Modeloidioma {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                idioma.setId_idioma(Integer.parseInt(rs.getString("ID")));
-                idioma.setCodigo_idioma(rs.getString("CODIGO"));
-                idioma.setNombre_idioma(rs.getString("NOMBRE"));
-                idioma.setDescripcion(rs.getString("DESCRIPCION"));
+                idioma.setId_idioma(Integer.parseInt(rs.getString("id_idi")));
+                idioma.setCodigo_idioma(rs.getString("codigo_idi"));
+                idioma.setNombre_idioma(rs.getString("nombre_idi"));
+                idioma.setDescripcion(rs.getString("descr_idi"));
                 return true;
             }
             return false;
@@ -189,7 +189,7 @@ public class Modeloidioma {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE, DESCRIPCION FROM idioma WHERE estado_idio = False";
+        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE estado_idi = False";
         modelo = new DefaultTableModel();
         Ventana_Idiomas.tablaIdiomas.setModel(modelo);
         
@@ -226,7 +226,7 @@ public class Modeloidioma {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE, DESCRIPCION FROM idioma WHERE estado_idio = True";
+        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE estado_idi = True";
         modelo = new DefaultTableModel();
         Ventana_Idiomas.tablaIdiomas.setModel(modelo);
         
@@ -267,12 +267,12 @@ public class Modeloidioma {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM idioma WHERE estado_idio = False");
+            rs = st.executeQuery("SELECT id_idi, nombre_idi FROM idioma WHERE estado_idi = False");
             
             while(rs.next()){
                 Idioma idioma = new Idioma();
-                idioma.setId_idioma(rs.getInt("ID"));
-                idioma.setNombre_idioma(rs.getString("NOMBRE"));
+                idioma.setId_idioma(rs.getInt("id_idi"));
+                idioma.setNombre_idioma(rs.getString("nombre_idi"));
                 listaidiomas.add(idioma);
             }
         }catch(SQLException e){
@@ -295,12 +295,12 @@ public class Modeloidioma {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM idioma WHERE estado_idio = True");
+            rs = st.executeQuery("SELECT id_idi, nombre_idi FROM idioma WHERE estado_idi = True");
             
             while(rs.next()){
                 Idioma idioma = new Idioma();
-                idioma.setId_idioma(rs.getInt("ID"));
-                idioma.setNombre_idioma(rs.getString("NOMBRE"));
+                idioma.setId_idioma(rs.getInt("id_idi"));
+                idioma.setNombre_idioma(rs.getString("nombre_idi"));
                 listaidiomas.add(idioma);
             }
         }catch(SQLException e){

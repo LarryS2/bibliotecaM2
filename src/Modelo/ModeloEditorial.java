@@ -22,12 +22,12 @@ public class ModeloEditorial {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM editorial WHERE ESTADO = False");
+            rs = st.executeQuery("SELECT id_edi, nombre_edi FROM editorial WHERE estado_edi = False");
             
             while(rs.next()){
                 Editorial edi = new Editorial();
-                edi.setId(rs.getInt("ID"));
-                edi.setNombre(rs.getString("NOMBRE"));
+                edi.setId(rs.getInt("id_edi"));
+                edi.setNombre(rs.getString("nombre_edi"));
                 listaEditorial.add(edi);
             }
         }catch(SQLException e){
@@ -50,12 +50,12 @@ public class ModeloEditorial {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM editorial WHERE ESTADO = True");
+            rs = st.executeQuery("SELECT id_edi, nombre_edi FROM editorial WHERE estado_edi = True");
             
             while(rs.next()){
                 Editorial edi = new Editorial();
-                edi.setId(rs.getInt("ID"));
-                edi.setNombre(rs.getString("NOMBRE"));
+                edi.setId(rs.getInt("id_edi"));
+                edi.setNombre(rs.getString("nombre_edi"));
                 listaEditorial.add(edi);
             }
         }catch(SQLException e){
@@ -75,7 +75,7 @@ public class ModeloEditorial {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO editorial (CODIGO, NOMBRE, DIRECCION, TIPO, NOMBRE_R, APELLIDO_R, URL, ESTADO) VALUES (?,?,?,?,?,?,?,False)";
+        String sql = "INSERT INTO editorial (codigo_edi, nombre_edi, DIRECCION, TIPO, NOMBRE_R, APELLIDO_R, URL, ESTADO) VALUES (?,?,?,?,?,?,?,False)";
         
         try {
             
