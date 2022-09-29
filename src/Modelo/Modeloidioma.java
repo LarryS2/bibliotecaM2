@@ -71,6 +71,33 @@ public class Modeloidioma {
         }
     }
     
+    public static int getId(Idioma idioma){
+        int id = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT ID FROM idioma WHERE NOMBRE = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, idioma.getNombre_idioma());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally{
+            try{
+                con.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
+        return id;
+    }
+    
     public boolean ActualizarIdiomaEliminado(Idioma idioma){
         
         PreparedStatement ps;

@@ -70,6 +70,33 @@ public class ModeloPais {
         return listaPais;
     }
     
+    public static int getId(Pais pais){
+        int id = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT id_pais FROM pais WHERE nombre_pais = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, pais.getNombre_pais());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally{
+            try{
+                con.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
+        return id;
+    }
+    
     public boolean RegistrarPais(Pais pais){
         
         PreparedStatement ps;
