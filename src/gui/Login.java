@@ -72,7 +72,6 @@ public class Login extends javax.swing.JFrame {
                             this.dispose();
                             mi.setLocationRelativeTo(null);
                             mi.setVisible(true);
-
                         } else {
                             JOptionPane.showMessageDialog(null, "CREDENCIALES NO VÁLIDAS", "ERROR", JOptionPane.ERROR_MESSAGE);
                         }

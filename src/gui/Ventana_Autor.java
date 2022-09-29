@@ -638,9 +638,9 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                         autor.setSegundo_nombre(nombre_s);
                                         autor.setSegundo_apellido(apellido_s);
                                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                                        autor.setLengua_materna(lengua_mat);
-                                        autor.setPais_origen(pais_origen);
-                                        if (ma.RegistrarAutor(autor)) {
+                                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua_mat)));
+                                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
+                                        if (ma.RegistrarAutorPer(autor)) {
                                             JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
                                             ModeloAutores.Limpiar_Tabla();
                                             ModeloAutores.getTabla();
@@ -692,8 +692,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         autor.setPrimer_apellido(primer_apellido);
                         autor.setSegundo_apellido(segundo_apellido);
                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                        autor.setPais_origen(pais_origen);
-                        autor.setLengua_materna(lengua);
+                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua)));
+                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
                         if(ma.ModificarAutor(autor)){
                             JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
                             ModeloAutores.getTabla();
@@ -741,8 +741,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         autor.setSegundo_nombre(segundo_nombre);
                         autor.setSegundo_apellido(segundo_apellido);
                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                        autor.setPais_origen(pais_origen);
-                        autor.setLengua_materna(lengua);
+                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua)));
+                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
                         autor.setEstado(bo1);
                         if(ma.ModificarAutorEliminado(autor)){
                             JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");

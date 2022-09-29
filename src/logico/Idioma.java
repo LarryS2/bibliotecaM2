@@ -18,7 +18,6 @@ public class Idioma {
     public Idioma(String nombre_idioma) {
         this.nombre_idioma = nombre_idioma;
     }
-
     
     public Idioma(int id_idioma, String nombre_idioma) {
         this.id_idioma = id_idioma;

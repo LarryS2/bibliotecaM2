@@ -3,16 +3,14 @@ package gui;
 import Modelo.ModeloEstudiante;
 import java.awt.Color;
 import java.awt.HeadlessException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.Date;
+import javax.swing.JTextField;
 import logico.ControladorUsuario;
 import logico.Estudiante;
-import logico.Persona;
 import logico.Validador_Cedula;
 
-public class Registrarse extends javax.swing.JDialog {
+public class Registrarse extends javax.swing.JFrame {
 
     /**
      * Creates new form Registrarse
@@ -23,7 +21,6 @@ public class Registrarse extends javax.swing.JDialog {
     ControladorUsuario control;
     ModeloEstudiante me = new ModeloEstudiante();
     public Registrarse(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
         initComponents();
     }
     
@@ -37,9 +34,9 @@ public class Registrarse extends javax.swing.JDialog {
             String apellido_se = txtapellidosegundo.getText().trim();
             String email = txtemail.getText().trim();
             String telefono = txttelefono.getText().trim();
-            String fecha_nac = fecha_nac_chooser.getDateFormatString();
+            String fecha_ini = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
             String direccion = txtdireccion.getText().trim();
-            boolean estado = true;
+            boolean estado = false;
             
             String gen = "";
             if(radiomasculino.isSelected()){
@@ -56,7 +53,7 @@ public class Registrarse extends javax.swing.JDialog {
             String tipo_user = "INVITADO";
 
             if (cedula.isEmpty() ||  nombre_pr.isEmpty() || apellido_pr.isEmpty() || 
-                email.isEmpty() || telefono.isEmpty() || fecha_nac.isEmpty() || gen.isEmpty() ||
+                email.isEmpty() || telefono.isEmpty() || fecha_ini.isEmpty() || gen.isEmpty() ||
                 password.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "RELLENE TODOS LOS CAMPOS");
 
@@ -65,7 +62,7 @@ public class Registrarse extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "VERIFQUE LOS CAMPOS DE SELECCIÓN");
                 } else {
                     if (estudiante.ValidarNombreYapellido(nombre_pr)==false || estudiante.ValidarNombreYapellido(apellido_pr)==false
-                            || estudiante.ValidarCorreo(email)==false || estudiante.ValidarTelefono(telefono)==false || estudiante.Validar_fecha(fecha_nac)) {
+                            || estudiante.ValidarCorreo(email)==false || estudiante.ValidarTelefono(telefono)==false) {
                         JOptionPane.showMessageDialog(null, "HAY CAMPOS CON INFORMACIÓN NO VÁLIDA");
                     } else {
                         if(estudiante.ValidarCedula(cedula)){
@@ -81,12 +78,13 @@ public class Registrarse extends javax.swing.JDialog {
                                             estudiante.setSegundo_apellido(apellido_se);
                                             estudiante.setEmail(email);
                                             estudiante.setTelefono(telefono);
-                                            estudiante.setFecha_nac(formatear_fecha(fecha_nac));
+                                            estudiante.setFecha_nac(Date.valueOf(fecha_ini));
                                             estudiante.setGenero(gen);
                                             estudiante.setTipo_sangre(tipo_sangre);
                                             estudiante.setTipo_usuario(tipo_user);
                                             estudiante.setPassword(password);
                                             estudiante.setEstado(estado); 
+                                            estudiante.setDireccion(direccion);
                                         if(me.RegistrarEstudiante(estudiante)){
                                             
                                             
@@ -300,7 +298,7 @@ public class Registrarse extends javax.swing.JDialog {
         btnlabelregistro.setForeground(new java.awt.Color(255, 255, 255));
         btnlabelregistro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnlabelregistro.setText("REGISTRARSE");
-        btnlabelregistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlabelregistro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnlabelregistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelregistroMouseClicked(evt);
@@ -330,7 +328,7 @@ public class Registrarse extends javax.swing.JDialog {
         labelbtncancelar.setForeground(new java.awt.Color(255, 255, 255));
         labelbtncancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelbtncancelar.setText("CANCELAR");
-        labelbtncancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelbtncancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         labelbtncancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelbtncancelarMouseClicked(evt);
@@ -718,15 +716,6 @@ public class Registrarse extends javax.swing.JDialog {
             }
         }
         return rep;
-    }
-    public Date formatear_fecha(String fecha) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha_Date = null;
-        try {
-            fecha_Date = formato.parse(fecha);
-        } catch (ParseException e) {
-        }
-        return fecha_Date;
     }
     
     public static void Mensaje(String mensaje, String titulo) {

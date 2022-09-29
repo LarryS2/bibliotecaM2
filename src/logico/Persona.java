@@ -255,15 +255,4 @@ public class Persona {
     public boolean ValidarPassword(String pass) {
         return pass.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$");
     }
-
-    public boolean Validar_fecha(String fecha) {
-        try {
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-            String fechaCad = new SimpleDateFormat("dd/MM/yyyy").format(date);
-            return fecha.equals(fechaCad);
-        } catch (ParseException pe) {
-        } catch (Exception e) {
-        }
-        return false;
-    }
 }

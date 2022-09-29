@@ -17,6 +17,8 @@ import logico.Conexion;
 public class ModeloGetTablas {
     static DefaultTableModel modelo;
     public static void getTablaCliente(){
+        
+        //Cambiar sentencia sql, filtrar autores no personas!!!
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
@@ -58,6 +60,8 @@ public class ModeloGetTablas {
     
     //Ingresar condición de eliminados
     public static void getTablaLibro(){
+        
+        //Adecuar sentencia sql a la nueva BD
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
