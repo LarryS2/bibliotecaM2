@@ -1,7 +1,5 @@
 package logico;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Persona {
@@ -12,7 +10,7 @@ public class Persona {
     private String segundo_nombre;
     private String primer_apellido;
     private String segundo_apellido;
-    private String tipo_usuario;
+    private int tipo_usuario;
     private String email;
     private String tipo_sangre;
     private Date fecha_nac;
@@ -32,7 +30,7 @@ public class Persona {
         this.cedula = cedula;
     }
 
-    public Persona(String cedula, String tipo_usuario) {
+    public Persona(String cedula, int tipo_usuario) {
         this.cedula = cedula;
         this.tipo_usuario = tipo_usuario;
     }
@@ -54,7 +52,7 @@ public class Persona {
         this.Estado = Estado;
     }
 
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, int tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -129,11 +127,11 @@ public class Persona {
         this.segundo_apellido = segundo_apellido;
     }
 
-    public String getTipo_usuario() {
+    public int getTipo_usuario() {
         return tipo_usuario;
     }
 
-    public void setTipo_usuario(String tipo_usuario) {
+    public void setTipo_usuario(int tipo_usuario) {
         this.tipo_usuario = tipo_usuario;
     }
 

@@ -22,12 +22,12 @@ public class ModeloCategoria {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM categoria WHERE estado_cat = False");
+            rs = st.executeQuery("SELECT id_cat, nombre_cat FROM categoria WHERE estado_cat = False");
             
             while(rs.next()){
                 Categoria cat = new Categoria();
-                cat.setId(rs.getInt("ID"));
-                cat.setNombre_cat(rs.getString("NOMBRE"));
+                cat.setId(rs.getInt("id_cat"));
+                cat.setNombre_cat(rs.getString("nombre_cat"));
                 listaCategoria.add(cat);
             }
         }catch(SQLException e){
@@ -50,12 +50,12 @@ public class ModeloCategoria {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM categoria WHERE estado_cat = True");
+            rs = st.executeQuery("SELECT id_cat, nombre_cat FROM categoria WHERE estado_cat = True");
             
             while(rs.next()){
                 Categoria cat = new Categoria();
-                cat.setId(rs.getInt("ID"));
-                cat.setNombre_cat(rs.getString("NOMBRE"));
+                cat.setId(rs.getInt("id_cat"));
+                cat.setNombre_cat(rs.getString("nombre_cat"));
                 listaCategoria.add(cat);
             }
         }catch(SQLException e){
@@ -75,7 +75,7 @@ public class ModeloCategoria {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO categoria (CODIGO, NOMBRE, estado_cat) VALUES (?,?, False)";
+        String sql = "INSERT INTO categoria (codigo_cat, nombre_cat, estado_cat) VALUES (?,?, False)";
         
         try {
             ps = con.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class ModeloCategoria {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE categoria SET CODIGO=?, NOMBRE=? WHERE ID=?";
+        String sql = "UPDATE categoria SET codigo_cat=?, nombre_cat=? WHERE id_cat=?";
         
         try {
             
@@ -133,7 +133,7 @@ public class ModeloCategoria {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE categoria SET CODIGO=?, NOMBRE=?, estado_cat = ? WHERE ID=? ";
+        String sql = "UPDATE categoria SET codigo_cat=?, nombre_cat=?, estado_cat = ? WHERE id_cat=? ";
         
         try {
             ps = con.prepareStatement(sql);
@@ -165,7 +165,7 @@ public class ModeloCategoria {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE categoria SET estado_cat = True WHERE ID=?";
+        String sql = "UPDATE categoria SET estado_cat = True WHERE id_cat=?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -190,7 +190,7 @@ public class ModeloCategoria {
         ResultSet rs = null;
         Connection con = Conexion.getConnection();
         
-        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE CODIGO=?";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat=?";
         
         try {
             
@@ -215,8 +215,7 @@ public class ModeloCategoria {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        //String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE estado_cat = False";
-        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE estado_cat = False";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE estado_cat = False";
         modelo = new DefaultTableModel();
         Ventana_Categoria.tablacategoria.setModel(modelo);
         try{
@@ -245,7 +244,7 @@ public class ModeloCategoria {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE estado_cat = True";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE estado_cat = True";
         modelo = new DefaultTableModel();
         Ventana_Categoria.tablacategoria.setModel(modelo);
         try{
@@ -274,7 +273,7 @@ public class ModeloCategoria {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE FROM categoria WHERE CODIGO=?";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat=?";
         modelo = new DefaultTableModel();
         Ventana_Categoria.tablacategoria.setModel(modelo);
         try{

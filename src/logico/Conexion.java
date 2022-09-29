@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 public class Conexion {
-    static String bd = "biblioteca";
+    static String bd = "bibliostate";
     static String url = "jdbc:mysql://localhost:3306/";
     static String user = "root";
     static String password = "";
