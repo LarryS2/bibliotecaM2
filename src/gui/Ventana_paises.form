@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="771" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="787" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -35,7 +35,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="697" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="936" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -58,12 +58,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="panelsuperior2" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="734" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -106,25 +106,56 @@
                                               </Group>
                                           </Group>
                                       </Group>
+                                      <Component id="txtnombreciudad" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="jSeparator4" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelnomciudad" min="-2" pref="115" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btneliminar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnagregar" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnactualizar" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnlimpiar" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btnrvolver" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btneliminar" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnagregar" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnactualizar" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnlimpiar" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelnomzona" pref="115" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txtnombrezona" min="-2" pref="210" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jSeparator5" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="jSeparator6" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="jSeparator7" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelnomcalleprin" pref="115" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="txtnombrecalleprin" min="-2" pref="210" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelnomcallesec" pref="115" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="txtnombrecallesec" min="-2" pref="210" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
+                          <Component id="btnrvolver" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -138,39 +169,67 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelid" alignment="0" pref="33" max="32767" attributes="0"/>
-                              <Component id="labelidpais" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="labelcodpais" min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="txtcodigopais" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="labelid" alignment="0" pref="33" max="32767" attributes="0"/>
+                                      <Component id="labelidpais" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="labelcodpais" min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="txtcodigopais" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtnombrepais" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="labelnompais" alignment="3" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="labelnomciudad" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
+                                  <Component id="txtnombreciudad" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtnombrezona" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labelnomzona" alignment="3" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtnombrepais" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="labelnompais" alignment="3" max="32767" attributes="0"/>
+                              <Component id="txtnombrecalleprin" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labelnomcalleprin" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtnombrecallesec" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labelnomcallesec" alignment="3" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtdescpais" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="labeldescpais" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -189,11 +248,11 @@
                                   <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnrvolver" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
               </Group>
@@ -636,6 +695,98 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="CANCELAR ELIMINACION"/>
             <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomciudad">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="NOMBRE CIUDAD:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtnombreciudad">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombreciudadKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator4">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomzona">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="NOMBRE BARRIO::"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtnombrezona">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombrezonaKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator5">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomcalleprin">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CALLE PRINCIPAL:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtnombrecalleprin">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombrecalleprinKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator6">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtnombrecallesec">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombrecallesecKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator7">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomcallesec">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CALLE SECUNDARIA:"/>
           </Properties>
         </Component>
       </SubComponents>
