@@ -28,13 +28,11 @@ public class Login extends javax.swing.JFrame {
     ModeloPersona mp = new ModeloPersona();
     ModeloBibliotecario mb = new ModeloBibliotecario();
     ModeloEstudiante me = new ModeloEstudiante();
-    ControladorUsuario con = new ControladorUsuario();
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.CEDULA = txtuser.getText().trim();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -308,7 +306,6 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public final String CEDULA;
     private void labelbtnregistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelbtnregistroMouseClicked
         Registrarse reg = new Registrarse(null, true);
         reg.setLocationRelativeTo(null);
