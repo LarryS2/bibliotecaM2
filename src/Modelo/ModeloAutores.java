@@ -102,7 +102,6 @@ public class ModeloAutores {
             ps.setString(4, autor.getPrimer_apellido());
             ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
-
             psaut.setInt(1, autor.getLengua_materna());
             psaut.setInt(2, autor.getPais_origen());
 
@@ -124,6 +123,7 @@ public class ModeloAutores {
     *Método para modificar autor//
     *
      */
+    
     public boolean ModificarAutor(Autor autor) {
 
         PreparedStatement ps;

@@ -6,6 +6,7 @@ public class Seccion {
     private String codigo_zona;
     private String descripcion;
     private String nombre_zona;
+    private int id_cate_zona;
     private boolean Estado;
 
     public Seccion() {
@@ -15,16 +16,20 @@ public class Seccion {
         this.codigo_zona = codigo_zona;
     }
 
-    public Seccion(int id, String nombre_zona) {
-        this.id = id;
-        this.nombre_zona = nombre_zona;
-    }
-    
     public Seccion(int id, String codigo_zona, String descripcion, String nombre_zona) {
         this.id = id;
         this.codigo_zona = codigo_zona;
         this.descripcion = descripcion;
         this.nombre_zona = nombre_zona;
+    }
+
+    public Seccion(int id, String codigo_zona, String descripcion, String nombre_zona, int id_cate_zona, boolean Estado) {
+        this.id = id;
+        this.codigo_zona = codigo_zona;
+        this.descripcion = descripcion;
+        this.nombre_zona = nombre_zona;
+        this.id_cate_zona = id_cate_zona;
+        this.Estado = Estado;
     }
 
     public int getId() {
@@ -59,6 +64,14 @@ public class Seccion {
         this.nombre_zona = nombre_zona;
     }
 
+    public int getId_cate_zona() {
+        return id_cate_zona;
+    }
+
+    public void setId_cate_zona(int id_cate_zona) {
+        this.id_cate_zona = id_cate_zona;
+    }
+
     public boolean isEstado() {
         return Estado;
     }
@@ -69,7 +82,7 @@ public class Seccion {
 
     @Override
     public String toString() {
-        return "Seccion{" + "id=" + id + ", codigo_zona=" + codigo_zona + ", descripcion=" + descripcion + ", nombre_zona=" + nombre_zona + '}';
+        return nombre_zona;
     }
     
     public boolean ValidarNombre(String nom)
@@ -81,6 +94,4 @@ public class Seccion {
     {
         return desc.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
-
-    
 }

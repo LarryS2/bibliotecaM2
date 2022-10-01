@@ -150,7 +150,7 @@
                                                       </Group>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="txtautor1" max="32767" attributes="0"/>
+                                                          <Component id="txtnumEjem" max="32767" attributes="0"/>
                                                           <Component id="comboeditorial" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -229,7 +229,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtautor1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="txtnumEjem" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                           <Component id="labelautor1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -631,7 +631,7 @@
                 <Property name="text" type="java.lang.String" value="N&#xba; EJEMPLARES:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtautor1">
+            <Component class="javax.swing.JTextField" name="txtnumEjem">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>

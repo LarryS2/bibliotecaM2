@@ -19,6 +19,7 @@ public class ModeloSeccion {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
+        
         ArrayList<Seccion> listaSeccion = new ArrayList<>();
         try {
 
@@ -80,13 +81,15 @@ public class ModeloSeccion {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "INSERT INTO seccion (codigo_sec, nombre_sec, desc_sec, estado_sec) VALUES (?,?,?,False)";
+        String sql = "INSERT INTO seccion (codigo_sec, nombre_sec, desc_sec, id_cat_sec, estado_sec) VALUES (?,?,?,?,False)";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, sec.getCodigo_zona());
             ps.setString(2, sec.getNombre_zona());
             ps.setString(3, sec.getDescripcion());
+            ps.setInt(4, sec.getId_cate_zona());
+            
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -106,7 +109,7 @@ public class ModeloSeccion {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "UPDATE seccion SET codigo_sec=?, nombre_sec=?, descripcion_sec=? WHERE id_sec=?";
+        String sql = "UPDATE seccion SET codigo_sec=?, nombre_sec=?, desc_sec=? WHERE id_sec=?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -213,7 +216,7 @@ public class ModeloSeccion {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_sec,codigo_sec,nombre_sec,desc_sec FROM seccion WHERE estado_sec = False";
+        String sql = "SELECT id_sec, codigo_sec, nombre_sec, desc_sec, id_cat_sec FROM seccion WHERE estado_sec = False";
         modelo = new DefaultTableModel();
         Ventana_Seccion.tablaseccion.setModel(modelo);
 
@@ -226,6 +229,7 @@ public class ModeloSeccion {
             modelo.addColumn("CODIGO");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("DESCRIPCION");
+            modelo.addColumn("CATEGORÍA");
 
             while (rs.next()) {
                 Object[] filas = new Object[columns];

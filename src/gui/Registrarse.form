@@ -50,73 +50,73 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelced" min="-2" pref="63" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jSeparator1" max="32767" attributes="0"/>
+                                  <Component id="txtcedula" pref="210" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelnom" min="-2" pref="63" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtprimernombre" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelape" min="-2" pref="63" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtprimerapellido" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jSeparator9" max="32767" attributes="0"/>
+                              <Component id="txtnombresegundo" alignment="0" pref="177" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="labeltel1" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="radiomasculino" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="radiofemenino" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelfecha" min="-2" pref="132" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="fecha_nac_chooser" min="-2" pref="147" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelced" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSeparator1" max="32767" attributes="0"/>
-                                          <Component id="txtcedula" pref="210" max="32767" attributes="0"/>
-                                      </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labeltel" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txttelefono" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labeltel" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txttelefono" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelmail" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtemail" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelnom" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtprimernombre" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelape" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtprimerapellido" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jSeparator9" max="32767" attributes="0"/>
-                                      <Component id="txtnombresegundo" alignment="0" pref="177" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labelmail" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtemail" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelapesegundo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jSeparator10" max="32767" attributes="0"/>
+                              <Component id="jSeparator14" max="32767" attributes="0"/>
                               <Component id="txtapellidosegundo" pref="167" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -125,17 +125,49 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labeltiposa1" min="-2" pref="102" max="-2" attributes="0"/>
-                              <Component id="labeltiposa2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labeltiposa" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="combotiposangre" max="32767" attributes="0"/>
-                              <Component id="jSeparator6" max="32767" attributes="0"/>
-                              <Component id="txtpassword" max="32767" attributes="0"/>
-                              <Component id="txtpasswordrep" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jSeparator7" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labeltiposa" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="labelciud" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="comboCiudad" max="32767" attributes="0"/>
+                                      <Component id="combotiposangre" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labelcallepri" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelcallesec" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Component id="labeltiposa1" min="-2" pref="102" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="txtcallesec" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
+                                              <Component id="jSeparator13" alignment="1" min="-2" pref="216" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtcallepri" max="32767" attributes="0"/>
+                                      <Component id="jSeparator11" max="32767" attributes="0"/>
+                                      <Component id="jSeparator6" max="32767" attributes="0"/>
+                                      <Component id="txtpassword" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labelnomzona" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtanomzona" max="32767" attributes="0"/>
+                                      <Component id="jSeparator12" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -145,25 +177,24 @@
                           <Component id="btnpanelcancelar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="labeltiposa2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtpasswordrep" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jSeparator7" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="panelsuperior" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelnomsegundo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labeldire" min="-2" pref="63" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSeparator8" min="-2" pref="210" max="-2" attributes="0"/>
-                                      <Component id="txtdireccion" min="-2" pref="210" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
+                          <Component id="labelnomsegundo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -191,47 +222,96 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="labelnom" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtprimernombre" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="labelnom" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtprimernombre" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="comboCiudad" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelciud" min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelnomsegundo" alignment="3" max="32767" attributes="0"/>
-                      <Component id="txtnombresegundo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jSeparator9" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelnomsegundo" alignment="3" max="32767" attributes="0"/>
+                              <Component id="txtnombresegundo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator9" min="-2" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtanomzona" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labelnomzona" alignment="3" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator12" min="-2" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelape" alignment="0" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="txtprimerapellido" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="labeltiposa1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="labelape" alignment="0" pref="29" max="32767" attributes="0"/>
+                              <Component id="txtprimerapellido" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtapellidosegundo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="labelapesegundo" alignment="3" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator10" min="-2" pref="10" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labeltiposa2" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtcallepri" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labelcallepri" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator11" min="-2" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelapesegundo" alignment="3" max="32767" attributes="0"/>
+                          <Component id="labelcallesec" alignment="3" max="32767" attributes="0"/>
+                          <Component id="txtapellidosegundo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txtcallesec" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator13" min="-2" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator14" min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtpassword" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labeltiposa1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtpasswordrep" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="labeltiposa2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnregistro" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnpanelcancelar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="labelmail" alignment="0" pref="29" max="32767" attributes="0"/>
                               <Component id="txtemail" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
@@ -239,47 +319,24 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="labeltel" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txttelefono" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="labeldire" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtdireccion" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator8" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="labelfecha" max="32767" attributes="0"/>
-                                      <Component id="fecha_nac_chooser" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="labeltel1" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="radiomasculino" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="radiofemenino" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="btnregistro" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnpanelcancelar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labeltel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txttelefono" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="txtpassword" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtpasswordrep" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labelfecha" max="32767" attributes="0"/>
+                              <Component id="fecha_nac_chooser" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labeltel1" alignment="3" max="32767" attributes="0"/>
+                              <Component id="radiomasculino" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="radiofemenino" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -651,7 +708,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="labeldire">
+        <Component class="javax.swing.JLabel" name="labelciud">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto" size="11" style="0"/>
@@ -659,20 +716,8 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N::"/>
+            <Property name="text" type="java.lang.String" value="CIUDAD:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtdireccion">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtdireccionKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator8">
         </Component>
         <Component class="javax.swing.JLabel" name="labelnomsegundo">
           <Properties>
@@ -718,7 +763,86 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtapellidosegundoKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator10">
+        <Component class="javax.swing.JComboBox" name="comboCiudad">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Ciudad&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtcallepri">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtcallepriKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator11">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelcallepri">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CALLE PRINCIPAL:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomzona">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="NOMBRE DE ZONA:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtanomzona">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtanomzonaKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator12">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelcallesec">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CALLE SECUNDARIA:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtcallesec">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtcallesecKeyTyped"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator13">
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator14">
         </Component>
       </SubComponents>
     </Container>

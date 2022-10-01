@@ -50,36 +50,43 @@
               <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labeldesc" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelnomb" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="labelid" min="-2" pref="56" max="-2" attributes="0"/>
-                                  <Component id="labelcod" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labeldesc" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelnomb" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="labelid" min="-2" pref="56" max="-2" attributes="0"/>
+                                      <Component id="labelcod" min="-2" pref="63" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="campoid" min="-2" pref="217" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="combogenero" max="32767" attributes="0"/>
+                                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtdesc" alignment="0" pref="217" max="32767" attributes="0"/>
+                                          <Component id="jSeparator7" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtcodigo" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtnombrezona" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtdesc" alignment="0" pref="217" max="32767" attributes="0"/>
-                                  <Component id="jSeparator7" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtcodigo" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtnombrezona" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="campoid" min="-2" pref="217" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="557" max="-2" attributes="0"/>
+                          <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="0" min="-2" pref="557" max="-2" attributes="0"/>
-                      <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelnomb1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -103,46 +110,46 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="labelid" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="campoid" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="labelcod" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                                      <Component id="txtcodigo" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="labelnomb" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="txtnombrezona" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                  <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtdesc" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="labeldesc" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labelid" alignment="0" max="32767" attributes="0"/>
+                              <Component id="campoid" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelcod" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="txtcodigo" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelnomb" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="txtnombrezona" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelnomb1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="combogenero" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtdesc" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="labeldesc" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="checkCancellDelete" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="187" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="btnagregar" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnagregar" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkFiltro" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnactualizar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -155,7 +162,7 @@
                           <Component id="btnrvolver" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -352,7 +359,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -392,7 +399,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -432,7 +439,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -472,7 +479,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="BUSCAR"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -512,7 +519,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="VOLVER"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -568,7 +575,7 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="LIMPIAR"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -590,6 +597,30 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkFiltroMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="combogenero">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Categoria&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelnomb1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CATEGOR&#xcd;A:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

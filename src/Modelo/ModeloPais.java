@@ -44,6 +44,37 @@ public class ModeloPais {
         return listaPais;
     }
     
+    
+    public ArrayList<Ciudad> getCiudad() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Ciudad> listaCiudad = new ArrayList<>();
+        
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT id_ciu, id_ciu_pais, nombre_ciu FROM ciudad WHERE estado_ciu = False");
+            
+            while(rs.next()){
+                Ciudad ciudad = new Ciudad();
+                ciudad.setId_ciudad(rs.getInt("id_ciu"));
+                ciudad.setId_pais_ciu(rs.getInt("id_ciu_pais"));
+                ciudad.setNombre_ciudad(rs.getString("nombre_ciu"));
+                listaCiudad.add(ciudad);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return listaCiudad;
+    }
+    
+    
     public ArrayList<Pais> getPaisEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
