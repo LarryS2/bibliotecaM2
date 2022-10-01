@@ -47,6 +47,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     int idl;
     public Ventana_Libro() {
         initComponents();
+        AddHelp();
         llenarAutor();
         llenarDewey();
         llenarCategoria();
@@ -55,6 +56,19 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         ModeloLibro.getTabla();
     }
 
+    
+    public final void AddHelp(){
+        txtcodigo.setToolTipText("Un código de 13 dígitos");
+        txttitulo.setToolTipText("Título de la obra");
+        comboAutor.setToolTipText("Elija el nombre del autor de la obra");
+        txtisbn.setToolTipText("El ISBN de la obra deberá ser de 13 dígitos (Generalmente está inscrito en las primeras hojas)");
+        combodewey.setToolTipText("El Dewey referencia la categoría del libro");
+        txtpags.setToolTipText("El rango de es de 10 a 9999");
+        comboeditorial.setToolTipText("Elija el nombre de la editorial del libro");
+        txtareadescripcion.setToolTipText("Un breve resumen del contenido del libro (Opcional)");
+    }
+    
+    
     
     public void llenarEditorial(){
         ModeloEditorial modedi = new ModeloEditorial();
@@ -73,6 +87,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             combodewey.addItem(new Dewey(listadew.get(i).getId(), listadew.get(i).getNombre_super_cat()));
         }  
     }
+
     public void llenarCategoria(){
         ModeloCategoria modcat = new ModeloCategoria();
         ArrayList<Categoria> listcat = modcat.getCategoria();
@@ -297,6 +312,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         labelidlibro.setText(null);
         txtbusqueda.setText(null);
         txtisbn.setText(null);
+        fecha_publi_chooser.setCalendar(null);
         txtareadescripcion.setText(null);
         combodewey.setSelectedItem(0);
         txtpags.setText(null);
@@ -332,7 +348,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         btnrvolver = new javax.swing.JPanel();
         btnlabelvolver = new javax.swing.JLabel();
         labelautor1 = new javax.swing.JLabel();
-        txtautor1 = new javax.swing.JTextField();
+        txtnumEjem = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablalibros = new javax.swing.JTable();
@@ -509,8 +525,8 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         labelautor1.setForeground(new java.awt.Color(102, 102, 102));
         labelautor1.setText("Nº EJEMPLARES:");
 
-        txtautor1.setBorder(null);
-        txtautor1.setOpaque(false);
+        txtnumEjem.setBorder(null);
+        txtnumEjem.setOpaque(false);
 
         tablalibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -706,7 +722,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                                     .addComponent(labeleditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtautor1)
+                                                    .addComponent(txtnumEjem)
                                                     .addComponent(comboeditorial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                         .addGroup(backroundLayout.createSequentialGroup()
                                             .addGap(101, 101, 101)
@@ -761,7 +777,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtautor1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtnumEjem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelautor1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -976,10 +992,10 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     private javax.swing.JLabel labeltitulo;
     public static javax.swing.JTable tablalibros;
     private javax.swing.JTextArea txtareadescripcion;
-    private javax.swing.JTextField txtautor1;
     private javax.swing.JTextField txtbusqueda;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JFormattedTextField txtisbn;
+    private javax.swing.JTextField txtnumEjem;
     private javax.swing.JTextField txtpags;
     private javax.swing.JTextField txttitulo;
     // End of variables declaration//GEN-END:variables
