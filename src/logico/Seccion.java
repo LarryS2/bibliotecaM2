@@ -15,6 +15,11 @@ public class Seccion {
     public Seccion(String codigo_zona) {
         this.codigo_zona = codigo_zona;
     }
+    
+    public Seccion(int id, String nombre_zona){
+        this.id = id;
+        this.nombre_zona = nombre_zona;
+    }
 
     public Seccion(int id, String codigo_zona, String descripcion, String nombre_zona) {
         this.id = id;

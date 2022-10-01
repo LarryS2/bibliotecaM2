@@ -156,8 +156,6 @@ public final class Registrarse extends javax.swing.JFrame {
                                     } else {
                                         JOptionPane.showMessageDialog(null, "EL NÚMERO DE CÉDULA NO ES VÁLIDO");
                                     }
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "LAS CONTRASEÑAS NO COINCIDEN");
                                 }
                             }
                         }

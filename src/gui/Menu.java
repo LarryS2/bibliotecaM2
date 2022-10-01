@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.JOptionPane;
 import logico.Tiempo;
-import java.util.*;
 
 /**
  *
@@ -15,8 +14,6 @@ public final class Menu extends javax.swing.JFrame{
     public Menu() {
         initComponents();
         ShowTime();
-        hilo = new Thread(this);
-        hilo.start();
     }
     
     Tiempo time = new Tiempo();
