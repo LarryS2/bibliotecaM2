@@ -1,10 +1,10 @@
 package gui;
 
 import Modelo.ModeloAutores;
-import Modelo.ModeloCategoria;
 import Modelo.ModeloDewey;
 import Modelo.ModeloEditorial;
 import Modelo.ModeloLibro;
+import Modelo.ModeloSeccion;
 import Modelo.Modeloidioma;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -28,11 +28,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logico.Autor;
-import logico.Categoria;
 import logico.Dewey;
 import logico.Editorial;
 import logico.Idioma;
 import logico.Libro;
+import logico.Seccion;
 
 /**
  *
@@ -49,7 +49,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         initComponents();
         llenarAutor();
         llenarDewey();
-        llenarCategoria();
+        llenarSeccion();
         llenarIdioma();
         llenarEditorial();
         ModeloLibro.getTabla();
@@ -73,12 +73,12 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             combodewey.addItem(new Dewey(listadew.get(i).getId(), listadew.get(i).getNombre_super_cat()));
         }  
     }
-    public void llenarCategoria(){
-        ModeloCategoria modcat = new ModeloCategoria();
-        ArrayList<Categoria> listcat = modcat.getCategoria();
-        combogenero.removeAllItems();
+    public void llenarSeccion(){
+        ModeloSeccion modsec = new ModeloSeccion();
+        ArrayList<Seccion> listcat = modsec.getSeccion();
+        comboSeccion.removeAllItems();
         for(int i = 0; i < listcat.size(); i++){
-            combogenero.addItem(new Categoria(listcat.get(i).getId(), listcat.get(i).getNombre_cat()));
+            comboSeccion.addItem(new Seccion(listcat.get(i).getId(), listcat.get(i).getNombre_zona()));
         }  
     }
     
@@ -112,7 +112,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             String fecha_pub = ((JTextField)fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
             int num_pags = Integer.parseInt(txtpags.getText().trim());
             int idioma = comboidioma.getItemAt(comboidioma.getSelectedIndex()).getId_idioma();
-            int categoria =combogenero.getItemAt(combogenero.getSelectedIndex()).getId();
+            Seccion seccion =comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
             int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
             int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
             boolean estado = false;
@@ -141,7 +141,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                     libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
                                     libro.setNumero_pags(num_pags);
                                     libro.setId_idioma(idioma);
-                                    libro.setId_categoria(categoria);
+                                    libro.setId_seccion(seccion.getId());
                                     libro.setId_editorial(editorial);
                                     libro.setId_autor(autor);
                                     libro.setEstado(estado);
@@ -179,7 +179,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             String fecha_pub = ((JTextField)fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
             int num_pags = Integer.parseInt(txtpags.getText().trim());
             int idioma = comboidioma.getItemAt(comboidioma.getSelectedIndex()).getId_idioma();
-            int categoria =combogenero.getItemAt(combogenero.getSelectedIndex()).getId();
+            Seccion seccion =comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
             int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
             int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
             
@@ -205,7 +205,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                 libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
                                 libro.setNumero_pags(num_pags);
                                 libro.setId_idioma(idioma);
-                                libro.setId_categoria(categoria);
+                                libro.setId_seccion(seccion.getId());
                                 libro.setId_editorial(editorial);
                                 libro.setId_autor(autor);
                                 if (ml.ModificarLibro(libro)) {
@@ -320,7 +320,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         comboidioma = new javax.swing.JComboBox<>();
         labelidioma = new javax.swing.JLabel();
         labelgenero = new javax.swing.JLabel();
-        combogenero = new javax.swing.JComboBox<>();
+        comboSeccion = new javax.swing.JComboBox<>();
         labeleditorial = new javax.swing.JLabel();
         labeldescripcion = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -418,7 +418,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         labelgenero.setForeground(new java.awt.Color(102, 102, 102));
         labelgenero.setText("CATEGORÍA:");
 
-        combogenero.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboSeccion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         labeleditorial.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labeleditorial.setForeground(new java.awt.Color(102, 102, 102));
@@ -665,7 +665,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                 .addGroup(backroundLayout.createSequentialGroup()
                                     .addComponent(labelgenero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(combogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(comboSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(backroundLayout.createSequentialGroup()
                                     .addComponent(labelidioma, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -805,7 +805,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                             .addComponent(labelidioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(combogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelgenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(104, 104, 104))
                     .addGroup(backroundLayout.createSequentialGroup()
@@ -831,7 +831,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
         );
 
         pack();
@@ -868,13 +868,13 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             String titulo = (String)tablalibros.getValueAt(fila, 2);
             String desc = (String)tablalibros.getValueAt(fila, 3); 
             String isbn = (String)tablalibros.getValueAt(fila, 4);
-            String dewey = (String)tablalibros.getValueAt(fila, 5).toString();
+            Dewey dewey = new Dewey();
             Date fecha_p = Date.valueOf((String)tablalibros.getValueAt(fila, 6).toString());
             String desca = (String)tablalibros.getValueAt(fila, 7).toString();
-            String idioma = (String)tablalibros.getValueAt(fila, 8).toString();
-            String categoria = (String)tablalibros.getValueAt(fila, 9).toString();
-            String autor = (String)tablalibros.getValueAt(fila, 10).toString();
-            String editorial = (String)tablalibros.getValueAt(fila, 11).toString();
+            Idioma idi = new Idioma();
+            Seccion sec = new Seccion();
+            Autor aut = new Autor();
+            Editorial edi = new Editorial();
 
 
 
@@ -886,11 +886,43 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             txtareadescripcion.setText(desc);
             fecha_publi_chooser.setDate(fecha_p);
             txtpags.setText(desca);
-            comboAutor.setSelectedItem(autor);
-            comboeditorial.setSelectedItem(editorial);
-            combogenero.setSelectedItem(categoria);
-            comboidioma.setSelectedItem(idioma); 
-            
+            dewey.setNombre_super_cat((String)tablalibros.getValueAt(fila, 5).toString());
+            idi.setNombre_idioma((String)tablalibros.getValueAt(fila, 8));
+            sec.setNombre_zona((String)tablalibros.getValueAt(fila, 9));
+            String cadena = (String)tablalibros.getValueAt(fila, 10);
+            String[] partes = cadena.split(" ");
+            aut.setPrimer_nombre(partes[0]);
+            edi.setNombre((String)tablalibros.getValueAt(fila, 11).toString());
+            for(int i = 0; i < comboAutor.getMaximumRowCount(); i++){
+                if(aut.getPrimer_nombre().equals(comboAutor.getItemAt(i).getPrimer_nombre())){
+                    comboAutor.setSelectedIndex(i);
+                    i = comboAutor.getMaximumRowCount();
+                }
+            }
+            for(int i = 0; i < comboeditorial.getMaximumRowCount(); i++){
+                if(edi.getNombre().equals(comboeditorial.getItemAt(i).getNombre())){
+                    comboeditorial.setSelectedIndex(i);
+                    i = comboeditorial.getMaximumRowCount();
+                }
+            }
+            for(int i = 0; i < comboidioma.getMaximumRowCount(); i++){
+                if(idi.getNombre_idioma().equals(comboidioma.getItemAt(i).getNombre_idioma())){
+                    comboidioma.setSelectedIndex(i);
+                    i = comboidioma.getMaximumRowCount();
+                }
+            }
+            for(int i = 0; i < combodewey.getMaximumRowCount(); i++){
+                if(dewey.getNombre_super_cat().equals(combodewey.getItemAt(i).getNombre_super_cat())){
+                    combodewey.setSelectedIndex(i);
+                    i = combodewey.getMaximumRowCount();
+                }
+            }
+            for(int i = 0; i < comboSeccion.getMaximumRowCount(); i++){
+                if(sec.getNombre_zona().equals(comboSeccion.getItemAt(i).getNombre_zona())){
+                    comboSeccion.setSelectedIndex(i);
+                    i = comboSeccion.getMaximumRowCount();
+                }
+            }
         }
     }catch(HeadlessException | NumberFormatException | NullPointerException e){
         System.err.println(e); 
@@ -941,10 +973,10 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     private javax.swing.JPanel btnregistrolibro;
     private javax.swing.JPanel btnrvolver;
     private javax.swing.JComboBox<Autor> comboAutor;
+    private javax.swing.JComboBox<Seccion> comboSeccion;
     private javax.swing.JComboBox<Dewey
     > combodewey;
     private javax.swing.JComboBox<Editorial> comboeditorial;
-    private javax.swing.JComboBox<Categoria> combogenero;
     private javax.swing.JComboBox<Idioma> comboidioma;
     private com.toedter.calendar.JDateChooser fecha_publi_chooser;
     private javax.swing.JPanel jPanel1;

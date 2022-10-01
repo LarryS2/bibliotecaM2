@@ -471,7 +471,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="separatorId" min="-2" pref="90" max="-2" attributes="0"/>
-                                              <Component id="campoId" min="-2" pref="90" max="-2" attributes="0"/>
+                                              <Component id="campoIdSerie" min="-2" pref="90" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -500,7 +500,7 @@
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lbelID" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoId" min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="campoIdSerie" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="separatorId" min="-2" pref="10" max="-2" attributes="0"/>
@@ -543,7 +543,10 @@
             <Property name="text" type="java.lang.String" value="ID:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="campoId">
+        <Component class="javax.swing.JLabel" name="campoIdSerie">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="separatorId">
         </Component>

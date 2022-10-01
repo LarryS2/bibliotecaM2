@@ -5,7 +5,7 @@ public class Editorial {
     private int id;
     private String codigo;
     private String nombre;
-    private String direccion;
+    private int id_pais;
     private String url_editorial;
     private String tipo_editorial;
     private String nombre_rep;
@@ -25,11 +25,11 @@ public class Editorial {
         this.nombre = nombre;
     }
 
-    public Editorial(int id, String codigo, String nombre, String direccion, String url_editorial, String tipo_editorial, String nombre_rep, String apellido_rep, boolean estado) {
+    public Editorial(int id, String codigo, String nombre, int id_pais, String url_editorial, String tipo_editorial, String nombre_rep, String apellido_rep, boolean estado) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
-        this.direccion = direccion;
+        this.id_pais = id_pais;
         this.url_editorial = url_editorial;
         this.tipo_editorial = tipo_editorial;
         this.nombre_rep = nombre_rep;
@@ -61,12 +61,12 @@ public class Editorial {
         this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public int getId_pais() {
+        return id_pais;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setId_pais(int id_pais) {
+        this.id_pais = id_pais;
     }
 
     public String getUrl_editorial() {

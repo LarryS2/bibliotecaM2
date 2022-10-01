@@ -18,9 +18,9 @@ public class ModeloLibro {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO libro (CODIGO_LIB, TITULO, DESCRIPCION, ISBN, DEWEY, FECHA_PUBLICACION,"
-                + "NUM_PAGS, ID_AUTOR, ID_IDIOMA, ID_CATEGORIA, ID_EDITORIAL, ESTADO) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO libro (codigo_lib, titulo_lib, desc_lib, isbn_lib, fecha_pub_lib, num_pags,"
+                + "id_aut_lib, id_dew_lib, id_idioma_lib, id_sec_lib, id_edi_lib) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             
             ps = con.prepareStatement(sql);
@@ -28,16 +28,15 @@ public class ModeloLibro {
             ps.setString(2, lib.getTitulo());
             ps.setString(3, lib.getDescripcion());
             ps.setString(4, lib.getIsbn());
-            ps.setInt(5, lib.getDewey());
-            ps.setDate(6, (Date) lib.getFecha_Publicacion());
-            ps.setInt(7, lib.getNumero_pags());
-            ps.setInt(8, lib.getId_autor());
+            ps.setDate(5, (Date) lib.getFecha_Publicacion());
+            ps.setInt(6, lib.getNumero_pags());
+            ps.setInt(7, lib.getId_autor());
+            ps.setInt(8, lib.getDewey());
             ps.setInt(9, lib.getId_idioma());
-            ps.setInt(10, lib.getId_categoria());
+            ps.setInt(10, lib.getId_seccion());
             ps.setInt(11, lib.getId_editorial());
-            ps.setBoolean(12, lib.isEstado());
-            ps.execute();
-            return true;
+            
+            return ps.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -56,9 +55,9 @@ public class ModeloLibro {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE libro SET CODIGO=?, TITULO=?, DESCRIPCION=?, ISBN=?, DEWEY=?,"
-                + " FECHA_PUBLICACION=?, NUM_PAGS=?, ID_AUTOR=?, ID_IDIOMA=?, ID_CATEGORIA=?, "
-                + "ID_EDITORIAL=? WHERE ID=?";
+        String sql = "UPDATE libro SET codigo_lib=?, titulo_lib=?, desc_lib=?, isbn_lib=?, id_dew_lib=?,"
+                + " fecha_pub_lib=?, num_pags=?, id_aut_lib=?, id_idioma_lib=?, id_sec_lib=?, "
+                + "id_edi_lib=? WHERE id_lib=?";
         try {
             
             ps = con.prepareStatement(sql);
@@ -71,7 +70,7 @@ public class ModeloLibro {
             ps.setInt(7, lib.getNumero_pags());
             ps.setInt(8, lib.getId_autor());
             ps.setInt(9, lib.getId_idioma());
-            ps.setInt(10, lib.getId_categoria());
+            ps.setInt(10, lib.getId_seccion());
             ps.setInt(11, lib.getId_editorial());
             ps.setInt(12, lib.getId());
             ps.executeUpdate();
@@ -93,7 +92,10 @@ public class ModeloLibro {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT * FROM libro";
+        String sql = "SELECT l.id_lib, l.codigo_lib, l.titulo_lib, l.desc_lib, d.nombre_sup_cat_dew, l.fecha_pub_lib, l.num_pags, "
+                + "CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), i.nombre_idi, e.nombre_edi "
+                + "FROM libro l, idioma i, dewey d, persona p, autor a, editorial e "
+                + "WHERE p.id_per = a.id_per_aut AND a.id_aut = l.id_aut_lib AND l.id_dew_lib = d.id_dew AND e.id_edi = l.id_edi_lib AND i.id_idi = l.id_idioma_lib";
         modelo = new DefaultTableModel();
         Ventana_Libro.tablalibros.setModel(modelo);
         
@@ -112,7 +114,6 @@ public class ModeloLibro {
             modelo.addColumn("Nº PÁGINAS");
             modelo.addColumn("AUTOR");
             modelo.addColumn("IDIOMA");
-            modelo.addColumn("CATEGORÍA");
             modelo.addColumn("EDITORIAL");
             
             while(rs.next()){

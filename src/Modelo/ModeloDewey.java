@@ -75,7 +75,7 @@ public class ModeloDewey {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO dewey (codigo_dew, nombre_cat_dew, nombre_sup_cat_dew, descripcion_dew, estado_dew)"
+        String sql = "INSERT INTO dewey (codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew, estado_dew)"
                 + " VALUES (?, ?, ?, ?, False)";
         
         try {

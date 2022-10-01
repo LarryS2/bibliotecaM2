@@ -8,15 +8,13 @@ import java.util.*;
  *
  * @author santi
  */
-public final class Menu extends javax.swing.JFrame implements Runnable{
+public final class Menu extends javax.swing.JFrame{
     String hora, minutos,segundos;
     Thread hilo;
     
     public Menu() {
         initComponents();
         ShowTime();
-        hilo = new Thread(this);
-        hilo.start();
     }
     
     Tiempo time = new Tiempo();
@@ -25,7 +23,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
         labelfecha.setText(time.fecha_completa); 
     }
     
-    public void hora(){
+    /*public void hora(){
         Calendar calendar = new GregorianCalendar();
         Date horaactual = new Date();
         calendar.setTime(horaactual);
@@ -41,7 +39,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
             hora();
             labelhora.setText(hora+":"+minutos+":"+segundos);
         }
-    }
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
