@@ -26,7 +26,6 @@ public class ModeloEstudiante {
 
         String sqlest = "INSERT INTO estudiante (id_per_est, password_est, estado_est)"
                 + " VALUES ((SELECT id_per FROM persona ORDER BY id_per DESC LIMIT 1), ?, ?)";
-
         try {
 
             ps = con.prepareStatement(sql);
@@ -44,7 +43,6 @@ public class ModeloEstudiante {
             ps.setInt(11, est.getTipo_usuario());
             //ps.setInt(12, Integer.parseInt(est.getDireccion()));
             ps.setBoolean(12, est.isEstado());
-
             psest.setString(1, est.getPassword());
             psest.setBoolean(2, est.isEstado());
             int n = ps.executeUpdate();

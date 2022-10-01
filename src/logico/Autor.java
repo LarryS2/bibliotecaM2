@@ -28,8 +28,8 @@ public class Autor extends Persona {
         super(id, nombre, apellido);
     }
 
-    public Autor(int id_aut, int lengua_materna, int pais_origen, int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
-        super(id, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nac, Estado);
+    public Autor(int id_aut, int lengua_materna, int pais_origen, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
+        super(cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nac, Estado);
         this.id_autor = id_aut;
         this.lengua_materna = lengua_materna;
         this.pais_origen = pais_origen;

@@ -169,7 +169,7 @@ public class ModeloCategoria {
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, cat.getCodigo_cat());
+            ps.setInt(1, cat.getId());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -185,19 +185,17 @@ public class ModeloCategoria {
     }
     
     public boolean BuscarCategoria(Categoria cat){
-        
         PreparedStatement ps;
-        ResultSet rs = null;
         Connection con = Conexion.getConnection();
         
-        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat=?";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat like ? OR nombre_cat like ?";
         
         try {
             
             ps = con.prepareStatement(sql);
             ps.setString(1, cat.getCodigo_cat());
-            ps.execute();
-            return true;
+            ps.setString(2, cat.getCodigo_cat());
+            return ps.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -273,12 +271,13 @@ public class ModeloCategoria {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat=?";
+        String sql = "SELECT id_cat, codigo_cat, nombre_cat FROM categoria WHERE codigo_cat like ? OR nombre_cat like ?";
         modelo = new DefaultTableModel();
         Ventana_Categoria.tablacategoria.setModel(modelo);
         try{
             st = con.prepareStatement(sql);
             st.setString(1, cat.getCodigo_cat());
+            st.setString(2, cat.getCodigo_cat());
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
             int columns = rsMd.getColumnCount();

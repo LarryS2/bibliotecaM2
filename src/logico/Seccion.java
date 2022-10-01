@@ -94,6 +94,4 @@ public class Seccion {
     {
         return desc.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
-
-    
 }

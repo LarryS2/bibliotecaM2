@@ -11,6 +11,27 @@ import logico.Detalle_Pedido;
 import logico.Libro;
 
 public class ModeloPedido {
+    
+    public String NoSerie(){
+        String serie = "";
+        Connection con = Conexion.getConnection();
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        String sql ="SELECT MAX(codigo_enc_ped) FROM encabezado_pedido";
+        try{
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                serie = rs.getString(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return serie;
+    }
+    
     public static int getIdPerson(String cedula){
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
@@ -43,13 +64,15 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "INSERT INTO pedido (id_est_ped, fecha_inicio_ped, fecha_fin_ped, estado_ped) VALUES (?, ?, ?, false)";
+        String sql = "INSERT INTO encabezado_pedido (codigo_enc_ped, fecha_inicio_ped, fecha_fin_ped, id_cliente_ped, total_enc_ped, estado_ped) VALUES (?, ?, ?, ?, ?, False)";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pedido.getId_est());
-            ps.setDate(2,(Date) pedido.getFecha_inicio_pedido());
-            ps.setDate(3,(Date) pedido.getFecha_fin_pedido());
+            ps.setString(1, pedido.getCodigo_pedido());
+            ps.setDate(2, pedido.getFecha_inicio_pedido());
+            ps.setDate(3, pedido.getFecha_fin_pedido());
+            ps.setInt(4, pedido.getId_est());
+            ps.setInt(5, pedido.getTotal());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -68,40 +91,15 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pedido SET id_est_ped = ?, fecha_inicio_ped = ?, fecha_fin_ped = ? WHERE id_ped = ?";
+        String sql = "UPDATE encabezado_pedido SET id_cliente_ped = ?, fecha_inicio_ped = ?, fecha_fin_ped = ?, total_enc_ped = ? WHERE id_enc_ped = ?";
         
         try{
             ps = con.prepareCall(sql);
             ps.setInt(1, pedido.getId_est());
             ps.setDate(2, (Date) pedido.getFecha_inicio_pedido());
             ps.setDate(3, (Date) pedido.getFecha_fin_pedido());
-            ps.setInt(4, pedido.getId_pedido());
-            ps.execute();
-            return true;
-        }catch(SQLException e){
-            System.out.println(e);
-            return false;
-        }finally {
-            try {
-                con.close();
-            } catch (SQLException sqle) {
-                System.err.println(sqle);
-            }
-        }
-    }
-    
-    public boolean ActualizarEliminado(Pedido pedido){
-        PreparedStatement ps;
-        Connection con = Conexion.getConnection();
-        
-        String sql = "UPDATE pedido SET id_est_ped = ?, fecha_inicio_ped = ?, fecha_fin_ped = ?, estado_ped = ? WHERE id_ped = ?";
-        
-        try{
-            ps = con.prepareCall(sql);
-            ps.setInt(1, pedido.getId_est());
-            ps.setDate(2, (Date) pedido.getFecha_inicio_pedido());
-            ps.setDate(3, (Date) pedido.getFecha_fin_pedido());
-            ps.setBoolean(4, pedido.isEstado());
+            ps.setInt(4, pedido.getTotal());
+            ps.setInt(5, pedido.getId_pedido());
             ps.execute();
             return true;
         }catch(SQLException e){

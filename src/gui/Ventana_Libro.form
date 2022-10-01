@@ -28,7 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane3" alignment="0" pref="956" max="32767" attributes="0"/>
+          <Component id="jScrollPane3" alignment="0" pref="937" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -96,7 +96,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="labelgenero" min="-2" pref="63" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="combogenero" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="comboSeccion" min="-2" pref="210" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -287,7 +287,7 @@
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="combogenero" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="comboSeccion" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="labelgenero" alignment="3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
@@ -447,7 +447,7 @@
                 <Property name="text" type="java.lang.String" value="CATEGOR&#xcd;A:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="combogenero">
+            <Component class="javax.swing.JComboBox" name="comboSeccion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -457,7 +457,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Categoria&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Seccion&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="labeleditorial">

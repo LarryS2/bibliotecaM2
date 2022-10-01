@@ -9,7 +9,7 @@ public class Libro {
     private int dewey;
     private int id_autor;
     private int id_idioma;
-    private int id_categoria;
+    private int id_seccion;
     private int id_editorial;
     private String titulo;
     private String descripcion;
@@ -31,14 +31,14 @@ public class Libro {
         this.isbn = isbn;
     }
 
-    public Libro(int id, String codigo, String isbn, int dewey, int id_autor, int id_idioma, int id_categoria, int id_editorial, String titulo, String descripcion, Date fecha_Publicacion, int cantidad, int numero_pags, boolean Estado) {
+    public Libro(int id, String codigo, String isbn, int dewey, int id_autor, int id_idioma, int id_seccion, int id_editorial, String titulo, String descripcion, Date fecha_Publicacion, int cantidad, int numero_pags, boolean Estado) {
         this.id = id;
         this.codigo = codigo;
         this.isbn = isbn;
         this.dewey = dewey;
         this.id_autor = id_autor;
         this.id_idioma = id_idioma;
-        this.id_categoria = id_categoria;
+        this.id_seccion = id_seccion;
         this.id_editorial = id_editorial;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -93,12 +93,12 @@ public class Libro {
         this.id_idioma = id_idioma;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
+    public int getId_seccion() {
+        return id_seccion;
     }
 
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setId_seccion(int id_categoria) {
+        this.id_seccion = id_categoria;
     }
 
     public int getId_editorial() {
@@ -167,7 +167,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" + "codigo=" + codigo + ", isbn=" + isbn + ", dewey=" + dewey + ", id_autor=" + id_autor + ", id_idioma=" + id_idioma + ", id_categoria=" + id_categoria + ", id_editorial=" + id_editorial + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fecha_Publicacion=" + fecha_Publicacion + ", cantidad=" + cantidad + ", numero_pags=" + numero_pags + '}';
+        return codigo + " " + isbn + " " + dewey + " =" + id_autor + " =" + id_idioma + " " + id_seccion + " " + id_editorial + " " + titulo + " " + descripcion + " " + fecha_Publicacion + " " + cantidad + " " + numero_pags;
     }
     
     public String mostrar(){

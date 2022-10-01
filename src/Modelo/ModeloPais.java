@@ -344,7 +344,7 @@ public class ModeloPais {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_pais, codigo_pais, nombre_pais, descripcion_pais FROM pais WHERE estado_pais = True";
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais, desc_pais FROM pais WHERE estado_pais = True";
         modelo = new DefaultTableModel();
         Ventana_paises.tablapaises.setModel(modelo);
         try{

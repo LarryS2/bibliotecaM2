@@ -24,14 +24,11 @@ public class ModeloSeccion {
         try {
 
             st = con.createStatement();
-            rs = st.executeQuery("SELECT id_sec, codigo_sec, nombre_sec, id_cat_sec, desc_sec "
-                    + "FROM seccion WHERE estado_sec = False");
+            rs = st.executeQuery("SELECT id_sec, nombre_sec FROM seccion WHERE estado_sec = False");
             while (rs.next()) {
                 Seccion seccion = new Seccion();
-                seccion.setId(rs.getInt("ID"));
-                seccion.setCodigo_zona(rs.getString("CODIGO"));
-                seccion.setNombre_zona(rs.getString("NOMBRE"));
-                seccion.setDescripcion(rs.getString("DESCRIPCION"));
+                seccion.setId(rs.getInt("id_sec"));
+                seccion.setNombre_zona(rs.getString("nombre_sec"));
                 listaSeccion.add(seccion);
             }
 
@@ -55,14 +52,14 @@ public class ModeloSeccion {
 
         try {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID,CODIGO,NOMBRE,DESCRIPCION FROM seccion WHERE ESTADO = True");
+            rs = st.executeQuery("SELECT id_sec, codigo_sec, nombre_sec, desc_sec FROM seccion WHERE estado_sec = True");
 
             while (rs.next()) {
                 Seccion seccion = new Seccion();
-                seccion.setId(rs.getInt("ID"));
-                seccion.setCodigo_zona(rs.getString("CODIGO"));
-                seccion.setNombre_zona(rs.getString("NOMBRE"));
-                seccion.setDescripcion(rs.getString("DESCRIPCION"));
+                seccion.setId(rs.getInt("id_sec"));
+                seccion.setCodigo_zona(rs.getString("codigo_sec"));
+                seccion.setNombre_zona(rs.getString("nombre_sec"));
+                seccion.setDescripcion(rs.getString("desc_sec"));
                 listaSeccion.add(seccion);
 
             }
@@ -139,7 +136,7 @@ public class ModeloSeccion {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "UPDATE seccion SET CODIGO=?, NOMBRE=?, DESCRIPCION=? , ESTADO=? WHERE ID=?";
+        String sql = "UPDATE seccion SET codigo_sec=?, nombre_sec=?, desc_sec=? , estado_sec=? WHERE id_sec=?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -167,7 +164,7 @@ public class ModeloSeccion {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "UPDATE seccion SET ESTADO = True WHERE ID = ?";
+        String sql = "UPDATE seccion SET estado_sec = True WHERE id_sec = ?";
 
         try {
 
@@ -256,7 +253,7 @@ public class ModeloSeccion {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID,CODIGO,NOMBRE,DESCRIPCION FROM seccion WHERE ESTADO = True";
+        String sql = "SELECT id_sec,codigo_sec,nombre_sec,desc_sec FROM seccion WHERE estado_sec = True";
         modelo = new DefaultTableModel();
         Ventana_Seccion.tablaseccion.setModel(modelo);
 
