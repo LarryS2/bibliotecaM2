@@ -24,6 +24,14 @@ public class Pedido {
         this.total = total;
     }
 
+    public Pedido(int id_est, String codigo_pedido, Date fecha_inicio_pedido, Date fecha_fin_pedido, int total) {
+        this.codigo_pedido = codigo_pedido;
+        this.id_est = id_est;
+        this.fecha_inicio_pedido = fecha_inicio_pedido;
+        this.fecha_fin_pedido = fecha_fin_pedido;
+        this.total = total;
+    }
+
     public Pedido(int id_est, Date fecha_inicio_pedido, Date fecha_fin_pedido) {
         this.id_est = id_est;
         this.fecha_inicio_pedido = fecha_inicio_pedido;

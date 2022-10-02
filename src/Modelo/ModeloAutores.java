@@ -28,11 +28,11 @@ public class ModeloAutores {
 
         try {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT p.id_per, p.primer_nombre_per, p.primer_apellido_per FROM persona p, autor a WHERE p.id_per = a.id_per_aut AND p.estado_per = False");
+            rs = st.executeQuery("SELECT a.id_aut, p.primer_nombre_per, p.primer_apellido_per FROM persona p, autor a WHERE p.id_per = a.id_per_aut AND p.estado_per = False");
 
             while (rs.next()) {
                 Autor autor = new Autor();
-                autor.setId_autor(rs.getInt("p.id_per"));
+                autor.setId_autor(rs.getInt("a.id_aut"));
                 autor.setPrimer_nombre(rs.getString("p.primer_nombre_per"));
                 autor.setPrimer_apellido(rs.getString("p.primer_apellido_per"));
                 listaAutor.add(autor);
@@ -83,6 +83,7 @@ public class ModeloAutores {
     *Método para hacer el insert en la base de datos.
     *
      */
+    
     public boolean RegistrarAutorPer(Autor autor) {
 
         PreparedStatement ps;

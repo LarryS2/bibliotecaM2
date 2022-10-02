@@ -4,10 +4,19 @@ public class Ejemplar {
     
     private int id;
     private String codigo;
-    private String cod_libro;
+    private int cod_libro;
     private int cantidad;
 
-    public Ejemplar(int id, String codigo, String cod_libro, int cantidad) {
+    public Ejemplar() {
+    }
+
+    public Ejemplar(String codigo, int cod_libro, int cantidad) {
+        this.codigo = codigo;
+        this.cod_libro = cod_libro;
+        this.cantidad = cantidad;
+    }
+    
+    public Ejemplar(int id, String codigo, int cod_libro, int cantidad) {
         this.id = id;
         this.codigo = codigo;
         this.cod_libro = cod_libro;
@@ -30,11 +39,11 @@ public class Ejemplar {
         this.codigo = codigo;
     }
 
-    public String getCod_libro() {
+    public int getCod_libro() {
         return cod_libro;
     }
 
-    public void setCod_libro(String cod_libro) {
+    public void setCod_libro(int cod_libro) {
         this.cod_libro = cod_libro;
     }
 
