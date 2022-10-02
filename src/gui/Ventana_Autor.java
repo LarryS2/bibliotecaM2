@@ -730,7 +730,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                 } else{
-                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    if(!autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
                         JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                     }else{
                         autor.setId_autor(id);
@@ -889,7 +889,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String apellido = (String) tablaautores.getValueAt(fila, 4);
             String segundo_apellido = (String) tablaautores.getValueAt(fila, 5);
             Idioma idioma = new Idioma();
-            idioma.setNombre_idioma((String) tablaautores.getValueAt(fila, 6).toString());
+            idioma.setNombre_idioma((String) tablaautores.getValueAt(fila, 7).toString());
             Date fecha_p = Date.valueOf((String) tablaautores.getValueAt(fila, 6).toString());
             Pais pais_origen = new Pais();
             pais_origen.setNombre_pais( (String)tablaautores.getValueAt(fila, 8));

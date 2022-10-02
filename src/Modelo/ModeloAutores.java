@@ -91,7 +91,7 @@ public class ModeloAutores {
 
         String sql = "INSERT INTO persona(cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, fecha_nac_per, estado_per, email_per, id_rol_per) VALUES(?,?,?,?,?,?, False, '------',3)";
 
-        String sqll = "INSERT INTO autor(id_per_aut, id_lengua_materna_aut, id_pais_origen_aut, estado_aut) VALUES ((SELECT MAX(id_per) FROM persona),?,?,False)";
+        String sqll = "INSERT INTO autor(id_per_aut, id_lengua_materna_aut, id_pais_origen_aut, estado_aut) VALUES ((SELECT id_per FROM persona ORDER BY id_per DESC LIMIT 1),?,?,False)";
 
         try {
             ps = con.prepareStatement(sql);
@@ -102,10 +102,12 @@ public class ModeloAutores {
             ps.setString(4, autor.getPrimer_apellido());
             ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
+            
             psaut.setInt(1, autor.getLengua_materna());
             psaut.setInt(2, autor.getPais_origen());
-
-            return ps.execute() && psaut.execute();
+            
+            
+            return !ps.execute() && !psaut.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -318,7 +320,7 @@ public class ModeloAutores {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, pa.nombre_pais, i.NOMBRE FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = True AND p.id_per = a.id_per_aut";
+        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, i.nombre_idi, pa.nombre_pais FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = True AND p.id_per = a.id_per_aut AND a.id_lengua_materna_aut = i.id_idi AND pa.id_pais = a.id_pais_origen_aut";
         modelo = new DefaultTableModel();
         Ventana_Autor.tablaautores.setModel(modelo);
 

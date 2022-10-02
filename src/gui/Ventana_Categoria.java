@@ -135,6 +135,7 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             }
         ));
         tablacategoria.setFocusable(false);
+        tablacategoria.getTableHeader().setReorderingAllowed(false);
         tablacategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablacategoriaMouseClicked(evt);

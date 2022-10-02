@@ -32,13 +32,14 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         ModeloEditorial.getTabla();
+        llenarPais();
     }
 
-    public void llenarPais() {
+    public void llenarPais(){
         ModeloPais mdpais = new ModeloPais();
         ArrayList<Pais> listaPaises = mdpais.getPais();
-
-        for (int i = 0; i < listaPaises.size(); i++) {
+        
+        for(int i = 0; i < listaPaises.size(); i++){
             combopais.addItem(new Pais(listaPaises.get(i).getId_pais(), listaPaises.get(i).getNombre_pais()));
         }
     }
@@ -767,7 +768,8 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             ide = Integer.parseInt((String) tablaEditorial.getValueAt(fila, 0).toString());
             String codigo = (String) tablaEditorial.getValueAt(fila, 1);
             String nombre = (String) tablaEditorial.getValueAt(fila, 2);
-            Pais direccion = (Pais) tablaEditorial.getValueAt(fila, 3);
+            Pais direccion = new Pais();
+            direccion.setNombre_pais((String)tablaEditorial.getValueAt(fila, 3));
             String tipo = (String) tablaEditorial.getValueAt(fila, 4);
             String nombre_r = (String) tablaEditorial.getValueAt(fila, 5);
             String apellido_r = (String) tablaEditorial.getValueAt(fila, 6);
@@ -776,7 +778,12 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             campoediid.setText("" + ide);
             txtcodigo.setText(codigo);
             txtnombreeditorial.setText(nombre);
-            combopais.setSelectedItem(direccion);
+            for(int i = 0; i < combopais.getMaximumRowCount(); i++){
+                if(direccion.getNombre_pais().equals(combopais.getItemAt(i).getNombre_pais())){
+                    combopais.setSelectedIndex(i);
+                    i = combopais.getMaximumRowCount();
+                }
+            }
             combotipo.setSelectedItem(tipo);
             txtnombrerep.setText(nombre_r);
             txtapellidorep.setText(apellido_r);
