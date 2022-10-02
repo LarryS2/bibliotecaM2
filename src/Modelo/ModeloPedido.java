@@ -37,7 +37,7 @@ public class ModeloPedido {
         Connection con = Conexion.getConnection();
         ResultSet rs;
         
-        String sql = "SELECT id_per FROM persona WHERE cedula_per = ?";
+        String sql = "SELECT e.id_est FROM persona p, estudiante e WHERE cedula_per = ? AND p.id_per = e.id_per_est";
         
         int idp = 0;
         
@@ -64,7 +64,7 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = "INSERT INTO encabezado_pedido (codigo_enc_ped, fecha_inicio_ped, fecha_fin_ped, id_cliente_ped, total_enc_ped, estado_ped) VALUES (?, ?, ?, ?, ?, False)";
+        String sql = "INSERT INTO encabezado_pedido (codigo_enc_ped, fecha_inicio_ped, fecha_fin_ped, id_cliente_ped, total_enc_ped, estado_enc) VALUES (?, ?, ?, ?, ?, False)";
 
         try {
             ps = con.prepareStatement(sql);
@@ -118,7 +118,7 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pedido SET estado_ped = True WHERE id_ped = ?";
+        String sql = "UPDATE encabezado_pedido SET estado_enc = True WHERE id_enc_ped = ?";
         
         try{
             ps = con.prepareStatement(sql);
@@ -139,7 +139,7 @@ public class ModeloPedido {
     //Metodos para Detalle del pedido
     public static String idPedido(){
         String idp = "";
-        String sql = "SELECT MAX(id_ped) FROM pedido";
+        String sql = "SELECT MAX(id_enc_ped) FROM encabezado_pedido";
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         ResultSet rs;
@@ -167,7 +167,7 @@ public class ModeloPedido {
         Connection con = Conexion.getConnection();
         ResultSet rs;
         
-        String sql = "SELECT ID FROM libro WHERE CODIGO_LIB = ?";
+        String sql = "SELECT id_lib FROM libro WHERE codigo_lib = ?";
         
         try{
             ps = con.prepareStatement(sql);
@@ -192,7 +192,7 @@ public class ModeloPedido {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO detalle_pedido (id_ped, descripcion_ped, estado_ped) VALUES (?,?,False)";
+        String sql = "INSERT INTO detalle_pedido (id_enc_ped, id_lib_det, estado_det_ped) VALUES (?,?,False)";
         
         try{
             ps = con.prepareStatement(sql);

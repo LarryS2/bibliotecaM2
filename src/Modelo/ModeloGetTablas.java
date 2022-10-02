@@ -23,7 +23,7 @@ public class ModeloGetTablas {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, telefono_per, id_barrio_per FROM persona p WHERE estado_per = False";
+        String sql = "SELECT p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.telefono_per, b.nombre_bar FROM persona p, estudiante e, barrio b WHERE estado_per = False AND p.id_barrio_per = b.id_bar AND e.id_per_est = p.id_per";
         modelo = new DefaultTableModel();
         Prestamo.tablaCliente.setModel(modelo);
         try {
@@ -65,7 +65,7 @@ public class ModeloGetTablas {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT l.codigo_lib, l.titulo_lib, l.isbn_lib, d.nombre_cat_dew, CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), "
+        String sql = "SELECT l.codigo_lib, l.titulo_lib, l.isbn_lib, d.nombre_sup_cat_dew, CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), "
                 + "l.fecha_pub_lib FROM libro l, dewey d, autor a, persona p WHERE l.id_aut_lib = a.id_aut AND l.id_dew_lib = d.id_dew AND a.id_per_aut = p.id_per;";
         modelo = new DefaultTableModel();
         Prestamo.tablaLibro.setModel(modelo);

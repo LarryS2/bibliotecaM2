@@ -123,11 +123,13 @@ public class Prestamo extends javax.swing.JFrame {
             Pedido pd;
             String fecha_ini = ((JTextField) fecha_in.getDateEditor().getUiComponent()).getText();
             String fecha_fi = ((JTextField) fecha_fin.getDateEditor().getUiComponent()).getText();
+            String codigo = campoIdSerie.getText();
+            int total = Integer.parseInt(ContarFilas.getText());
 
             if (!txtCedula.getText().isEmpty()) {
                 int id = ModeloPedido.getIdPerson(txtCedula.getText());
                 if (!fecha_ini.isEmpty() || !fecha_fi.isEmpty()) {
-                    pd = new Pedido(id, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi));
+                    pd = new Pedido(id, codigo, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi), total);
                     if (mp.RegistrarPedidoEnc(pd)) {
                         JOptionPane.showMessageDialog(null, "SE HA GENERADO EL PEDIDO CON ÉXITO");
                         limpiar_texto(Pedido);

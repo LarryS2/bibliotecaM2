@@ -10,6 +10,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.sql.Date;
@@ -30,6 +31,7 @@ import javax.swing.JTextField;
 import logico.Autor;
 import logico.Dewey;
 import logico.Editorial;
+import logico.Ejemplar;
 import logico.Idioma;
 import logico.Libro;
 import logico.Seccion;
@@ -45,6 +47,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
      */
     ModeloLibro ml = new ModeloLibro();
     int idl;
+
     public Ventana_Libro() {
         initComponents();
         AddHelp();
@@ -56,8 +59,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         ModeloLibro.getTabla();
     }
 
-    
-    public final void AddHelp(){
+    public final void AddHelp() {
         txtcodigo.setToolTipText("Un código de 13 dígitos");
         txttitulo.setToolTipText("Título de la obra");
         comboAutor.setToolTipText("Elija el nombre del autor de la obra");
@@ -67,55 +69,53 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         comboeditorial.setToolTipText("Elija el nombre de la editorial del libro");
         txtareadescripcion.setToolTipText("Un breve resumen del contenido del libro (Opcional)");
     }
-    
-    
-    
-    public void llenarEditorial(){
+
+    public void llenarEditorial() {
         ModeloEditorial modedi = new ModeloEditorial();
         ArrayList<Editorial> listaedi = modedi.getEditorial();
         comboeditorial.removeAllItems();
-        for(int i = 0; i < listaedi.size(); i++){
+        for (int i = 0; i < listaedi.size(); i++) {
             comboeditorial.addItem(new Editorial(listaedi.get(i).getId(), listaedi.get(i).getNombre()));
-        }  
+        }
     }
 
-    public void llenarDewey(){
+    public void llenarDewey() {
         ModeloDewey modde = new ModeloDewey();
         ArrayList<Dewey> listadew = modde.getDewey();
         combodewey.removeAllItems();
-        for(int i = 0; i < listadew.size(); i++){
+        for (int i = 0; i < listadew.size(); i++) {
             combodewey.addItem(new Dewey(listadew.get(i).getId(), listadew.get(i).getNombre_super_cat()));
-        }  
+        }
     }
-    public void llenarSeccion(){
+
+    public void llenarSeccion() {
         ModeloSeccion modsec = new ModeloSeccion();
         ArrayList<Seccion> listcat = modsec.getSeccion();
         comboSeccion.removeAllItems();
-        for(int i = 0; i < listcat.size(); i++){
+        for (int i = 0; i < listcat.size(); i++) {
             comboSeccion.addItem(new Seccion(listcat.get(i).getId(), listcat.get(i).getNombre_zona()));
-        }  
+        }
     }
-    
-    public void llenarIdioma(){
+
+    public void llenarIdioma() {
         Modeloidioma modidioma = new Modeloidioma();
         ArrayList<Idioma> listaIdiomas = modidioma.getIdioma();
         comboidioma.removeAllItems();
-        for(int i = 0; i < listaIdiomas.size(); i++){
+        for (int i = 0; i < listaIdiomas.size(); i++) {
             comboidioma.addItem(new Idioma(listaIdiomas.get(i).getId_idioma(), listaIdiomas.get(i).getNombre_idioma()));
-        }  
+        }
     }
-    
-    
-    public void llenarAutor(){
+
+    public void llenarAutor() {
         ModeloAutores modaut = new ModeloAutores();
         ArrayList<Autor> listAutores = modaut.getAutor();
-        
-        for(int i = 0; i < listAutores.size(); i++){
+
+        for (int i = 0; i < listAutores.size(); i++) {
             comboAutor.addItem(new Autor(listAutores.get(i).getId_autor(), listAutores.get(i).getPrimer_nombre(), listAutores.get(i).getPrimer_apellido()));
-        }  
+        }
     }
-    
- public void Agregar() {
+
+    public void Agregar() {
         try {
             Libro libro = new Libro();
             String codigo = txtcodigo.getText().trim();
@@ -123,94 +123,30 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             String descripcion = txtareadescripcion.getText().trim();
             String ISBN = txtisbn.getText().trim();
             int dewey = combodewey.getItemAt(combodewey.getSelectedIndex()).getId();
-            String fecha_pub = ((JTextField)fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
+            String fecha_pub = ((JTextField) fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
             int num_pags = Integer.parseInt(txtpags.getText().trim());
             int idioma = comboidioma.getItemAt(comboidioma.getSelectedIndex()).getId_idioma();
-            Seccion seccion =comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
+            Seccion seccion = comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
             int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
             int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
             boolean estado = false;
-            
+
             if (codigo.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "EL CÓDIGO ES OBLIGATORIO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "EL CÓDIGO ES OBLIGATORIO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
             } else {
-                if(titulo.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "EL TÍTULO DEL LIBRO ES OBLIGATORIO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-                } else{
-                    if(ISBN.isEmpty()){
-                        JOptionPane.showMessageDialog(null, "EL ISBN ES OBLIGATORIO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                if (titulo.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "EL TÍTULO DEL LIBRO ES OBLIGATORIO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if (ISBN.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "EL ISBN ES OBLIGATORIO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                     } else {
                         if (libro.ValidarTitulo(titulo) == false) {
-                            JOptionPane.showMessageDialog(null, "TÍTULO NO VÁLIDO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "TÍTULO NO VÁLIDO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                         } else {
-                             if(num_pags<10 || num_pags>9999){
-                                JOptionPane.showMessageDialog(null, "NÚMERO DE PÁGINAS NO VÁLIDO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                            if (num_pags < 10 || num_pags > 9999) {
+                                JOptionPane.showMessageDialog(null, "NÚMERO DE PÁGINAS NO VÁLIDO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                             } else {
-                                 //REVISAR LA VALIDACIÓN DEL ISBN
-                                    libro.setCodigo(codigo);
-                                    libro.setTitulo(titulo);
-                                    libro.setDescripcion(descripcion);
-                                    libro.setIsbn(ISBN);
-                                    libro.setDewey(dewey);
-                                    libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
-                                    libro.setNumero_pags(num_pags);
-                                    libro.setId_idioma(idioma);
-                                    libro.setId_seccion(seccion.getId());
-                                    libro.setId_editorial(editorial);
-                                    libro.setId_autor(autor);
-                                    libro.setEstado(estado);
-                                    if (ml.RegistrarLibro(libro)) {
-                                        labelqrdes.setText("EL CÓDIGO QR DEL LIBRO ES:");
-                                        QR();
-                                        ModeloLibro.Limpiar_Tabla();
-                                        ModeloLibro.getTabla();
-                                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                                        LimpiarCampos();
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL LIBRO" , "ERROR", JOptionPane.ERROR_MESSAGE);                                    ModeloLibro.Limpiar_Tabla();
-                                        ModeloLibro.Limpiar_Tabla();
-                                        ModeloLibro.getTabla();
-                                    }
-                                }
-                        }
-                    }
-                }
-            }
-        } catch (HeadlessException | IllegalArgumentException  e) {
-            System.out.println(e);
-        }
-    }
- 
- public void Modificar() {
-        try {
-            Libro libro = new Libro();
-            int id = Integer.parseInt(labelidlibro.getText());
-            String codigo = txtcodigo.getText().trim();
-            String titulo = txttitulo.getText().trim();
-            String descripcion = txtareadescripcion.getText().trim();
-            String ISBN = txtisbn.getText().trim();
-            int dewey = combodewey.getItemAt(combodewey.getSelectedIndex()).getId();
-            String fecha_pub = ((JTextField)fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
-            int num_pags = Integer.parseInt(txtpags.getText().trim());
-            int idioma = comboidioma.getItemAt(comboidioma.getSelectedIndex()).getId_idioma();
-            Seccion seccion =comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
-            int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
-            int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
-            
-            if (codigo.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "EL CÓDIGO ES OBLIGATORIO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-            } else {
-                if(titulo.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "EL TÍTULO DEL LIBRO ES OBLIGATORIO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-                } else{
-                    if (libro.ValidarTitulo(titulo) == false) {
-                        JOptionPane.showMessageDialog(null, "TÍTULO NO VÁLIDO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-                    } else {
-                         if(num_pags<10 || num_pags>1000){
-                            JOptionPane.showMessageDialog(null, "NÚMERO DE PÁGINAS NO VÁLIDO" , "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-                        } else {
-                             //REVISAR LA VALIDACIÓN DEL ISBN
-                                libro.setId(id);
+                                //REVISAR LA VALIDACIÓN DEL ISBN
                                 libro.setCodigo(codigo);
                                 libro.setTitulo(titulo);
                                 libro.setDescripcion(descripcion);
@@ -222,18 +158,85 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                                 libro.setId_seccion(seccion.getId());
                                 libro.setId_editorial(editorial);
                                 libro.setId_autor(autor);
-                                if (ml.ModificarLibro(libro)) {
+                                libro.setEstado(estado);
+                                if (!ml.RegistrarLibro(libro)) {
+                                    registrarEjem();
                                     labelqrdes.setText("EL CÓDIGO QR DEL LIBRO ES:");
                                     QR();
                                     ModeloLibro.Limpiar_Tabla();
                                     ModeloLibro.getTabla();
-                                    JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS CON ÉXITO");
+                                    JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
                                     LimpiarCampos();
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "NO SE PUDO MODIFICAR EL LIBRO" , "ERROR", JOptionPane.ERROR_MESSAGE);                                    ModeloLibro.Limpiar_Tabla();
+                                    JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL LIBRO", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                    ModeloLibro.Limpiar_Tabla();
+                                    ModeloLibro.Limpiar_Tabla();
                                     ModeloLibro.getTabla();
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        } catch (HeadlessException | IllegalArgumentException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void Modificar() {
+        try {
+            Libro libro = new Libro();
+            int id = Integer.parseInt(labelidlibro.getText());
+            String codigo = txtcodigo.getText().trim();
+            String titulo = txttitulo.getText().trim();
+            String descripcion = txtareadescripcion.getText().trim();
+            String ISBN = txtisbn.getText().trim();
+            int dewey = combodewey.getItemAt(combodewey.getSelectedIndex()).getId();
+            String fecha_pub = ((JTextField) fecha_publi_chooser.getDateEditor().getUiComponent()).getText();
+            int num_pags = Integer.parseInt(txtpags.getText().trim());
+            int idioma = comboidioma.getItemAt(comboidioma.getSelectedIndex()).getId_idioma();
+            Seccion seccion = comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
+            int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
+            int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
+
+            if (codigo.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "EL CÓDIGO ES OBLIGATORIO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (titulo.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "EL TÍTULO DEL LIBRO ES OBLIGATORIO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if (libro.ValidarTitulo(titulo) == false) {
+                        JOptionPane.showMessageDialog(null, "TÍTULO NO VÁLIDO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        if (num_pags < 10 || num_pags > 1000) {
+                            JOptionPane.showMessageDialog(null, "NÚMERO DE PÁGINAS NO VÁLIDO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            //REVISAR LA VALIDACIÓN DEL ISBN
+                            libro.setId(id);
+                            libro.setCodigo(codigo);
+                            libro.setTitulo(titulo);
+                            libro.setDescripcion(descripcion);
+                            libro.setIsbn(ISBN);
+                            libro.setDewey(dewey);
+                            libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
+                            libro.setNumero_pags(num_pags);
+                            libro.setId_idioma(idioma);
+                            libro.setId_seccion(seccion.getId());
+                            libro.setId_editorial(editorial);
+                            libro.setId_autor(autor);
+                            if (ml.ModificarLibro(libro)) {
+                                labelqrdes.setText("EL CÓDIGO QR DEL LIBRO ES:");
+                                QR();
+                                ModeloLibro.Limpiar_Tabla();
+                                ModeloLibro.getTabla();
+                                JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS CON ÉXITO");
+                                LimpiarCampos();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "NO SE PUDO MODIFICAR EL LIBRO", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                ModeloLibro.Limpiar_Tabla();
+                                ModeloLibro.getTabla();
+                            }
+                        }
                     }
                 }
             }
@@ -242,10 +245,48 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         }
     }
 
+    public String generarNoSerie() {
+        String serie = ml.NoSerie();
+        String noserie;
+        
+        if (serie == null) {
+            noserie = "0001";
+        } else {
+            int increment = Integer.parseInt(serie);
+            increment++;
+            noserie = "000" + increment;
+        }
+        return noserie;
+    }
 
- ///QR
-    public void QR(){
-        try{
+    public void registrarEjem() {
+        try {
+            Ejemplar ejem = new Ejemplar();
+            int i = Integer.parseInt(txtnumEjem.getText().trim());
+            System.out.println(i);
+            int idl = ml.getIdMax();
+
+            if (i == 0) {
+                txtnumEjem.requestFocus();
+                JOptionPane.showMessageDialog(null, "INGRESE EL NÚMERO DE EJEMPLARES EXISTENTES");
+            } else {
+                ejem.setCodigo(generarNoSerie());
+                ejem.setCantidad(i);
+                ejem.setCod_libro(idl);
+                if(!ml.registrarEjemplar(ejem)){
+                    JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                }else{
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
+                }
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            System.out.println(e);
+        }
+    }
+
+    ///QR
+    public void QR() {
+        try {
             int size = 200;
             String FileType = "png";
             String FilePath = "";
@@ -253,7 +294,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
 
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 FilePath = chooser.getSelectedFile().getAbsolutePath();
             }
 
@@ -263,7 +304,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
 
             try {
                 BitMatrix matriz = qrcode.encode(codigo, BarcodeFormat.QR_CODE, size, size);
-                File archivo  = new File(FilePath+ "/" +nombre +"."+ FileType);
+                File archivo = new File(FilePath + "/" + nombre + "." + FileType);
                 int dimensionMatriz = matriz.getWidth();
                 BufferedImage imagen = new BufferedImage(dimensionMatriz, dimensionMatriz, BufferedImage.TYPE_INT_BGR);
                 imagen.createGraphics();
@@ -275,7 +316,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
 
                 for (int i = 0; i < dimensionMatriz; i++) {
                     for (int j = 0; j < dimensionMatriz; j++) {
-                        if(matriz.get(i, j)){
+                        if (matriz.get(i, j)) {
                             qr.fillRect(i, j, 1, 1);
                         }
                     }
@@ -283,40 +324,37 @@ public final class Ventana_Libro extends javax.swing.JFrame {
 
                 //Imagen Generada
                 ImageIO.write(imagen, FileType, archivo);
-                Image MiQR = new ImageIcon(FilePath+ "/" +nombre +"."+ FileType).getImage();
+                Image MiQR = new ImageIcon(FilePath + "/" + nombre + "." + FileType).getImage();
                 ImageIcon icon = new ImageIcon(MiQR.getScaledInstance(labelqr.getWidth(), labelqr.getHeight(), 0));
                 labelqr.setIcon(icon);
 
             } catch (WriterException | IOException ex) {
                 Logger.getLogger(Ventana_Libro.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }catch(HeadlessException e){
-            
+        } catch (HeadlessException e) {
+
         }
     }
-    
-    
-    
-    public void BusquedaDinamica(){
+
+    public void BusquedaDinamica() {
         try {
             String busqueda = txtbusqueda.getText().trim();
-                ModeloLibro.Limpiar_Tabla();
-                ModeloLibro.getTablaDinamica(busqueda);
+            ModeloLibro.Limpiar_Tabla();
+            ModeloLibro.getTablaDinamica(busqueda);
         } catch (Exception e) {
-        }        
+        }
     }
-    
-    
+
     public void LimpiarCampos() {
-        labelidlibro.setText(null);
-        txtbusqueda.setText(null);
-        txtisbn.setText(null);
-        fecha_publi_chooser.setCalendar(null);
-        txtareadescripcion.setText(null);
-        combodewey.setSelectedItem(0);
-        txtpags.setText(null);
+        for (int i = 0; backround.getComponents().length > i; i++) {
+            if (backround.getComponents()[i] instanceof JTextField) {
+                ((JTextField) backround.getComponents()[i]).setText("");
+            } else if (backround.getComponents()[i] instanceof JDateChooser) {
+                ((JDateChooser) backround.getComponents()[i]).setCalendar(null);
+            }
+        }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -853,12 +891,10 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlabelregistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelregistroMouseClicked
-
         Agregar();
-
     }//GEN-LAST:event_btnlabelregistroMouseClicked
-    
-   
+
+
     private void btnlabelmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelmodificarMouseClicked
         Modificar();
     }//GEN-LAST:event_btnlabelmodificarMouseClicked
@@ -872,76 +908,68 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnlabelbuscarMouseClicked
 
     private void tablalibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalibrosMouseClicked
-    try{
-        int fila = tablalibros.getSelectedRow();
-        if(fila == -1){
-            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
-        }else{
-            labelidlibro.disable();
-            idl =Integer.parseInt((String)tablalibros.getValueAt(fila, 0).toString());
-            String codigo = (String)tablalibros.getValueAt(fila, 1);
-            String titulo = (String)tablalibros.getValueAt(fila, 2);
-            String desc = (String)tablalibros.getValueAt(fila, 3); 
-            String isbn = (String)tablalibros.getValueAt(fila, 4);
-            Dewey dewey = new Dewey();
-            Date fecha_p = Date.valueOf((String)tablalibros.getValueAt(fila, 6).toString());
-            String desca = (String)tablalibros.getValueAt(fila, 7).toString();
-            Idioma idi = new Idioma();
-            Seccion sec = new Seccion();
-            Autor aut = new Autor();
-            Editorial edi = new Editorial();
+        try {
+            int fila = tablalibros.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
+            } else {
+                labelidlibro.disable();
+                idl = Integer.parseInt((String) tablalibros.getValueAt(fila, 0).toString());
+                String codigo = (String) tablalibros.getValueAt(fila, 1);
+                String titulo = (String) tablalibros.getValueAt(fila, 2);
+                String desc = (String) tablalibros.getValueAt(fila, 3);
+                String isbn = (String) tablalibros.getValueAt(fila, 4);
+                Dewey dewey = new Dewey();
+                dewey.setNombre_super_cat((String) tablalibros.getValueAt(fila, 5).toString());
+                Date fecha_p = Date.valueOf((String) tablalibros.getValueAt(fila, 6).toString());
+                String desca = (String) tablalibros.getValueAt(fila, 7).toString();
+                Idioma idi = new Idioma();
+                Seccion sec = new Seccion();
+                Autor aut = new Autor();
+                Editorial edi = new Editorial();
 
-
-
-            labelidlibro.setText(""+idl);
-            txtcodigo.setText(codigo);
-            txttitulo.setText(titulo);
-            txtisbn.setText(isbn);
-            combodewey.setSelectedItem(dewey);
-            txtareadescripcion.setText(desc);
-            fecha_publi_chooser.setDate(fecha_p);
-            txtpags.setText(desca);
-            dewey.setNombre_super_cat((String)tablalibros.getValueAt(fila, 5).toString());
-            idi.setNombre_idioma((String)tablalibros.getValueAt(fila, 8));
-            sec.setNombre_zona((String)tablalibros.getValueAt(fila, 9));
-            String cadena = (String)tablalibros.getValueAt(fila, 10);
-            String[] partes = cadena.split(" ");
-            aut.setPrimer_nombre(partes[0]);
-            edi.setNombre((String)tablalibros.getValueAt(fila, 11).toString());
-            for(int i = 0; i < comboAutor.getMaximumRowCount(); i++){
-                if(aut.getPrimer_nombre().equals(comboAutor.getItemAt(i).getPrimer_nombre())){
-                    comboAutor.setSelectedIndex(i);
-                    i = comboAutor.getMaximumRowCount();
+                labelidlibro.setText("" + idl);
+                txtcodigo.setText(codigo);
+                txttitulo.setText(titulo);
+                txtisbn.setText(isbn);
+                combodewey.setSelectedItem(dewey);
+                txtareadescripcion.setText(desc);
+                fecha_publi_chooser.setDate(fecha_p);
+                txtpags.setText(desca);
+                
+                idi.setNombre_idioma((String) tablalibros.getValueAt(fila, 9));
+                String cadena = (String) tablalibros.getValueAt(fila, 8);
+                String[] partes = cadena.split(" ");
+                aut.setPrimer_nombre(partes[0]);
+                edi.setNombre((String) tablalibros.getValueAt(fila, 10).toString());
+                for (int i = 0; i < comboAutor.getMaximumRowCount(); i++) {
+                    if (aut.getPrimer_nombre().equals(comboAutor.getItemAt(i).getPrimer_nombre())) {
+                        comboAutor.setSelectedIndex(i);
+                        i = comboAutor.getMaximumRowCount();
+                    }
+                }
+                for (int i = 0; i < comboeditorial.getMaximumRowCount(); i++) {
+                    if (edi.getNombre().equals(comboeditorial.getItemAt(i).getNombre())) {
+                        comboeditorial.setSelectedIndex(i);
+                        i = comboeditorial.getMaximumRowCount();
+                    }
+                }
+                for (int i = 0; i < comboidioma.getMaximumRowCount(); i++) {
+                    if (idi.getNombre_idioma().equals(comboidioma.getItemAt(i).getNombre_idioma())) {
+                        comboidioma.setSelectedIndex(i);
+                        i = comboidioma.getMaximumRowCount();
+                    }
+                }
+                for (int i = 0; i < combodewey.getMaximumRowCount(); i++) {
+                    if (dewey.getNombre_super_cat().equals(combodewey.getItemAt(i).getNombre_super_cat())) {
+                        combodewey.setSelectedIndex(i);
+                        i = combodewey.getMaximumRowCount();
+                    }
                 }
             }
-            for(int i = 0; i < comboeditorial.getMaximumRowCount(); i++){
-                if(edi.getNombre().equals(comboeditorial.getItemAt(i).getNombre())){
-                    comboeditorial.setSelectedIndex(i);
-                    i = comboeditorial.getMaximumRowCount();
-                }
-            }
-            for(int i = 0; i < comboidioma.getMaximumRowCount(); i++){
-                if(idi.getNombre_idioma().equals(comboidioma.getItemAt(i).getNombre_idioma())){
-                    comboidioma.setSelectedIndex(i);
-                    i = comboidioma.getMaximumRowCount();
-                }
-            }
-            for(int i = 0; i < combodewey.getMaximumRowCount(); i++){
-                if(dewey.getNombre_super_cat().equals(combodewey.getItemAt(i).getNombre_super_cat())){
-                    combodewey.setSelectedIndex(i);
-                    i = combodewey.getMaximumRowCount();
-                }
-            }
-            for(int i = 0; i < comboSeccion.getMaximumRowCount(); i++){
-                if(sec.getNombre_zona().equals(comboSeccion.getItemAt(i).getNombre_zona())){
-                    comboSeccion.setSelectedIndex(i);
-                    i = comboSeccion.getMaximumRowCount();
-                }
-            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.err.println(e);
         }
-    }catch(HeadlessException | NumberFormatException | NullPointerException e){
-        System.err.println(e); 
-    }
     }//GEN-LAST:event_tablalibrosMouseClicked
 
     private void txtpagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpagsKeyTyped
@@ -974,8 +1002,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
     private javax.swing.JPanel btneliminar;

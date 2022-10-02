@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 import logico.Conexion;
+import logico.Ejemplar;
 import logico.Libro;
 
 public class ModeloLibro {
@@ -19,7 +20,7 @@ public class ModeloLibro {
         Connection con = Conexion.getConnection();
         
         String sql = "INSERT INTO libro (codigo_lib, titulo_lib, desc_lib, isbn_lib, fecha_pub_lib, num_pags,"
-                + "id_aut_lib, id_dew_lib, id_idioma_lib, id_sec_lib, id_edi_lib) "
+                + " id_aut_lib, id_dew_lib, id_idioma_lib, id_sec_lib, id_edi_lib) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             
@@ -92,7 +93,7 @@ public class ModeloLibro {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT l.id_lib, l.codigo_lib, l.titulo_lib, l.desc_lib, d.nombre_sup_cat_dew, l.fecha_pub_lib, l.num_pags, "
+        String sql = "SELECT l.id_lib, l.codigo_lib, l.titulo_lib, l.desc_lib, l.isbn_lib, d.nombre_sup_cat_dew, l.fecha_pub_lib, l.num_pags, "
                 + "CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), i.nombre_idi, e.nombre_edi "
                 + "FROM libro l, idioma i, dewey d, persona p, autor a, editorial e "
                 + "WHERE p.id_per = a.id_per_aut AND a.id_aut = l.id_aut_lib AND l.id_dew_lib = d.id_dew AND e.id_edi = l.id_edi_lib AND i.id_idi = l.id_idioma_lib";
@@ -179,5 +180,81 @@ public class ModeloLibro {
         }
     } 
     
+    public int getIdMax(){
+        int idLib = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT MAX(id_lib) FROM libro";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                idLib = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return idLib;
+    }
     
+    public String NoSerie(){
+        String serie = "";
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT MAX(cod_ejem) FROM ejemplar";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                serie = rs.getString(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return serie;
+    }
+    
+    public boolean registrarEjemplar(Ejemplar ejemplar){
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO ejemplar(cod_ejem, id_lib_ejem, cantidad_ejem) VALUES (?, ?, ?)";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ejemplar.getCodigo());
+            ps.setInt(2, ejemplar.getCod_libro());
+            ps.setInt(3, ejemplar.getCantidad());
+            return ps.execute();
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
 }
