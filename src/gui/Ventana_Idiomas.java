@@ -592,7 +592,7 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
         if (Character.isLetter(validar)) {
             evt.consume();
         } else {
-            if (txtcodigoidioma.getText().length() >= 4) {
+            if (txtcodigoidioma.getText().length() >= 3) {
                 evt.consume();
             }
         }

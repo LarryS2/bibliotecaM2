@@ -28,11 +28,11 @@ public class ModeloAutores {
 
         try {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT p.id_per, p.primer_nombre_per, p.primer_apellido_per FROM persona p, autor a WHERE p.id_per = a.id_per_aut AND p.estado_per = False");
+            rs = st.executeQuery("SELECT a.id_aut, p.primer_nombre_per, p.primer_apellido_per FROM persona p, autor a WHERE p.id_per = a.id_per_aut AND p.estado_per = False");
 
             while (rs.next()) {
                 Autor autor = new Autor();
-                autor.setId_autor(rs.getInt("p.id_per"));
+                autor.setId_autor(rs.getInt("a.id_aut"));
                 autor.setPrimer_nombre(rs.getString("p.primer_nombre_per"));
                 autor.setPrimer_apellido(rs.getString("p.primer_apellido_per"));
                 listaAutor.add(autor);
@@ -83,6 +83,7 @@ public class ModeloAutores {
     *Método para hacer el insert en la base de datos.
     *
      */
+    
     public boolean RegistrarAutorPer(Autor autor) {
 
         PreparedStatement ps;
@@ -91,7 +92,7 @@ public class ModeloAutores {
 
         String sql = "INSERT INTO persona(cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, fecha_nac_per, estado_per, email_per, id_rol_per) VALUES(?,?,?,?,?,?, False, '------',3)";
 
-        String sqll = "INSERT INTO autor(id_per_aut, id_lengua_materna_aut, id_pais_origen_aut, estado_aut) VALUES ((SELECT MAX(id_per) FROM persona),?,?,False)";
+        String sqll = "INSERT INTO autor(id_per_aut, id_lengua_materna_aut, id_pais_origen_aut, estado_aut) VALUES ((SELECT id_per FROM persona ORDER BY id_per DESC LIMIT 1),?,?,False)";
 
         try {
             ps = con.prepareStatement(sql);
@@ -102,19 +103,12 @@ public class ModeloAutores {
             ps.setString(4, autor.getPrimer_apellido());
             ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
-            ps.execute();
-
+            
             psaut.setInt(1, autor.getLengua_materna());
             psaut.setInt(2, autor.getPais_origen());
-            psaut.execute();
-
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                int n2 = psaut.executeUpdate();
-                return n2 != 0;
-            } else {
-                return false;
-            }
+            
+            
+            return !ps.execute() && !psaut.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -139,33 +133,26 @@ public class ModeloAutores {
         PreparedStatement psaut;
         Connection con = Conexion.getConnection();
 
-        String sql = "UPDATE persona p SET p.cedula_per=?, p.primer_nombre_per=?, p.segundo_nombre_per=?, p.primer_apellido_per=?, p.segundo_apellido_per=?, p.fecha_nac_per=? WHERE p.id=?";
-        String sqll = "UPDATE autor SET id_idio_aut = ?, id_pais = ? WHERE id_per_aut = id_per";
+        String sql = "UPDATE persona SET cedula_per=?, primer_nombre_per=?, segundo_nombre_per=?, primer_apellido_per=?, segundo_apellido_per=?, fecha_nac_per=? WHERE id_per=?";
+        String sqll = "UPDATE autor SET id_lengua_materna_aut = ?, id_pais_origen_aut = ? WHERE id_per_aut = ?";
         try {
-
             ps = con.prepareStatement(sql);
+            psaut = con.prepareStatement(sqll);
+            
             ps.setString(1, autor.getCedula());
             ps.setString(2, autor.getPrimer_nombre());
             ps.setString(3, autor.getSegundo_nombre());
             ps.setString(4, autor.getPrimer_apellido());
             ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
-            ps.setInt(7, autor.getId());
-            ps.execute();
+            ps.setInt(7, autor.getId_autor());
             
-            psaut = con.prepareStatement(sqll);
             psaut.setInt(1, autor.getLengua_materna());
             psaut.setInt(2, autor.getPais_origen());
-            psaut.setInt(3, autor.getId());
-            psaut.execute();
-            
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                int n2 = psaut.executeUpdate();
-                return n2 != 0;
-            } else {
-                return false;
-            }
+            psaut.setInt(3, autor.getId_autor());
+                
+            System.out.println(ps);
+            return ps.executeUpdate() != 0 && psaut.executeUpdate() != 0;
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -183,12 +170,14 @@ public class ModeloAutores {
     *Metodo para modificar a los autores eliminados
      */
     public boolean ModificarAutorEliminado(Autor autor) {
-        /*
+        
         PreparedStatement ps;
+        PreparedStatement psaut;
         Connection con = Conexion.getConnection();
 
-        String sql = "UPDATE autor SET CODIGO=?, PRIMER_NOMBRE=?, SEGUNDO_NOMBRE=?, PRIMER_APELLIDO=?, SEGUNDO_APELLIDO=?, FECHA_NAC=?, LENGUA_MATERNA=?, PAIS_ORIGEN=?, ESTADO = ? WHERE ID=?";
-
+        String sql = "UPDATE persona SET cedula_per=?, primer_nombre_per=?, segundo_nombre_per=?, primer_apellido_per=?, segundo_apellido_per=?, fecha_nac_per=?, estado_per=? WHERE id_per=?";
+        String sqll = "UPDATE autor SET id_lengua_materna_aut = ?, id_pais_origen_aut = ? WHERE id_per_aut = ?";
+        
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, autor.getCedula());
@@ -197,12 +186,15 @@ public class ModeloAutores {
             ps.setString(4, autor.getPrimer_apellido());
             ps.setString(5, autor.getSegundo_apellido());
             ps.setDate(6, (Date) autor.getFecha_nac());
-            ps.setString(7, autor.getLengua_materna());
-            ps.setString(8, autor.getPais_origen());
-            ps.setBoolean(9, autor.isEstado());
-            ps.setInt(10, autor.getId_autor());
-            ps.execute();
-            return true;
+            ps.setBoolean(7, autor.isEstado());
+            ps.setInt(8, autor.getId_autor());
+            
+            psaut = con.prepareStatement(sqll);
+            psaut.setInt(1, autor.getLengua_materna());
+            psaut.setInt(2, autor.getPais_origen());
+            psaut.setInt(3, autor.getId_autor());
+           
+            return ps.execute() && psaut.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -212,8 +204,7 @@ public class ModeloAutores {
             } catch (SQLException sqle) {
                 System.err.println(sqle);
             }
-        }*/
-        return false;
+        }
     }
 
     /*
@@ -227,7 +218,7 @@ public class ModeloAutores {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, pa.nombre_pais, i.nombre_idi FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = False AND p.id_per = a.id_per_aut AND a.id_lengua_materna_aut = i.id_idi AND pa.id_pais = a.id_pais_origen_aut";
+        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, i.nombre_idi, pa.nombre_pais FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = False AND p.id_per = a.id_per_aut AND a.id_lengua_materna_aut = i.id_idi AND pa.id_pais = a.id_pais_origen_aut";
 
         modelo = new DefaultTableModel();
         Ventana_Autor.tablaautores.setModel(modelo);
@@ -330,7 +321,7 @@ public class ModeloAutores {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, pa.nombre_pais, i.NOMBRE FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = True AND p.id_per = a.id_per_aut";
+        String sql = "SELECT p.id_per, p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.fecha_nac_per, i.nombre_idi, pa.nombre_pais FROM autor a, persona p, pais pa, idioma i WHERE p.estado_per = True AND p.id_per = a.id_per_aut AND a.id_lengua_materna_aut = i.id_idi AND pa.id_pais = a.id_pais_origen_aut";
         modelo = new DefaultTableModel();
         Ventana_Autor.tablaautores.setModel(modelo);
 

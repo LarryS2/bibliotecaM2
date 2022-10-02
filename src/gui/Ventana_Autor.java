@@ -672,12 +672,11 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String segundo_nombre = txtnombresegundo.getText().trim();
             String segundo_apellido = txtapellidosegundo.getText().trim();
             String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
-            String pais_origen = combopaisorigen.getSelectedItem().toString();
-            String lengua = combolengua.getSelectedItem().toString();
+            Pais pais_origen = (Pais) combopaisorigen.getSelectedItem();
+            Idioma lengua =(Idioma) combolengua.getSelectedItem();
 
             try {
-                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
-                        || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()){
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                     LimpiarCampos();
                 } else{
@@ -692,8 +691,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         autor.setPrimer_apellido(primer_apellido);
                         autor.setSegundo_apellido(segundo_apellido);
                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua)));
-                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
+                        autor.setLengua_materna(lengua.getId_idioma());
+                        autor.setPais_origen(pais_origen.getId_pais());
                         if(ma.ModificarAutor(autor)){
                             JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
                             ModeloAutores.getTabla();
@@ -706,7 +705,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
            } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
-        }catch(HeadlessException | NumberFormatException e){
+        }catch(HeadlessException | NumberFormatException |NullPointerException e){
             System.out.println(e);
         }
     }
@@ -731,7 +730,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                 } else{
-                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    if(!autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
                         JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                     }else{
                         autor.setId_autor(id);
@@ -889,9 +888,11 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String segundo_nombre = (String) tablaautores.getValueAt(fila, 3);
             String apellido = (String) tablaautores.getValueAt(fila, 4);
             String segundo_apellido = (String) tablaautores.getValueAt(fila, 5);
-            String lengua_materna = (String) tablaautores.getValueAt(fila, 6).toString();
+            Idioma idioma = new Idioma();
+            idioma.setNombre_idioma((String) tablaautores.getValueAt(fila, 7).toString());
             Date fecha_p = Date.valueOf((String) tablaautores.getValueAt(fila, 6).toString());
-            String pais_origen = (String) tablaautores.getValueAt(fila, 8).toString();
+            Pais pais_origen = new Pais();
+            pais_origen.setNombre_pais( (String)tablaautores.getValueAt(fila, 8));
 
             campoid.setText("" + ida);
             txtcodigoautor.setText(codigo);
@@ -899,9 +900,19 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             txtnombresegundo.setText(segundo_nombre);
             txtapellido.setText(apellido);
             txtapellidosegundo.setText(segundo_apellido);
-            combolengua.setSelectedItem(lengua_materna);
+            for(int i = 0; i < combolengua.getMaximumRowCount(); i++){
+                if(idioma.getNombre_idioma().equals(combolengua.getItemAt(i).getNombre_idioma())){
+                    combolengua.setSelectedIndex(i);
+                    i = combopaisorigen.getMaximumRowCount();
+                }
+            }
             fecha_nac_chooser.setDate(fecha_p);
-            combopaisorigen.setSelectedItem(pais_origen);
+            for(int i = 0; i < combopaisorigen.getMaximumRowCount(); i++){
+                if(pais_origen.getNombre_pais().equals(combopaisorigen.getItemAt(i).getNombre_pais())){
+                    combopaisorigen.setSelectedIndex(i);
+                    i = combopaisorigen.getMaximumRowCount();
+                }
+            }
             enableCheck();
         }
     }//GEN-LAST:event_tablaautoresMouseClicked

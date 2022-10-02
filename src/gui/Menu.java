@@ -2,21 +2,18 @@ package gui;
 
 import javax.swing.JOptionPane;
 import logico.Tiempo;
-import java.util.*;
 
 /**
  *
  * @author santi
  */
-public final class Menu extends javax.swing.JFrame implements Runnable{
+public final class Menu extends javax.swing.JFrame{
     String hora, minutos,segundos;
     Thread hilo;
     
     public Menu() {
         initComponents();
         ShowTime();
-        hilo = new Thread(this);
-        hilo.start();
     }
     
     Tiempo time = new Tiempo();
@@ -25,7 +22,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
         labelfecha.setText(time.fecha_completa); 
     }
     
-    public void hora(){
+    /*public void hora(){
         Calendar calendar = new GregorianCalendar();
         Date horaactual = new Date();
         calendar.setTime(horaactual);
@@ -41,7 +38,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
             hora();
             labelhora.setText(hora+":"+minutos+":"+segundos);
         }
-    }
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,6 +69,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
         labelhora = new javax.swing.JLabel();
         Slide = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         panemenu.setBackground(new java.awt.Color(204, 204, 204));
         panemenu.setForeground(new java.awt.Color(153, 153, 153));
@@ -346,6 +344,13 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -354,7 +359,9 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
@@ -367,7 +374,9 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
                         .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))))
+                        .addComponent(jButton1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton2))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -518,6 +527,11 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
         pre.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Ventana_Devolucion vd = new Ventana_Devolucion();
+        vd.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;
     private javax.swing.JLabel Categoria;
@@ -538,6 +552,7 @@ public final class Menu extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel btnlabelsalir;
     private javax.swing.JPanel btnregistrosalir;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel labelfecha;
     private javax.swing.JLabel labelhora;
     private javax.swing.JLabel libro;

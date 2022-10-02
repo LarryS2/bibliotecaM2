@@ -8,6 +8,12 @@ public class Ciudad {
 
     public Ciudad() {
     }
+
+    public Ciudad(int id_ciudad, String nombre_ciudad) {
+        this.id_ciudad = id_ciudad;
+        this.nombre_ciudad = nombre_ciudad;
+    }
+    
     
     public int getId_ciudad() {
         return id_ciudad;
@@ -43,7 +49,7 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "ModeloDireccion{" + "id_ciudad=" + id_ciudad + ", id_pais_ciu=" + id_pais_ciu + ", nombre_ciudad=" + nombre_ciudad + ", estado=" + estado + '}';
+        return nombre_ciudad;
     }
     
     

@@ -44,6 +44,37 @@ public class ModeloPais {
         return listaPais;
     }
     
+    
+    public ArrayList<Ciudad> getCiudad() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Ciudad> listaCiudad = new ArrayList<>();
+        
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT id_ciu, id_ciu_pais, nombre_ciu FROM ciudad WHERE estado_ciu = False");
+            
+            while(rs.next()){
+                Ciudad ciudad = new Ciudad();
+                ciudad.setId_ciudad(rs.getInt("id_ciu"));
+                ciudad.setId_pais_ciu(rs.getInt("id_ciu_pais"));
+                ciudad.setNombre_ciudad(rs.getString("nombre_ciu"));
+                listaCiudad.add(ciudad);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return listaCiudad;
+    }
+    
+    
     public ArrayList<Pais> getPaisEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
@@ -108,7 +139,7 @@ public class ModeloPais {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) "
+        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, desc_pais, estado_pais) "
                 + "VALUES (?, ?, ?, ?)";
         
         try {
@@ -199,7 +230,7 @@ public class ModeloPais {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, descripcion_pais = ? WHERE id_pais = ?";
+        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, desc_pais = ? WHERE id_pais = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -225,7 +256,7 @@ public class ModeloPais {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, descripcion_pais = ?, estado_pais = ? WHERE id_pais = ?";
+        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, desc_pais = ?, estado_pais = ? WHERE id_pais = ?";
         
         try{
             ps = con.prepareStatement(sql);
@@ -277,7 +308,7 @@ public class ModeloPais {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_pais, codigo_pais, nombre_pais, descripcion_pais FROM pais WHERE estado_pais = false";
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais, desc_pais FROM pais WHERE estado_pais = false";
         modelo = new DefaultTableModel();
         Ventana_paises.tablapaises.setModel(modelo);
         try{
@@ -313,7 +344,7 @@ public class ModeloPais {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_pais, codigo_pais, nombre_pais, descripcion_pais FROM pais WHERE estado_pais = True";
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais, desc_pais FROM pais WHERE estado_pais = True";
         modelo = new DefaultTableModel();
         Ventana_paises.tablapaises.setModel(modelo);
         try{

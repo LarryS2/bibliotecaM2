@@ -1,4 +1,3 @@
-
 package Modelo;
 
 import gui.Prestamo;
@@ -15,17 +14,19 @@ import logico.Conexion;
  * @author Lenin
  */
 public class ModeloGetTablas {
+
     static DefaultTableModel modelo;
-    public static void getTablaCliente(){
-        
+
+    public static void getTablaCliente() {
+
         //Cambiar sentencia sql, filtrar autores no personas!!!
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, telefono_per, direccion_per FROM persona WHERE estado_per = False";
+        String sql = "SELECT p.cedula_per, p.primer_nombre_per, p.segundo_nombre_per, p.primer_apellido_per, p.segundo_apellido_per, p.telefono_per, b.nombre_bar FROM persona p, estudiante e, barrio b WHERE estado_per = False AND p.id_barrio_per = b.id_bar AND e.id_per_est = p.id_per";
         modelo = new DefaultTableModel();
         Prestamo.tablaCliente.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -37,18 +38,18 @@ public class ModeloGetTablas {
             modelo.addColumn("Segundo Apellido");
             modelo.addColumn("Teléfono");
             modelo.addColumn("Dirección");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -56,19 +57,19 @@ public class ModeloGetTablas {
             }
         }
     }
-    
-    
+
     //Ingresar condición de eliminados
-    public static void getTablaLibro(){
-        
+    public static void getTablaLibro() {
+
         //Adecuar sentencia sql a la nueva BD
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT E.CODIGO_LIB, E.TITULO, E.ISBN, L.NOMBRE AS 'CATEGORIA', CONCAT(A.PRIMER_NOMBRE, ' ', A.PRIMER_APELLIDO ) AS 'NOMBRE AUTOR', E.FECHA_PUBLICACION FROM libro E, categoria L, autor A WHERE E.ID_CATEGORIA = L.ID AND E.ID_AUTOR = A.ID;";
+        String sql = "SELECT l.codigo_lib, l.titulo_lib, l.isbn_lib, d.nombre_sup_cat_dew, CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), "
+                + "l.fecha_pub_lib FROM libro l, dewey d, autor a, persona p WHERE l.id_aut_lib = a.id_aut AND l.id_dew_lib = d.id_dew AND a.id_per_aut = p.id_per;";
         modelo = new DefaultTableModel();
         Prestamo.tablaLibro.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -79,18 +80,18 @@ public class ModeloGetTablas {
             modelo.addColumn("Categoria");
             modelo.addColumn("Nombre Autor");
             modelo.addColumn("Fecha de Publicación");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {

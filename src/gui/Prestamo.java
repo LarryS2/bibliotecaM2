@@ -36,6 +36,7 @@ public class Prestamo extends javax.swing.JFrame {
         editableFalse();
         titleCol();
         DetallePedido.getColumnModel().getColumn(0).setPreferredWidth(20);
+        generarNoSerie();
     }
 
     public void llenarCampos(Persona p1) {
@@ -104,17 +105,31 @@ public class Prestamo extends javax.swing.JFrame {
             buttonEliminar.setEnabled(false);
         }
     }
+    
+    public void generarNoSerie(){
+        String serie = mp.NoSerie();
+        
+        if(serie == null){
+            campoIdSerie.setText("000001");
+        }else{
+            int increment = Integer.parseInt(serie);
+            increment++;
+            campoIdSerie.setText("00000"+increment);
+        }
+    }
 
     public void guardarEnc() {
         try {
             Pedido pd;
             String fecha_ini = ((JTextField) fecha_in.getDateEditor().getUiComponent()).getText();
             String fecha_fi = ((JTextField) fecha_fin.getDateEditor().getUiComponent()).getText();
+            String codigo = campoIdSerie.getText();
+            int total = Integer.parseInt(ContarFilas.getText());
 
             if (!txtCedula.getText().isEmpty()) {
                 int id = ModeloPedido.getIdPerson(txtCedula.getText());
                 if (!fecha_ini.isEmpty() || !fecha_fi.isEmpty()) {
-                    pd = new Pedido(id, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi));
+                    pd = new Pedido(id, codigo, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi), total);
                     if (mp.RegistrarPedidoEnc(pd)) {
                         JOptionPane.showMessageDialog(null, "SE HA GENERADO EL PEDIDO CON ÉXITO");
                         limpiar_texto(Pedido);
@@ -149,6 +164,9 @@ public class Prestamo extends javax.swing.JFrame {
             }
             if (a != 0) {
                 JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO");
+                for(int i = 0; i < DetallePedido.getRowCount(); i++){
+                    modelo.removeRow(i);
+                }
             }
         } catch (NumberFormatException | NullPointerException e) {
             System.out.println(e);
@@ -204,7 +222,7 @@ public class Prestamo extends javax.swing.JFrame {
         lbelSubtit = new javax.swing.JLabel();
         lbelTelInst = new javax.swing.JLabel();
         lbelID = new javax.swing.JLabel();
-        campoId = new javax.swing.JLabel();
+        campoIdSerie = new javax.swing.JLabel();
         separatorId = new javax.swing.JSeparator();
         Pedido = new javax.swing.JPanel();
         lbelCliente = new javax.swing.JLabel();
@@ -518,6 +536,8 @@ public class Prestamo extends javax.swing.JFrame {
 
         lbelID.setText("ID:");
 
+        campoIdSerie.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout EncLayout = new javax.swing.GroupLayout(Enc);
         Enc.setLayout(EncLayout);
         EncLayout.setHorizontalGroup(
@@ -540,7 +560,7 @@ public class Prestamo extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(EncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(separatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                            .addComponent(campoIdSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addGap(50, 50, 50)
                 .addComponent(lbelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -560,7 +580,7 @@ public class Prestamo extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addGroup(EncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbelID)
-                            .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoIdSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(separatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -968,6 +988,7 @@ public class Prestamo extends javax.swing.JFrame {
         }else{
             guardarEnc();
             guardarDet();
+            generarNoSerie();
         }
     }//GEN-LAST:event_SaveDateActionPerformed
 
@@ -996,7 +1017,7 @@ public class Prestamo extends javax.swing.JFrame {
     private javax.swing.JLabel buttonCliente;
     private javax.swing.JLabel buttonEliminar;
     private javax.swing.JLabel buttonLibro;
-    private javax.swing.JLabel campoId;
+    private javax.swing.JLabel campoIdSerie;
     private com.toedter.calendar.JDateChooser fecha_fin;
     private com.toedter.calendar.JDateChooser fecha_in;
     private javax.swing.JLabel jLabel1;

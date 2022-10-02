@@ -19,13 +19,12 @@ public final class Mi_Perfil extends javax.swing.JDialog {
      * @param modal
      */
     Login log = new Login();
-    ControladorUsuario lista = new ControladorUsuario();
     public Mi_Perfil(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         //Mostrar_Datos();
     }
-    
+    //log.PerCedula(per)
     /*public void Mostrar_Datos(){
         for (int i = 0; i < ControladorUsuario.listausuarios.size(); i++) {
             if (log.CEDULA.equals(ControladorUsuario.listausuarios.get(i).getCedula())) {

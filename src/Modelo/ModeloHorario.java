@@ -10,15 +10,68 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import logico.Horario;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import logico.Dia;
 
 public class ModeloHorario {
+    
+    
+    public ArrayList<Horario> getHorario() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Horario> listaHorarios = new ArrayList<>();
+        
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT id_hor, hora_inicio_hor, hora_fin_hor FROM horario WHERE estado_hor = False");
+            
+            while(rs.next()){
+                Horario hor = new Horario();
+                hor.setId(rs.getInt("id_hor"));
+                hor.setHora_inicio( rs.getTime("hora_inicio_hor").toLocalTime());
+                hor.setHora_fin(rs.getTime("hora_fin_hor").toLocalTime());
+                listaHorarios.add(hor);
+            }
+        }catch(SQLException e){
+            System.err.println(e); 
+        }
+        return listaHorarios;
+    }
+
+    
+    public ArrayList<Dia> getDias() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Dia> listaDias = new ArrayList<>();
+        
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM dia ORDER BY id_dia");
+            
+            while(rs.next()){
+                Dia dia = new Dia();
+                dia.setId_dia(rs.getInt("id_dia"));
+                dia.setNom_dia(rs.getString("nombre_dia"));
+//                hor.setHora_inicio(rs.getTime("hora_inico_hor"));
+//                hor.setHora_fin(rs.getTime("hora_fin_horario"));
+                listaDias.add(dia);
+            }
+        }catch(SQLException e){
+            
+        }
+        return listaDias;
+    }
+    
     
     public boolean RegistrarHorario(Horario hor){
         
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO horario (codigo_hor, hora_inico_hor, hora_fin_horario, descripcion_hor, estado_hor)"
+        String sql = "INSERT INTO horario (codigo_hor, hora_inicio_hor, hora_fin_hor, dia_hor, estado_hor)"
             + " VALUES(?,?,?,?,?)";
         try {
             
@@ -26,7 +79,7 @@ public class ModeloHorario {
             ps.setString(1, hor.getCodigo());
             ps.setTime(2, Time.valueOf(hor.getHora_inicio()));
             ps.setTime(3, Time.valueOf(hor.getHora_fin()));
-            ps.setString(4, hor.getDescripcion());
+            ps.setInt(4, hor.getId_dia());
             ps.setBoolean(5, hor.isEstado());
             ps.execute();
             return true;
@@ -55,7 +108,7 @@ public class ModeloHorario {
             ps.setString(1, hor.getCodigo());
             ps.setTime(2, Time.valueOf(hor.getHora_inicio()));
             ps.setTime(3, Time.valueOf(hor.getHora_fin()));
-            ps.setString(4, hor.getDescripcion());
+            ps.setInt(4, hor.getId_dia());
             ps.setInt(5, hor.getId());
             ps.execute();
             return true;

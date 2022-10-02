@@ -6,10 +6,12 @@
 package gui;
 
 import Modelo.ModeloEditorial;
+import Modelo.ModeloPais;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Editorial;
+import logico.Pais;
 
 /**
  *
@@ -30,6 +32,16 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         ModeloEditorial.getTabla();
+        llenarPais();
+    }
+
+    public void llenarPais(){
+        ModeloPais mdpais = new ModeloPais();
+        ArrayList<Pais> listaPaises = mdpais.getPais();
+        
+        for(int i = 0; i < listaPaises.size(); i++){
+            combopais.addItem(new Pais(listaPaises.get(i).getId_pais(), listaPaises.get(i).getNombre_pais()));
+        }
     }
 
     /**
@@ -54,7 +66,6 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         btnrvolver = new javax.swing.JPanel();
         btnlabelvolver = new javax.swing.JLabel();
         labeldireccion = new javax.swing.JLabel();
-        txtdireccionedi = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         labelurl = new javax.swing.JLabel();
         txturl = new javax.swing.JTextField();
@@ -80,6 +91,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         checkFiltro = new javax.swing.JCheckBox();
         checkCancelDelete = new javax.swing.JCheckBox();
         txtcodigo = new javax.swing.JFormattedTextField();
+        combopais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -173,13 +185,6 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         labeldireccion.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labeldireccion.setForeground(new java.awt.Color(102, 102, 102));
         labeldireccion.setText("DIRECCIÓN:");
-
-        txtdireccionedi.setBorder(null);
-        txtdireccionedi.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtdireccionediKeyTyped(evt);
-            }
-        });
 
         labelurl.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelurl.setForeground(new java.awt.Color(102, 102, 102));
@@ -352,18 +357,16 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoediid, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))))
-                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(backroundLayout.createSequentialGroup()
-                                        .addComponent(labelnomeditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtnombreeditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 8, Short.MAX_VALUE)
+                                        .addComponent(campoediid, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(labelurl, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(backroundLayout.createSequentialGroup()
@@ -372,13 +375,13 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                                             .addComponent(combotipo, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(backroundLayout.createSequentialGroup()
                                             .addComponent(labeldireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(backroundLayout.createSequentialGroup()
                                                     .addGap(14, 14, 14)
                                                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(backroundLayout.createSequentialGroup()
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(txtdireccionedi, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                    .addComponent(combopais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txturl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
@@ -394,12 +397,17 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                                             .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jSeparator6)
                                                 .addComponent(txtapellidorep, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))))
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(labelnomeditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtnombreeditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnlimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnlimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addGap(65, 65, 65)
                                 .addComponent(checkFiltro)
@@ -438,8 +446,8 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtdireccionedi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labeldireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(labeldireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combopais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,31 +507,31 @@ public class Ventana_Editorial extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void enableCheck(){
+
+    public void enableCheck() {
         checkCancelDelete.setEnabled(false);
-        try{
+        try {
             ModeloEditorial moc = new ModeloEditorial();
             ArrayList<Editorial> listEditorial = me.getEditorialEliminado();
             int id = Integer.parseInt(campoediid.getText());
-            
-            for(int i = 0; i < listEditorial.size(); i++){
-                if(id == listEditorial.get(i).getId()){
+
+            for (int i = 0; i < listEditorial.size(); i++) {
+                if (id == listEditorial.get(i).getId()) {
                     checkCancelDelete.setEnabled(true);
                     i = listEditorial.size();
                 }
             }
-        }catch(NumberFormatException | NullPointerException e){
+        } catch (NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA PRIMERO");
         }
     }
-    
+
     public void Agregar() {
         try {
             Editorial edit = new Editorial();
             String codigo = txtcodigo.getText().trim();
             String nombre = txtnombreeditorial.getText().trim();
-            String direccion = txtdireccionedi.getText().trim();
+            Pais pais = (Pais) combopais.getSelectedItem();
             String tipo = combotipo.getSelectedItem().toString();
             String nom_rep = txtnombrerep.getText().trim();
             String ape_rep = txtapellidorep.getText().trim();
@@ -532,7 +540,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             if (codigo.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "EL CÓDIGO ES OBLIGATORIO");
             } else {
-                if (direccion.isEmpty()) {
+                if (pais == null) {
                     JOptionPane.showMessageDialog(null, "LA DIRECCIÓN ES OBLIGATORIA");
                 } else {
                     if (edit.ValidarNombreEd(nombre) == false) {
@@ -551,7 +559,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
                                 edit.setNombre(nombre);
                                 edit.setNombre_rep(nom_rep);
                                 edit.setApellido_rep(ape_rep);
-                                edit.setDireccion(direccion);
+                                edit.setId_pais(pais.getId_pais());
                                 edit.setTipo_editorial(tipo);
                                 edit.setUrl_editorial(url);
                                 if (me.RegistrarCategoria(edit)) {
@@ -577,45 +585,42 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             int id = Integer.parseInt(campoediid.getText().trim());
             String codigo = txtcodigo.getText().trim();
             String nombre = txtnombreeditorial.getText().trim();
-            String direccion = txtdireccionedi.getText().trim();
+            Pais pais = (Pais) combopais.getSelectedItem();
             String url = txturl.getText().trim();
             String nombrere = txtnombrerep.getText().trim();
             String apellido = txtapellidorep.getText().trim();
             String tipo = String.valueOf(combotipo.getSelectedItem());
 
-            if (codigo.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || nombrere.isEmpty() || apellido.isEmpty() || tipo.isEmpty()) {
+            if (codigo.isEmpty() || nombre.isEmpty() || pais == null || nombrere.isEmpty() || apellido.isEmpty() || tipo.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
                 if (!edit.ValidarNombreEd(nombre)) {
                     JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
                 } else {
-                    if (!edit.ValidarNombreRep(direccion)) {
-                        JOptionPane.showMessageDialog(null, "REVISE LA DIRECCION");
+
+                    if (!edit.ValidarNombreRep(nombrere) || !edit.ValidarNombreRep(apellido)) {
+                        JOptionPane.showMessageDialog(null, "NOMBRE O APELLIDO INCORRECTO");
                     } else {
-                        if (!edit.ValidarNombreRep(nombrere) || !edit.ValidarNombreRep(apellido)) {
-                            JOptionPane.showMessageDialog(null, "NOMBRE O APELLIDO INCORRECTO");
+                        if (tipo.equals("SELECCIONAR")) {
+                            JOptionPane.showMessageDialog(null, "SELECCIONE UN TIPO DE LA LISTA");
                         } else {
-                            if (tipo.equals("SELECCIONAR")) {
-                                JOptionPane.showMessageDialog(null, "SELECCIONE UN TIPO DE LA LISTA");
+                            if (url.isEmpty()) {
+                                url = "- - - - - - - - -";
+                            }
+                            edit.setId(id);
+                            edit.setCodigo(codigo);
+                            edit.setNombre(nombre);
+                            edit.setId_pais(pais.getId_pais());
+                            edit.setUrl_editorial(url);
+                            edit.setNombre_rep(nombrere);
+                            edit.setApellido_rep(apellido);
+                            edit.setTipo_editorial(tipo);
+                            if (me.ModificarCategoria(edit)) {
+                                JOptionPane.showMessageDialog(null, "ACTUALIZACION REALIZADA CON EXITO");
+                                ModeloEditorial.getTablaEliminado();
+                                LimpiarCampos();
                             } else {
-                                if (url.isEmpty()) {
-                                    url = "- - -";
-                                }
-                                edit.setId(id);
-                                edit.setCodigo(codigo);
-                                edit.setNombre(nombre);
-                                edit.setDireccion(direccion);
-                                edit.setUrl_editorial(url);
-                                edit.setNombre_rep(nombrere);
-                                edit.setApellido_rep(apellido);
-                                edit.setTipo_editorial(tipo);
-                                if (me.ModificarCategoria(edit)) {
-                                    JOptionPane.showMessageDialog(null, "ACTUALIZACION REALIZADA CON EXITO");
-                                    ModeloEditorial.getTablaEliminado();
-                                    LimpiarCampos();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
-                                }
+                                JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
                             }
                         }
                     }
@@ -625,76 +630,74 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
-    
-    public void Eliminar(){
-        try{
+
+    public void Eliminar() {
+        try {
             Editorial edi = new Editorial();
             int id = Integer.parseInt(campoediid.getText());
-            
+
             edi.setId(id);
-            if(me.Eliminar(edi)){
+            if (me.Eliminar(edi)) {
                 JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
                 ModeloEditorial.getTabla();
                 LimpiarCampos();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
                 LimpiarCampos();
             }
-        }catch(HeadlessException | NumberFormatException | NullPointerException e){
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
-    
+
     public void ModificarEliminado() {
         try {
             Editorial edit = new Editorial();
             int id = Integer.parseInt(campoediid.getText().trim());
             String codigo = txtcodigo.getText().trim();
             String nombre = txtnombreeditorial.getText().trim();
-            String direccion = txtdireccionedi.getText().trim();
+            Pais pais = (Pais) combopais.getSelectedItem();
             String url = txturl.getText().trim();
             String nombrere = txtnombrerep.getText().trim();
             String apellido = txtapellidorep.getText().trim();
             String tipo = String.valueOf(combotipo.getSelectedItem());
             boolean bo1 = !checkCancelDelete.isSelected();
 
-            if (codigo.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || nombrere.isEmpty() || apellido.isEmpty() || tipo.isEmpty()) {
+            if (codigo.isEmpty() || nombre.isEmpty() || pais == null || nombrere.isEmpty() || apellido.isEmpty() || tipo.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
                 if (!edit.ValidarNombreEd(nombre)) {
                     JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
                 } else {
-                    if (!edit.ValidarNombreRep(direccion)) {
-                        JOptionPane.showMessageDialog(null, "REVISE LA DIRECCION");
+
+                    if (!edit.ValidarNombreRep(nombrere) || !edit.ValidarNombreRep(apellido)) {
+                        JOptionPane.showMessageDialog(null, "NOMBRE O APELLIDO INCORRECTO");
                     } else {
-                        if (!edit.ValidarNombreRep(nombrere) || !edit.ValidarNombreRep(apellido)) {
-                            JOptionPane.showMessageDialog(null, "NOMBRE O APELLIDO INCORRECTO");
+                        if (tipo.equals("SELECCIONAR")) {
+                            JOptionPane.showMessageDialog(null, "SELECCIONE UN TIPO DE LA LISTA");
                         } else {
-                            if (tipo.equals("SELECCIONAR")) {
-                                JOptionPane.showMessageDialog(null, "SELECCIONE UN TIPO DE LA LISTA");
+                            if (url.isEmpty()) {
+                                url = "- - -";
+                            }
+                            edit.setId(id);
+                            edit.setCodigo(codigo);
+                            edit.setNombre(nombre);
+                            edit.setId_pais(pais.getId_pais());
+                            edit.setUrl_editorial(url);
+                            edit.setNombre_rep(nombrere);
+                            edit.setApellido_rep(apellido);
+                            edit.setTipo_editorial(tipo);
+                            edit.setEstado(bo1);
+                            if (me.ModificarCategoriaEliminado(edit)) {
+                                JOptionPane.showMessageDialog(null, "ACTUALIZACION REALIZADA CON EXITO");
+                                ModeloEditorial.getTabla();
+                                LimpiarCampos();
                             } else {
-                                if (url.isEmpty()) {
-                                    url = "- - -";
-                                }
-                                edit.setId(id);
-                                edit.setCodigo(codigo);
-                                edit.setNombre(nombre);
-                                edit.setDireccion(direccion);
-                                edit.setUrl_editorial(url);
-                                edit.setNombre_rep(nombrere);
-                                edit.setApellido_rep(apellido);
-                                edit.setTipo_editorial(tipo);
-                                edit.setEstado(bo1);
-                                if (me.ModificarCategoriaEliminado(edit)) {
-                                    JOptionPane.showMessageDialog(null, "ACTUALIZACION REALIZADA CON EXITO");
-                                    ModeloEditorial.getTabla();
-                                    LimpiarCampos();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
-                                }
+                                JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LOS DATOS");
                             }
                         }
                     }
+
                 }
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
@@ -706,7 +709,6 @@ public class Ventana_Editorial extends javax.swing.JDialog {
         campoediid.setText(null);
         txtcodigo.setText(null);
         txtnombreeditorial.setText(null);
-        txtdireccionedi.setText(null);
         txtnombrerep.setText(null);
         txtapellidorep.setText(null);
         txturl.setText(null);
@@ -717,10 +719,6 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnlabelvolverMouseClicked
-
-    private void txtdireccionediKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccionediKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtdireccionediKeyTyped
 
     private void txturlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txturlKeyTyped
         // TODO add your handling code here:
@@ -739,17 +737,17 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     }//GEN-LAST:event_btnlabeagregarMouseClicked
 
     private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        if(!checkFiltro.isSelected()){
+        if (!checkFiltro.isSelected()) {
             Modificar();
-        }else{
+        } else {
             ModificarEliminado();
         }
     }//GEN-LAST:event_btnlabelactualizarMouseClicked
 
     private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        if(!checkFiltro.isSelected()){
+        if (!checkFiltro.isSelected()) {
             Eliminar();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
         }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
@@ -770,7 +768,8 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             ide = Integer.parseInt((String) tablaEditorial.getValueAt(fila, 0).toString());
             String codigo = (String) tablaEditorial.getValueAt(fila, 1);
             String nombre = (String) tablaEditorial.getValueAt(fila, 2);
-            String direccion = (String) tablaEditorial.getValueAt(fila, 3);
+            Pais direccion = new Pais();
+            direccion.setNombre_pais((String)tablaEditorial.getValueAt(fila, 3));
             String tipo = (String) tablaEditorial.getValueAt(fila, 4);
             String nombre_r = (String) tablaEditorial.getValueAt(fila, 5);
             String apellido_r = (String) tablaEditorial.getValueAt(fila, 6);
@@ -779,7 +778,12 @@ public class Ventana_Editorial extends javax.swing.JDialog {
             campoediid.setText("" + ide);
             txtcodigo.setText(codigo);
             txtnombreeditorial.setText(nombre);
-            txtdireccionedi.setText(direccion);
+            for(int i = 0; i < combopais.getMaximumRowCount(); i++){
+                if(direccion.getNombre_pais().equals(combopais.getItemAt(i).getNombre_pais())){
+                    combopais.setSelectedIndex(i);
+                    i = combopais.getMaximumRowCount();
+                }
+            }
             combotipo.setSelectedItem(tipo);
             txtnombrerep.setText(nombre_r);
             txtapellidorep.setText(apellido_r);
@@ -801,10 +805,10 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     }//GEN-LAST:event_txtnombreeditorialKeyTyped
 
     private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
-        if(checkFiltro.isSelected()){
+        if (checkFiltro.isSelected()) {
             ModeloEditorial.getTablaEliminado();
             LimpiarCampos();
-        }else{
+        } else {
             ModeloEditorial.getTabla();
             checkCancelDelete.setEnabled(false);
             LimpiarCampos();
@@ -826,6 +830,7 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     private javax.swing.JLabel campoediid;
     private javax.swing.JCheckBox checkCancelDelete;
     private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JComboBox<Pais> combopais;
     private javax.swing.JComboBox<String> combotipo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -847,7 +852,6 @@ public class Ventana_Editorial extends javax.swing.JDialog {
     public static javax.swing.JTable tablaEditorial;
     private javax.swing.JTextField txtapellidorep;
     private javax.swing.JFormattedTextField txtcodigo;
-    private javax.swing.JTextField txtdireccionedi;
     private javax.swing.JTextField txtnombreeditorial;
     private javax.swing.JTextField txtnombrerep;
     private javax.swing.JTextField txturl;

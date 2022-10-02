@@ -79,6 +79,16 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
+        this.cedula = cedula;
+        this.primer_nombre = primer_nombre;
+        this.segundo_nombre = segundo_nombre;
+        this.primer_apellido = primer_apellido;
+        this.segundo_apellido = segundo_apellido;
+        this.fecha_nac = fecha_nac;
+        this.Estado = Estado;
+    }
+
     public int getId() {
         return id;
     }
