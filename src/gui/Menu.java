@@ -69,6 +69,7 @@ public final class Menu extends javax.swing.JFrame{
         labelhora = new javax.swing.JLabel();
         Slide = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         panemenu.setBackground(new java.awt.Color(204, 204, 204));
         panemenu.setForeground(new java.awt.Color(153, 153, 153));
@@ -343,6 +344,13 @@ public final class Menu extends javax.swing.JFrame{
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -351,7 +359,9 @@ public final class Menu extends javax.swing.JFrame{
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
@@ -364,7 +374,9 @@ public final class Menu extends javax.swing.JFrame{
                         .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))))
+                        .addComponent(jButton1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton2))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -515,6 +527,11 @@ public final class Menu extends javax.swing.JFrame{
         pre.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Ventana_Devolucion vd = new Ventana_Devolucion();
+        vd.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;
     private javax.swing.JLabel Categoria;
@@ -535,6 +552,7 @@ public final class Menu extends javax.swing.JFrame{
     private javax.swing.JLabel btnlabelsalir;
     private javax.swing.JPanel btnregistrosalir;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel labelfecha;
     private javax.swing.JLabel labelhora;
     private javax.swing.JLabel libro;
