@@ -288,7 +288,7 @@ public class ModeloSeccion {
         }
     }
 
- public static void getTablaConsultaCod(Seccion sec) {
+    public static void getTablaConsultaCod(Seccion sec) {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;

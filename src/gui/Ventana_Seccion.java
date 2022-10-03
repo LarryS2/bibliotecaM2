@@ -34,7 +34,7 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         initComponents();
         llenarCategoria();
         ModeloSeccion.getTabla();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -461,15 +461,15 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llenarCategoria(){
+    public void llenarCategoria() {
         ModeloCategoria modcat = new ModeloCategoria();
         ArrayList<Categoria> listcat = modcat.getCategoria();
         combogenero.removeAllItems();
-        for(int i = 0; i < listcat.size(); i++){
+        for (int i = 0; i < listcat.size(); i++) {
             combogenero.addItem(new Categoria(listcat.get(i).getId(), listcat.get(i).getNombre_cat()));
-        }  
+        }
     }
-    
+
     public void enableCheck() {
         checkCancellDelete.setEnabled(false);
 
@@ -505,21 +505,21 @@ public class Ventana_Seccion extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
                 } else {
 
-                        seccion.setCodigo_zona(codigo);
-                        seccion.setNombre_zona(nombre);
-                        seccion.setDescripcion(descripcion);
-                        seccion.setId_cate_zona(categoria);
-                        if (ms.RegistrarSeccion(seccion)) {
-                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                            ModeloSeccion.Limpiar_Tabla();
-                            ModeloSeccion.getTabla();
-                            LimpiarCampos();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR ");
-                            ModeloSeccion.Limpiar_Tabla();
-                            ModeloSeccion.getTabla();
-                        }
-                    
+                    seccion.setCodigo_zona(codigo);
+                    seccion.setNombre_zona(nombre);
+                    seccion.setDescripcion(descripcion);
+                    seccion.setId_cate_zona(categoria);
+                    if (ms.RegistrarSeccion(seccion)) {
+                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                        ModeloSeccion.Limpiar_Tabla();
+                        ModeloSeccion.getTabla();
+                        LimpiarCampos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR ");
+                        ModeloSeccion.Limpiar_Tabla();
+                        ModeloSeccion.getTabla();
+                    }
+
                 }
             }
         } catch (HeadlessException | NumberFormatException e) {
@@ -758,7 +758,7 @@ public class Ventana_Seccion extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void BuscarID() {
-       try {
+        try {
             String buscar = txtBuscar.getText();
             if (!buscar.isEmpty()) {
                 Seccion seccion = new Seccion();
