@@ -680,7 +680,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                     LimpiarCampos();
                 } else{
-                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    if(!autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
                         JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                         LimpiarCampos();
                     }else{
