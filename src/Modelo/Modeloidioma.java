@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import logico.Categoria;
 import logico.Conexion;
 import logico.Idioma;
 import logico.Pais;
@@ -98,6 +99,38 @@ public class Modeloidioma {
             }
         }
         return id;
+    }
+    
+    public int evitarDeleteIdioma(Idioma idioma){
+        int cantidad = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql= "SELECT COUNT(l.id_idioma_lib), COUNT(a.id_lengua_materna_aut)"
+                + "FROM libro l, autor a, idioma i "
+                + "WHERE l.id_idioma_lib = i.id_idi AND a.id_lengua_materna_aut = i.id_idi "
+                + "AND l.id_idioma_lib =  ?  AND a.id_lengua_materna_aut = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idioma.getId_idioma());
+            ps.setInt(2, idioma.getId_idioma());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cantidad = rs.getInt(1)+rs.getInt(2);
+            }
+        }catch(SQLException e){
+            System.out.println("");
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return cantidad;
     }
     
     public boolean ActualizarIdiomaEliminado(Idioma idioma){
