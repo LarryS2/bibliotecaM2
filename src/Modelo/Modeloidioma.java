@@ -107,15 +107,19 @@ public class Modeloidioma {
         Connection con = Conexion.getConnection();
         ResultSet rs;
         
-        String sql= "SELECT COUNT(l.id_idioma_lib) FROM libro l, idioma i WHERE l.id_idioma_lib = i.id_idi AND l.id_idioma_lib = ?";
+        String sql= "SELECT COUNT(l.id_idioma_lib), COUNT(a.id_lengua_materna_aut)"
+                + "FROM libro l, autor a, idioma i "
+                + "WHERE l.id_idioma_lib = i.id_idi AND a.id_lengua_materna_aut = i.id_idi "
+                + "AND l.id_idioma_lib =  ?  AND a.id_lengua_materna_aut = ?";
         
         try{
             ps = con.prepareStatement(sql);
             ps.setInt(1, idioma.getId_idioma());
+            ps.setInt(2, idioma.getId_idioma());
             rs = ps.executeQuery();
             
             while(rs.next()){
-                cantidad = rs.getInt(1);
+                cantidad = rs.getInt(1)+rs.getInt(2);
             }
         }catch(SQLException e){
             System.out.println("");
