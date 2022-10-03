@@ -298,6 +298,34 @@ public class ModeloCategoria {
         }
     }
     
+    public int evitarDelete(Categoria categoria){
+        int cantidad = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql= "SELECT COUNT(s.id_cat_sec) FROM seccion s, categoria c WHERE s.id_cat_sec = c.id_cat AND s.id_cat_sec = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, categoria.getId());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cantidad = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println("");
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return cantidad;
+    }
+    
     public static void Limpiar_Tabla(){
         for (int i = 0; i < Ventana_Categoria.tablacategoria.getRowCount(); i++) {
             modelo.removeRow(i);

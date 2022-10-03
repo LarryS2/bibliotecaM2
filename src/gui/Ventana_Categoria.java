@@ -508,13 +508,17 @@ public class Ventana_Categoria extends javax.swing.JDialog {
             int id = Integer.parseInt(labelidcat.getText());
 
             cate.setId(id);
-            if (mc.EliminarCategoria(cate)) {
-                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-                ModeloCategoria.getTabla();
-                LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
-                LimpiarCampos();
+            if(mc.evitarDelete(cate) == 0){
+                if (mc.EliminarCategoria(cate)) {
+                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                    ModeloCategoria.getTabla();
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                    LimpiarCampos();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REALIZAR LA ACCIÓN\nPOR FAVOR, CONTACTE CON EL ADMINISTRADOR\nPARA ELIMINAR ESTA FILA");
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
