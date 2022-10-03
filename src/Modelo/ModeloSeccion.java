@@ -159,30 +159,7 @@ public class ModeloSeccion {
         }
     }
 
-    public boolean EliminarSeccion(Seccion seccion) {
-
-        PreparedStatement ps;
-        Connection con = Conexion.getConnection();
-
-        String sql = "UPDATE seccion SET estado_sec = True WHERE id_sec = ?";
-
-        try {
-
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, seccion.getId());
-            ps.execute();
-            return true;
-        } catch (SQLException sqle) {
-            System.err.println(sqle);
-            return false;
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException sqle) {
-                System.err.println(sqle);
-            }
-        }
-    }
+    
 
     public boolean BuscarSeccion(Seccion sec) {
 
@@ -323,4 +300,29 @@ public static void getTablaConsultaCodigo(Seccion sec){
         }
     }
 
+
+public boolean EliminarSeccion(Seccion seccion) {
+
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+
+        String sql = "UPDATE seccion SET estado_sec = True WHERE id_sec = ?";
+
+        try {
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, seccion.getId());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
 }
