@@ -42,12 +42,13 @@ public class Ventana_Multas extends javax.swing.JDialog {
                 if(mm.registrarEnc(multa)){
                     System.out.println("Se ha aplicado una multa a un usuario con el No de identificacion: " + multa.getCed_usuario());
                     addAutomaticMultaDet();
+                    mm.noDup(multa);
                 }else{
                     System.out.println("No se ha podido aplicar multa");
                 }
             }
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("NO EXISTE NADIE CON UN ATRASO");
         }
     }
     
@@ -67,10 +68,8 @@ public class Ventana_Multas extends javax.swing.JDialog {
                     System.out.println("No se pudo aplicar la multa");
                 }
             }
-            
-            
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("NO EXISTE NADIE CON UN ATRASO");
         }
     }
     

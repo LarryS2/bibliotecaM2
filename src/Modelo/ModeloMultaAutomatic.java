@@ -20,8 +20,8 @@ public class ModeloMultaAutomatic {
         Connection con = Conexion.getConnection();
         ResultSet rs;
         Multa multa = new Multa();
-        String sql = "SELECT date_sub(fecha_fin_ped, INTERVAL DAY(now()) DAY) AS 'FECHA_RETRASO', id_cliente_ped, id_enc_ped FROM encabezado_pedido WHERE date_sub(fecha_fin_ped, INTERVAL DAY(now()) DAY) < fecha_inicio_ped";
-
+        String sql = "SELECT date_sub(fecha_fin_ped, INTERVAL DAY(now()) DAY) AS 'FECHA_RETRASO', id_cliente_ped, id_enc_ped FROM encabezado_pedido WHERE date_sub(fecha_fin_ped, INTERVAL DAY(now()) DAY) < fecha_inicio_ped AND estado_enc = False";
+        
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -41,6 +41,26 @@ public class ModeloMultaAutomatic {
             }
         }
         return multa;
+    }
+    
+    public void noDup(Multa multa){
+        PreparedStatement psup;
+        Connection con = Conexion.getConnection();
+        String sql1 = "UPDATE encabezado_pedido SET estado_enc = True WHERE id_enc_ped = ?";
+        try {
+            psup = con.prepareStatement(sql1);
+            psup.setInt(1, multa.getId_multa());
+            System.out.println(psup);
+            psup.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
     }
 
     public Multa diaIn() {
