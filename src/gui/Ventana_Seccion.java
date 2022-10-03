@@ -616,13 +616,16 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             int id = Integer.parseInt(campoid.getText().trim());
 
             seccion.setId(id);
-
-            if (ms.EliminarSeccion(seccion)) {
-                JOptionPane.showMessageDialog(null, "ELIMINACIÓN EXITOSA");
-                ModeloSeccion.getTabla();
+            if (ms.evitarDelete(seccion) == 0) {
+                if (ms.EliminarSeccion(seccion)) {
+                    JOptionPane.showMessageDialog(null, "ELIMINACIÓN EXITOSA");
+                    ModeloSeccion.getTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR ");
+                    ModeloSeccion.getTabla();
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR ");
-                ModeloSeccion.getTabla();
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REALIZAR LA ACCIÓN\nPOR FAVOR, CONTACTE CON EL ADMINISTRADOR\nPARA ELIMINAR ESTA FILA");
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             System.out.println(e);

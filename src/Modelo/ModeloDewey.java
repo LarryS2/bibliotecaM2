@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import logico.Categoria;
 
 public class ModeloDewey {
 
@@ -204,7 +205,7 @@ public class ModeloDewey {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
-        } 
+        }
     }
 
     public static void getTablaEliminado() {
@@ -235,7 +236,7 @@ public class ModeloDewey {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
-        } 
+        }
     }
 
     public boolean ConsultarDewey(Dewey dew) {
@@ -262,6 +263,34 @@ public class ModeloDewey {
                 System.err.println(sqle);
             }
         }
+    }
+
+    public int evitarDelete(Dewey dew) {
+        int cantidad = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+
+        String sql = "SELECT COUNT(s.id_dew_lib) FROM libro s, dewey c WHERE s.id_dew_lib = c.id_dew AND s.id_dew_lib = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, dew.getId());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                cantidad = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("");
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return cantidad;
     }
 
     public static void getTablaConsultaCod(Dewey dew) {
