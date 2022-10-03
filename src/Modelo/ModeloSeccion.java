@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import logico.Categoria;
 import logico.Dewey;
 
 public class ModeloSeccion {
@@ -162,7 +163,33 @@ public class ModeloSeccion {
         }
     }
 
-    
+    public int evitarDelete(Seccion sec){
+        int cantidad = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql= "SELECT COUNT(l.id_sec_lib) FROM seccion s, libro l WHERE l.id_sec_lib = s.id_sec AND l.id_sec_lib = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, sec.getId());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cantidad = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println("");
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return cantidad;
+    }
 
     public boolean ConsultarSeccion(Seccion sec) {
 

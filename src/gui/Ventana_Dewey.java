@@ -598,15 +598,19 @@ public class Ventana_Dewey extends javax.swing.JDialog {
             int id = Integer.parseInt(labeliddewey.getText().trim());
 
             dewey.setId(id);
-            if (md.Eliminar(dewey)) {
-                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-                ModeloDewey.getTabla();
-                LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
-                LimpiarCampos();
-            }
 
+            if (md.evitarDelete(dewey) == 0) {
+                if (md.Eliminar(dewey)) {
+                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                    ModeloDewey.getTabla();
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                    LimpiarCampos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REALIZAR LA ACCIÓN\nPOR FAVOR, CONTACTE CON EL ADMINISTRADOR\nPARA ELIMINAR ESTA FILA");
+            }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "ELIJA UN FILA DE LA TABLA");
         }
