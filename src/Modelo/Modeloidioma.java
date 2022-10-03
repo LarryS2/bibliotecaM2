@@ -1,8 +1,10 @@
 package Modelo;
 
+import static Modelo.ModeloPais.modelo;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.Statement;
 import gui.Ventana_Idiomas;
+import gui.Ventana_paises;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import logico.Conexion;
 import logico.Idioma;
+import logico.Pais;
 
 public class Modeloidioma {
        
@@ -42,7 +45,6 @@ public class Modeloidioma {
         }
     }
     
-        
     public boolean ActualizarIdioma(Idioma idioma){
         
         PreparedStatement ps;
@@ -152,26 +154,49 @@ public class Modeloidioma {
     }
     
     
+//    public boolean BuscarIdioma(Idioma idioma){
+//        
+//        PreparedStatement ps;
+//        Connection con = Conexion.getConnection();
+//        ResultSet rs;
+//        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE codigo_idi=?";
+//        
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setString(1, idioma.getCodigo_idioma());
+//            rs = ps.executeQuery();
+//            
+//            if(rs.next()){
+//                idioma.setId_idioma(Integer.parseInt(rs.getString("id_idi")));
+//                idioma.setCodigo_idioma(rs.getString("codigo_idi"));
+//                idioma.setNombre_idioma(rs.getString("nombre_idi"));
+//                idioma.setDescripcion(rs.getString("descr_idi"));
+//                return true;
+//            }
+//            return false;
+//        } catch (SQLException sqle) {
+//            System.err.println(sqle);
+//            return false;
+//        } finally {
+//            try {
+//                con.close();
+//            } catch (SQLException sqle) {
+//                System.err.println(sqle);
+//            }
+//        }
+//    }
     public boolean BuscarIdioma(Idioma idioma){
-        
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        ResultSet rs;
-        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE codigo_idi=?";
+        
+        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE codigo_idi like ? OR nombre_idi like ?";
         
         try {
+            
             ps = con.prepareStatement(sql);
             ps.setString(1, idioma.getCodigo_idioma());
-            rs = ps.executeQuery();
-            
-            if(rs.next()){
-                idioma.setId_idioma(Integer.parseInt(rs.getString("id_idi")));
-                idioma.setCodigo_idioma(rs.getString("codigo_idi"));
-                idioma.setNombre_idioma(rs.getString("nombre_idi"));
-                idioma.setDescripcion(rs.getString("descr_idi"));
-                return true;
-            }
-            return false;
+            ps.setString(2, idioma.getCodigo_idioma());
+            return ps.execute();
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -313,6 +338,37 @@ public class Modeloidioma {
             }
         }
         return listaidiomas;
+    }
+    
+    public static void getTablaConsultaCodigoIdioma(Idioma idioma){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT id_idi, codigo_idi, nombre_idi, descr_idi FROM idioma WHERE codigo_idi like ? OR nombre_idi like ?";
+        modelo = new DefaultTableModel();
+        Ventana_Idiomas.tablaIdiomas.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, idioma.getCodigo_idioma());
+            st.setString(2, idioma.getCodigo_idioma());
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("DESCRIPCIÓN");
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
     }
     
     public static void Limpiar_Tabla(){
