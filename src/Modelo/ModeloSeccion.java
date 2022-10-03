@@ -187,10 +187,9 @@ public class ModeloSeccion {
     public boolean BuscarSeccion(Seccion sec) {
 
         PreparedStatement ps;
-        ResultSet rs = null;
         Connection con = Conexion.getConnection();
 
-        String sql = "SELECT FROM autor WHERE =?";
+        String sql = " SELECT id_sec, codigo_sec, nombre_sec , desc_sec FROM seccion WHERE codigo_sec like ? OR codigo_sec like ? FROM seccion WHERE codigo_sec like ? OR codigo_sec like ??";
 
         try {
 
@@ -282,6 +281,38 @@ public class ModeloSeccion {
             } catch (SQLException sqle) {
                 System.err.println(sqle);
             }
+        }
+    }
+
+public static void getTablaConsultaCodigo(Seccion sec){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT id_sec, codigo_sec, nombre_sec,desc_sec FROM seccion WHERE codigo_sec like ? OR nombre_sec like ?";
+        modelo = new DefaultTableModel();
+        Ventana_Seccion.tablaseccion.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, sec.getCodigo_zona());
+            st.setString(2, sec.getCodigo_zona());
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("DESCRIPCION");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
         }
     }
 
