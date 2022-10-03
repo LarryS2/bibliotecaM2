@@ -5,11 +5,15 @@
  */
 package gui;
 
+import Modelo.ModeloCategoria;
 import Modelo.ModeloPais;
+import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import logico.Categoria;
 import logico.Ciudad;
+import logico.Idioma;
 import logico.Pais;
 import logico.Zona;
 
@@ -63,25 +67,14 @@ public class Ventana_paises extends javax.swing.JDialog {
         txtdescpais = new javax.swing.JTextField();
         labeldescpais = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        btnbuscar = new javax.swing.JPanel();
-        btnlabelbuscar = new javax.swing.JLabel();
         labelid = new javax.swing.JLabel();
         labelidpais = new javax.swing.JLabel();
         txtcodigopais = new javax.swing.JFormattedTextField();
         checkFiltro = new javax.swing.JCheckBox();
         checkCancellDelete = new javax.swing.JCheckBox();
-        labelnomciudad = new javax.swing.JLabel();
-        txtnombreciudad = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
-        labelnomzona = new javax.swing.JLabel();
-        txtnombrezona = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
-        labelnomcalleprin = new javax.swing.JLabel();
-        txtnombrecalleprin = new javax.swing.JTextField();
-        jSeparator6 = new javax.swing.JSeparator();
-        txtnombrecallesec = new javax.swing.JTextField();
-        jSeparator7 = new javax.swing.JSeparator();
-        labelnomcallesec = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -191,6 +184,9 @@ public class Ventana_paises extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnlabelactualizarMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnlabelactualizarMouseEntered(evt);
+            }
         });
 
         javax.swing.GroupLayout btnactualizarLayout = new javax.swing.GroupLayout(btnactualizar);
@@ -287,30 +283,6 @@ public class Ventana_paises extends javax.swing.JDialog {
         labeldescpais.setForeground(new java.awt.Color(102, 102, 102));
         labeldescpais.setText("DESCRIPCIÓN:");
 
-        btnbuscar.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnlabelbuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnlabelbuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlabelbuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlabelbuscar.setText("BUSCAR");
-        btnlabelbuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnlabelbuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnlabelbuscarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnbuscarLayout = new javax.swing.GroupLayout(btnbuscar);
-        btnbuscar.setLayout(btnbuscarLayout);
-        btnbuscarLayout.setHorizontalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        btnbuscarLayout.setVerticalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-        );
-
         labelid.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelid.setForeground(new java.awt.Color(102, 102, 102));
         labelid.setText("ID:");
@@ -334,49 +306,17 @@ public class Ventana_paises extends javax.swing.JDialog {
         checkCancellDelete.setText("CANCELAR ELIMINACION");
         checkCancellDelete.setEnabled(false);
 
-        labelnomciudad.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        labelnomciudad.setForeground(new java.awt.Color(102, 102, 102));
-        labelnomciudad.setText("NOMBRE CIUDAD:");
-
-        txtnombreciudad.setBorder(null);
-        txtnombreciudad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreciudadKeyTyped(evt);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
-        labelnomzona.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        labelnomzona.setForeground(new java.awt.Color(102, 102, 102));
-        labelnomzona.setText("NOMBRE BARRIO::");
+        jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 2, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Buscar pais:");
 
-        txtnombrezona.setBorder(null);
-        txtnombrezona.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombrezonaKeyTyped(evt);
-            }
-        });
-
-        labelnomcalleprin.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        labelnomcalleprin.setForeground(new java.awt.Color(102, 102, 102));
-        labelnomcalleprin.setText("CALLE PRINCIPAL:");
-
-        txtnombrecalleprin.setBorder(null);
-        txtnombrecalleprin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombrecalleprinKeyTyped(evt);
-            }
-        });
-
-        txtnombrecallesec.setBorder(null);
-        txtnombrecallesec.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombrecallesecKeyTyped(evt);
-            }
-        });
-
-        labelnomcallesec.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        labelnomcallesec.setForeground(new java.awt.Color(102, 102, 102));
-        labelnomcallesec.setText("CALLE SECUNDARIA:");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa (2).png"))); // NOI18N
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
@@ -387,24 +327,9 @@ public class Ventana_paises extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 41, Short.MAX_VALUE))
-                    .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(backroundLayout.createSequentialGroup()
-                                        .addComponent(labeldescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtdescpais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(backroundLayout.createSequentialGroup()
                                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -420,43 +345,37 @@ public class Ventana_paises extends javax.swing.JDialog {
                                                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                                     .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(txtcodigopais)))))
-                                    .addComponent(txtnombreciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkFiltro)
-                                .addGap(18, 18, 18))
-                            .addGroup(backroundLayout.createSequentialGroup()
+                                    .addGroup(backroundLayout.createSequentialGroup()
+                                        .addComponent(labeldescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                        .addComponent(txtdescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkCancellDelete)
-                                    .addComponent(labelnomciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(checkFiltro)
+                                    .addComponent(jLabel1)))
+                            .addGroup(backroundLayout.createSequentialGroup()
+                                .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnlimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelnomzona, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtnombrezona, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelnomcalleprin, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtnombrecalleprin, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelnomcallesec, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtnombrecallesec, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(332, 332, 332)
-                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(checkCancellDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         backroundLayout.setVerticalGroup(
@@ -466,101 +385,154 @@ public class Ventana_paises extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                                    .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labelcodpais, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtcodigopais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtnombrepais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelnompais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(labelnomciudad))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addGap(0, 146, Short.MAX_VALUE)
-                                .addComponent(txtnombreciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                            .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelcodpais, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcodigopais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnombrezona, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelnomzona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnombrecalleprin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelnomcalleprin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtnombrepais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelnompais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnombrecallesec, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelnomcallesec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtdescpais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeldescpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
+                        .addGap(18, 18, 18)
                         .addComponent(checkCancellDelete)
-                        .addGap(6, 6, 6))
+                        .addGap(43, 43, 43))
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(20, 20, 20)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(checkFiltro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addGap(100, 100, 100))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 787, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 936, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(backround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        BuscarID();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
+        if (checkFiltro.isSelected()) {
+            ModeloPais.getTablaEliminados();
+            LimpiarCampos();
+        } else {
+            ModeloPais.getTabla();
+            checkCancellDelete.setEnabled(false);
+            LimpiarCampos();
+        }
+    }//GEN-LAST:event_checkFiltroMouseClicked
+
+    private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnlabelvolverMouseClicked
+
+    private void btnlabellimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabellimpiarMouseClicked
+        LimpiarCampos();
+        ModeloPais.Limpiar_Tabla();
+        ModeloPais.getTabla();
+    }//GEN-LAST:event_btnlabellimpiarMouseClicked
+
+    private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
+        if (!checkFiltro.isSelected()) {
+            Eliminar();
+        } else {
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
+        }
+    }//GEN-LAST:event_btnlabeleliminarMouseClicked
+
+    private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
+        if (!checkFiltro.isSelected()) {
+            Modificar();
+        } else {
+            ModificarEliminado();
+        }
+    }//GEN-LAST:event_btnlabelactualizarMouseClicked
+
+    private void btnlabeagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeagregarMouseClicked
+        Agregar();
+    }//GEN-LAST:event_btnlabeagregarMouseClicked
+
+    private void tablapaisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablapaisesMouseClicked
+        int fila = tablapaises.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
+        } else {
+            labelcodpais.disable();
+            checkCancellDelete.setEnabled(false);
+            idp = Integer.parseInt((String) tablapaises.getValueAt(fila, 0).toString());
+            String codigo = (String) tablapaises.getValueAt(fila, 1);
+            String nombre = (String) tablapaises.getValueAt(fila, 2);
+            String descripcion = (String) tablapaises.getValueAt(fila, 3);
+
+            labelidpais.setText("" + idp);
+            txtcodigopais.setText(codigo);
+            txtnombrepais.setText(nombre);
+            txtdescpais.setText(descripcion);
+            enableCheck();
+        }
+    }//GEN-LAST:event_tablapaisesMouseClicked
+
+    private void txtnombrepaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrepaisKeyTyped
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        } else {
+            if (txtnombrepais.getText().length() >= 50) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtnombrepaisKeyTyped
+
+    private void txtdescpaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescpaisKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdescpaisKeyTyped
+
+    private void btnlabelactualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlabelactualizarMouseEntered
 
     public void enableCheck() {
         checkCancellDelete.setEnabled(false);
@@ -580,76 +552,129 @@ public class Ventana_paises extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA ANTES");
         }
     }
-
-    public void Agregar() {
+    public void BuscarID() {
         try {
-            Pais pais = new Pais();
-            Ciudad ciudad = new Ciudad();
-            Zona zona = new Zona();
-            
-            //datos pais
-            String codigo = txtcodigopais.getText().trim();
-            String nombre = txtnombrepais.getText().trim();
-            String descripcion = txtdescpais.getText().trim();
-            boolean estado = false;
-            
-            //datos ciudad
-            String nombre_ciudad = txtnombreciudad.getText().trim();
-            
-            //datos zona
-            String nombre_bar = txtnombrezona.getText().trim();
-            String calle_pri = txtnombrecalleprin.getText().trim();
-            String calle_sec = txtnombrecallesec.getText().trim();
-            
-            
-            if (codigo.isEmpty() || nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-            } else {
-                if (pais.Validar_Nombre_Pais(nombre) == false) {
-                    JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
-                } else {
-                    if(nombre_ciudad.isEmpty()){
-                       JOptionPane.showMessageDialog(null, "NOMBRE DE LA CIUDAD EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        if(nombre_bar.isEmpty()){
-                                JOptionPane.showMessageDialog(null, "NOMBRE DE LA ZONA EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        } else {
-
-                            pais.setCodigo_pais(codigo);
-                            pais.setNombre_pais(nombre);
-                            pais.setDesc_pais(descripcion);
-                            pais.setEstado(estado);
-                            if (mp.RegistrarPais(pais)) {
-                                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO (PAÍS)");
-                                ciudad.setNombre_ciudad(nombre_ciudad);
-                                ciudad.setEstado(estado);
-                                if(mp.RegistrarCiudad(ciudad)){
-                                    JOptionPane.showMessageDialog(null, "EXITOSO (ciudad)");
-                                    zona.setNombre_bar(nombre_bar);
-                                    zona.setCalle_prin(calle_pri);
-                                    zona.setCalle_sec(calle_sec);
-                                    zona.setEstado_bar(estado);
-                                    if(mp.RegistrarZona(zona)){
-                                        JOptionPane.showMessageDialog(null, "REGISTRO COMPLETO");
-                                        ModeloPais.Limpiar_Tabla();
-                                        ModeloPais.getTabla();
-                                        LimpiarCampos();
-                                    }
-                                }
-
-                            } else {
-                                JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
-                                ModeloPais.Limpiar_Tabla();
-                                ModeloPais.getTabla();
-                            }
-                        }
-                    }
+            String buscar = txtBuscar.getText();
+            if(!buscar.isEmpty()){
+                Pais pais = new Pais();
+                pais.setCodigo_pais("%"+buscar+"%");
+                if (mp.BuscarPais(pais)) {
+                    ModeloPais.getTablaConsultaCodigoPais(pais);
+                    LimpiarCampos();
                 }
+            }else{
+                ModeloPais.getTabla();
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             System.out.println(e);
         }
     }
+    
+    public void Agregar() {
+        try {
+            Pais pais = new Pais();
+            String codigo = txtcodigopais.getText().trim();
+            String nombre = txtnombrepais.getText().trim();
+            String descripcion = txtdescpais.getText().trim();
+
+            if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+            } else {
+                if (pais.Validar_Nombre_Pais(nombre) == false) {
+                    JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
+                } else {
+//                    if (pais.ValidarDesc(descripcion) == false) {
+//                        JOptionPane.showMessageDialog(null, "DESCRIPCIÓN NO VÁLIDA");
+//                    } else {
+                        pais.setCodigo_pais(codigo);
+                        pais.setNombre_pais(nombre);
+                        pais.setDesc_pais(descripcion);
+                        if (mp.RegistrarPais(pais)) {
+                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                            ModeloPais.Limpiar_Tabla();
+                            ModeloPais.getTabla();
+                            LimpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL PAIS");
+                            ModeloPais.Limpiar_Tabla();
+                            ModeloPais.getTabla();
+                        }
+//                    }
+                }
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+        }
+    }
+
+//    public void Agregar() {
+//        try {
+//            Pais pais = new Pais();
+////            Ciudad ciudad = new Ciudad();
+////            Zona zona = new Zona();
+//            
+//            //datos pais
+//            String codigo = txtcodigopais.getText().trim();
+//            String nombre = txtnombrepais.getText().trim();
+//            String descripcion = txtdescpais.getText().trim();
+//            boolean estado = false;
+//            
+//            //datos ciudad
+////            String nombre_ciudad = txtnombreciudad.getText().trim();
+////            
+////            //datos zona
+////            String nombre_bar = txtnombrezona.getText().trim();
+////            String calle_pri = txtnombrecalleprin.getText().trim();
+////            String calle_sec = txtnombrecallesec.getText().trim();
+//            
+//            
+//            if (codigo.isEmpty() || nombre.isEmpty()) {
+//                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
+//            } else {
+//                if (pais.Validar_Nombre_Pais(nombre) == false) {
+//                    JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
+//                } else {
+//                    if(nombre_ciudad.isEmpty()){
+//                       JOptionPane.showMessageDialog(null, "NOMBRE DE LA CIUDAD EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
+//                    } else {
+//                        if(nombre_bar.isEmpty()){
+//                                JOptionPane.showMessageDialog(null, "NOMBRE DE LA ZONA EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
+//                        } else {
+//
+//                            pais.setCodigo_pais(codigo);
+//                            pais.setNombre_pais(nombre);
+//                            pais.setDesc_pais(descripcion);
+//                            pais.setEstado(estado);
+//                            if (mp.RegistrarPais(pais)) {
+//                                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO (PAÍS)");
+//                                ciudad.setNombre_ciudad(nombre_ciudad);
+//                                ciudad.setEstado(estado);
+//                                if(mp.RegistrarCiudad(ciudad)){
+//                                    JOptionPane.showMessageDialog(null, "EXITOSO (ciudad)");
+//                                    zona.setNombre_bar(nombre_bar);
+//                                    zona.setCalle_prin(calle_pri);
+//                                    zona.setCalle_sec(calle_sec);
+//                                    zona.setEstado_bar(estado);
+//                                    if(mp.RegistrarZona(zona)){
+//                                        JOptionPane.showMessageDialog(null, "REGISTRO COMPLETO");
+//                                        ModeloPais.Limpiar_Tabla();
+//                                        ModeloPais.getTabla();
+//                                        LimpiarCampos();
+//                                    }
+//                                }
+//
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
+//                                ModeloPais.Limpiar_Tabla();
+//                                ModeloPais.getTabla();
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+//            System.out.println(e);
+//        }
+//    }
 
     public void Modificar() {
         try {
@@ -747,122 +772,22 @@ public class Ventana_paises extends javax.swing.JDialog {
         txtnombrepais.setText(null);
         txtcodigopais.setText(null);
         txtdescpais.setText(null);
-        txtnombreciudad.setText(null);
-        txtnombrecalleprin.setText(null);
-        txtnombrecallesec.setText(null);
-        txtnombrezona.setText(null);
+//        txtnombreciudad.setText(null);
+//        txtnombrecalleprin.setText(null);
+//        txtnombrecallesec.setText(null);
+//        txtnombrezona.setText(null);
         checkCancellDelete.setSelected(false);
     }
 
-
-    private void txtnombrepaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrepaisKeyTyped
-        char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar)) {
-            evt.consume();
-        } else {
-            if (txtnombrepais.getText().length() >= 50) {
-                evt.consume();
-            }
-        }
-    }//GEN-LAST:event_txtnombrepaisKeyTyped
-
-    private void tablapaisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablapaisesMouseClicked
-        int fila = tablapaises.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
-        } else {
-            labelcodpais.disable();
-            checkCancellDelete.setEnabled(false);
-            idp = Integer.parseInt((String) tablapaises.getValueAt(fila, 0).toString());
-            String codigo = (String) tablapaises.getValueAt(fila, 1);
-            String nombre = (String) tablapaises.getValueAt(fila, 2);
-            String descripcion = (String) tablapaises.getValueAt(fila, 3);
-
-            labelidpais.setText("" + idp);
-            txtcodigopais.setText(codigo);
-            txtnombrepais.setText(nombre);
-            txtdescpais.setText(descripcion);
-            enableCheck();
-        }
-    }//GEN-LAST:event_tablapaisesMouseClicked
-
-    private void btnlabeagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeagregarMouseClicked
-        Agregar();
-    }//GEN-LAST:event_btnlabeagregarMouseClicked
-
-    private void btnlabelactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelactualizarMouseClicked
-        if (!checkFiltro.isSelected()) {
-            Modificar();
-            LimpiarCampos();
-        } else {
-            ModificarEliminado();
-            LimpiarCampos();
-        }
-    }//GEN-LAST:event_btnlabelactualizarMouseClicked
-
-    private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        if (!checkFiltro.isSelected()) {
-            Eliminar();
-        } else {
-            JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
-        }
-    }//GEN-LAST:event_btnlabeleliminarMouseClicked
-
-    private void btnlabellimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabellimpiarMouseClicked
-        LimpiarCampos();
-        ModeloPais.Limpiar_Tabla();
-        ModeloPais.getTabla();
-    }//GEN-LAST:event_btnlabellimpiarMouseClicked
-
-    private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_btnlabelvolverMouseClicked
-
-    private void txtdescpaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescpaisKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtdescpaisKeyTyped
-
-    private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlabelbuscarMouseClicked
-
-    private void checkFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkFiltroMouseClicked
-        if (checkFiltro.isSelected()) {
-            ModeloPais.getTablaEliminados();
-            LimpiarCampos();
-        } else {
-            ModeloPais.getTabla();
-            checkCancellDelete.setEnabled(false);
-            LimpiarCampos();
-        }
-    }//GEN-LAST:event_checkFiltroMouseClicked
-
-    private void txtnombreciudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreciudadKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombreciudadKeyTyped
-
-    private void txtnombrezonaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrezonaKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombrezonaKeyTyped
-
-    private void txtnombrecalleprinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrecalleprinKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombrecalleprinKeyTyped
-
-    private void txtnombrecallesecKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrecallesecKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombrecallesecKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
     private javax.swing.JPanel btnactualizar;
     private javax.swing.JPanel btnagregar;
-    private javax.swing.JPanel btnbuscar;
     private javax.swing.JPanel btneliminar;
     private javax.swing.JLabel btnlabeagregar;
     private javax.swing.JLabel btnlabelactualizar;
-    private javax.swing.JLabel btnlabelbuscar;
     private javax.swing.JLabel btnlabeleliminar;
     private javax.swing.JLabel btnlabellimpiar;
     private javax.swing.JLabel btnlabelvolver;
@@ -870,32 +795,23 @@ public class Ventana_paises extends javax.swing.JDialog {
     private javax.swing.JPanel btnrvolver;
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JLabel labelcodpais;
     private javax.swing.JLabel labeldescpais;
     private javax.swing.JLabel labelid;
     private javax.swing.JLabel labelidioma;
     private javax.swing.JLabel labelidpais;
-    private javax.swing.JLabel labelnomcalleprin;
-    private javax.swing.JLabel labelnomcallesec;
-    private javax.swing.JLabel labelnomciudad;
     private javax.swing.JLabel labelnompais;
-    private javax.swing.JLabel labelnomzona;
     private javax.swing.JPanel panelsuperior2;
     public static javax.swing.JTable tablapaises;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JFormattedTextField txtcodigopais;
     private javax.swing.JTextField txtdescpais;
-    private javax.swing.JTextField txtnombrecalleprin;
-    private javax.swing.JTextField txtnombrecallesec;
-    private javax.swing.JTextField txtnombreciudad;
     private javax.swing.JTextField txtnombrepais;
-    private javax.swing.JTextField txtnombrezona;
     // End of variables declaration//GEN-END:variables
 }
