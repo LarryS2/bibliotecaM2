@@ -90,7 +90,7 @@ public class ModeloAutores {
         PreparedStatement psaut;
         Connection con = Conexion.getConnection();
 
-        String sql = "INSERT INTO persona(cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, fecha_nac_per, estado_per, email_per, id_rol_per) VALUES(?,?,?,?,?,?, False, '------',3)";
+        String sql = "INSERT INTO persona(cedula_per, primer_nombre_per, segundo_nombre_per, primer_apellido_per, segundo_apellido_per, fecha_nac_per, estado_per, id_rol_per) VALUES(?,?,?,?,?,?, False,3)";
 
         String sqll = "INSERT INTO autor(id_per_aut, id_lengua_materna_aut, id_pais_origen_aut, estado_aut) VALUES ((SELECT id_per FROM persona ORDER BY id_per DESC LIMIT 1),?,?,False)";
 
@@ -151,7 +151,6 @@ public class ModeloAutores {
             psaut.setInt(2, autor.getPais_origen());
             psaut.setInt(3, autor.getId_autor());
                 
-            System.out.println(ps);
             return ps.executeUpdate() != 0 && psaut.executeUpdate() != 0;
         } catch (SQLException sqle) {
             System.err.println(sqle);

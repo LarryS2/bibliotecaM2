@@ -5,22 +5,11 @@
  */
 package gui;
 
-import Modelo.ModeloCategoria;
 import Modelo.ModeloPais;
-import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import logico.Categoria;
-import logico.Ciudad;
-import logico.Conexion;
-import logico.Idioma;
 import logico.Pais;
-import logico.Zona;
 
 /**
  *
@@ -74,12 +63,12 @@ public class Ventana_paises extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JSeparator();
         labelid = new javax.swing.JLabel();
         labelidpais = new javax.swing.JLabel();
-        txtcodigopais = new javax.swing.JFormattedTextField();
         checkFiltro = new javax.swing.JCheckBox();
         checkCancellDelete = new javax.swing.JCheckBox();
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtcodigopais = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -294,13 +283,6 @@ public class Ventana_paises extends javax.swing.JDialog {
 
         labelidpais.setEnabled(false);
 
-        txtcodigopais.setBorder(null);
-        try {
-            txtcodigopais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         checkFiltro.setText("FILTRAR ELIMINADOS");
         checkFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -318,10 +300,16 @@ public class Ventana_paises extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 2, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Buscar pais:");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa (2).png"))); // NOI18N
+
+        txtcodigopais.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtcodigopais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcodigopaisActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
@@ -394,7 +382,7 @@ public class Ventana_paises extends javax.swing.JDialog {
                             .addComponent(labelid, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                             .addComponent(labelidpais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelcodpais, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtcodigopais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -539,6 +527,10 @@ public class Ventana_paises extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnlabelactualizarMouseEntered
 
+    private void txtcodigopaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigopaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcodigopaisActionPerformed
+
     public void enableCheck() {
         checkCancellDelete.setEnabled(false);
 
@@ -582,15 +574,13 @@ public class Ventana_paises extends javax.swing.JDialog {
             String nombre = txtnombrepais.getText().trim();
             String descripcion = txtdescpais.getText().trim();
 
-            if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
+            if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
             } else {
                 if (pais.Validar_Nombre_Pais(nombre) == false) {
                     JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
                 } else {
-//                    if (pais.ValidarDesc(descripcion) == false) {
-//                        JOptionPane.showMessageDialog(null, "DESCRIPCIÓN NO VÁLIDA");
-//                    } else {
+
                         pais.setCodigo_pais(codigo);
                         pais.setNombre_pais(nombre);
                         pais.setDesc_pais(descripcion);
@@ -604,82 +594,12 @@ public class Ventana_paises extends javax.swing.JDialog {
                             ModeloPais.Limpiar_Tabla();
                             ModeloPais.getTabla();
                         }
-//                    }
                 }
             }
         } catch (HeadlessException | NumberFormatException e) {
         }
     }
 
-//    public void Agregar() {
-//        try {
-//            Pais pais = new Pais();
-////            Ciudad ciudad = new Ciudad();
-////            Zona zona = new Zona();
-//            
-//            //datos pais
-//            String codigo = txtcodigopais.getText().trim();
-//            String nombre = txtnombrepais.getText().trim();
-//            String descripcion = txtdescpais.getText().trim();
-//            boolean estado = false;
-//            
-//            //datos ciudad
-////            String nombre_ciudad = txtnombreciudad.getText().trim();
-////            
-////            //datos zona
-////            String nombre_bar = txtnombrezona.getText().trim();
-////            String calle_pri = txtnombrecalleprin.getText().trim();
-////            String calle_sec = txtnombrecallesec.getText().trim();
-//            
-//            
-//            if (codigo.isEmpty() || nombre.isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
-//            } else {
-//                if (pais.Validar_Nombre_Pais(nombre) == false) {
-//                    JOptionPane.showMessageDialog(null, "NOMBRE DEL PAÍS NO VÁLIDO");
-//                } else {
-//                    if(nombre_ciudad.isEmpty()){
-//                       JOptionPane.showMessageDialog(null, "NOMBRE DE LA CIUDAD EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
-//                    } else {
-//                        if(nombre_bar.isEmpty()){
-//                                JOptionPane.showMessageDialog(null, "NOMBRE DE LA ZONA EN BLANCO", "ERROR", JOptionPane.ERROR_MESSAGE);
-//                        } else {
-//
-//                            pais.setCodigo_pais(codigo);
-//                            pais.setNombre_pais(nombre);
-//                            pais.setDesc_pais(descripcion);
-//                            pais.setEstado(estado);
-//                            if (mp.RegistrarPais(pais)) {
-//                                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO (PAÍS)");
-//                                ciudad.setNombre_ciudad(nombre_ciudad);
-//                                ciudad.setEstado(estado);
-//                                if(mp.RegistrarCiudad(ciudad)){
-//                                    JOptionPane.showMessageDialog(null, "EXITOSO (ciudad)");
-//                                    zona.setNombre_bar(nombre_bar);
-//                                    zona.setCalle_prin(calle_pri);
-//                                    zona.setCalle_sec(calle_sec);
-//                                    zona.setEstado_bar(estado);
-//                                    if(mp.RegistrarZona(zona)){
-//                                        JOptionPane.showMessageDialog(null, "REGISTRO COMPLETO");
-//                                        ModeloPais.Limpiar_Tabla();
-//                                        ModeloPais.getTabla();
-//                                        LimpiarCampos();
-//                                    }
-//                                }
-//
-//                            } else {
-//                                JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
-//                                ModeloPais.Limpiar_Tabla();
-//                                ModeloPais.getTabla();
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-//            System.out.println(e);
-//        }
-//    }
 
     public void Modificar() {
         try {
@@ -818,7 +738,7 @@ public class Ventana_paises extends javax.swing.JDialog {
     private javax.swing.JPanel panelsuperior2;
     public static javax.swing.JTable tablapaises;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JFormattedTextField txtcodigopais;
+    private javax.swing.JTextField txtcodigopais;
     private javax.swing.JTextField txtdescpais;
     private javax.swing.JTextField txtnombrepais;
     // End of variables declaration//GEN-END:variables

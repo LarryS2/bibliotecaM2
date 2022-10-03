@@ -7,6 +7,8 @@ package gui;
 
 import Modelo.ModeloMultaAutomatic;
 import java.util.ArrayList;
+import java.sql.Date;
+import javax.swing.JOptionPane;
 import logico.Detalle_Multa;
 import logico.Multa;
 
@@ -94,17 +96,8 @@ public class Ventana_Multas extends javax.swing.JDialog {
         jSeparator5 = new javax.swing.JSeparator();
         txtfecha = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        btnmodificarlibro = new javax.swing.JPanel();
-        btnlabelmodificar = new javax.swing.JLabel();
-        btneliminar = new javax.swing.JPanel();
-        btnlabeleliminar = new javax.swing.JLabel();
-        btnbuscar = new javax.swing.JPanel();
-        btnlabelbuscar = new javax.swing.JLabel();
         btnrvolver = new javax.swing.JPanel();
         btnlabelvolver = new javax.swing.JLabel();
-        labeldetalles = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtareadetalles = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,7 +132,7 @@ public class Ventana_Multas extends javax.swing.JDialog {
 
         labelced.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labelced.setForeground(new java.awt.Color(102, 102, 102));
-        labelced.setText("CÉDULA MULTADO:");
+        labelced.setText("NOMBRE MULTADO:");
 
         labeltotal.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         labeltotal.setForeground(new java.awt.Color(102, 102, 102));
@@ -149,8 +142,10 @@ public class Ventana_Multas extends javax.swing.JDialog {
         labelfecha.setForeground(new java.awt.Color(102, 102, 102));
         labelfecha.setText("FECHA APLICACIÓN:");
 
+        txtcodigo.setEditable(false);
         txtcodigo.setBorder(null);
 
+        txtcedmultado.setEditable(false);
         txtcedmultado.setBorder(null);
 
         tablamulta = new javax.swing.JTable(){
@@ -166,83 +161,18 @@ public class Ventana_Multas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablamulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablamultaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablamulta);
 
+        txtttotal.setEditable(false);
         txtttotal.setBorder(null);
 
+        txtfecha.setEditable(false);
         txtfecha.setBorder(null);
-
-        btnmodificarlibro.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnlabelmodificar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnlabelmodificar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlabelmodificar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlabelmodificar.setText("MODIFICAR");
-        btnlabelmodificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnlabelmodificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnlabelmodificarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnmodificarlibroLayout = new javax.swing.GroupLayout(btnmodificarlibro);
-        btnmodificarlibro.setLayout(btnmodificarlibroLayout);
-        btnmodificarlibroLayout.setHorizontalGroup(
-            btnmodificarlibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelmodificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        btnmodificarlibroLayout.setVerticalGroup(
-            btnmodificarlibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelmodificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-        );
-
-        btneliminar.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnlabeleliminar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnlabeleliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlabeleliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlabeleliminar.setText("ELIMINAR");
-        btnlabeleliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnlabeleliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnlabeleliminarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btneliminarLayout = new javax.swing.GroupLayout(btneliminar);
-        btneliminar.setLayout(btneliminarLayout);
-        btneliminarLayout.setHorizontalGroup(
-            btneliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabeleliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        btneliminarLayout.setVerticalGroup(
-            btneliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabeleliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-        );
-
-        btnbuscar.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnlabelbuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnlabelbuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlabelbuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlabelbuscar.setText("BUSCAR");
-        btnlabelbuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnlabelbuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnlabelbuscarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnbuscarLayout = new javax.swing.GroupLayout(btnbuscar);
-        btnbuscar.setLayout(btnbuscarLayout);
-        btnbuscarLayout.setHorizontalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        btnbuscarLayout.setVerticalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-        );
 
         btnrvolver.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -268,14 +198,6 @@ public class Ventana_Multas extends javax.swing.JDialog {
             .addComponent(btnlabelvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
-        labeldetalles.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        labeldetalles.setForeground(new java.awt.Color(102, 102, 102));
-        labeldetalles.setText("DETALLES:");
-
-        txtareadetalles.setColumns(20);
-        txtareadetalles.setRows(5);
-        jScrollPane2.setViewportView(txtareadetalles);
-
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -290,25 +212,19 @@ public class Ventana_Multas extends javax.swing.JDialog {
                             .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelced)
-                            .addComponent(labeldetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelced))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator3)
-                            .addComponent(txtcodigo)
+                            .addComponent(txtcodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2)
                             .addComponent(txtfecha)
                             .addComponent(jSeparator6)
                             .addComponent(jSeparator5)
                             .addComponent(txtttotal)
                             .addComponent(txtcedmultado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnmodificarlibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btneliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         backroundLayout.setVerticalGroup(
@@ -316,51 +232,40 @@ public class Ventana_Multas extends javax.swing.JDialog {
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(labelced, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(labelced, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backroundLayout.createSequentialGroup()
                                 .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtcedmultado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labeltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtcedmultado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labeldetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backroundLayout.createSequentialGroup()
-                                .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(22, 22, 22)
+                                .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labeltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backroundLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btnmodificarlibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(59, 59, 59)
+                        .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -377,48 +282,43 @@ public class Ventana_Multas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnlabelmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelmodificarMouseClicked
-
-    }//GEN-LAST:event_btnlabelmodificarMouseClicked
-
-    private void btnlabeleliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeleliminarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlabeleliminarMouseClicked
-
-    private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
-        Multa asd = mm.dia();
-        System.out.println(asd);
-    }//GEN-LAST:event_btnlabelbuscarMouseClicked
-
     private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnlabelvolverMouseClicked
 
+    private void tablamultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablamultaMouseClicked
+        int fila = tablamulta.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
+        } else {
+            int idc = Integer.parseInt((String) tablamulta.getValueAt(fila, 0).toString());
+            String nombre = (String) tablamulta.getValueAt(fila, 1);
+            Date fecha = (Date) tablamulta.getValueAt(fila, 2);
+            Double total = (Double) tablamulta.getValueAt(fila, 3);
+            
+            txtcodigo.setText(String.valueOf(idc));
+            txtcedmultado.setText(nombre);
+            txtfecha.setText(String.valueOf(fecha));
+            txtttotal.setText(String.valueOf(total));
+        }
+    }//GEN-LAST:event_tablamultaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
-    private javax.swing.JPanel btnbuscar;
-    private javax.swing.JPanel btneliminar;
-    private javax.swing.JLabel btnlabelbuscar;
-    private javax.swing.JLabel btnlabeleliminar;
-    private javax.swing.JLabel btnlabelmodificar;
     private javax.swing.JLabel btnlabelvolver;
-    private javax.swing.JPanel btnmodificarlibro;
     private javax.swing.JPanel btnrvolver;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel labelced;
     private javax.swing.JLabel labelcod;
-    private javax.swing.JLabel labeldetalles;
     private javax.swing.JLabel labelfecha;
     private javax.swing.JLabel labellibro;
     private javax.swing.JLabel labeltotal;
     public static javax.swing.JTable tablamulta;
-    private javax.swing.JTextArea txtareadetalles;
     private javax.swing.JTextField txtcedmultado;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtfecha;
