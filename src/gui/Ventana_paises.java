@@ -9,10 +9,15 @@ import Modelo.ModeloCategoria;
 import Modelo.ModeloPais;
 import Modelo.Modeloidioma;
 import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logico.Categoria;
 import logico.Ciudad;
+import logico.Conexion;
 import logico.Idioma;
 import logico.Pais;
 import logico.Zona;
@@ -750,20 +755,23 @@ public class Ventana_paises extends javax.swing.JDialog {
     public void Eliminar() {
         try {
             Pais pais = new Pais();
-            int id = Integer.parseInt(labelidpais.getText().trim());
+            int id = Integer.parseInt(labelidpais.getText());
 
             pais.setId_pais(id);
-            if (mp.EliminarPais(pais)) {
-                JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-                ModeloPais.getTabla();
-                LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
-                LimpiarCampos();
+            if(mp.EvitarDelete(pais) == 0){
+                if (mp.EliminarPais(pais)) {
+                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                    ModeloPais.getTabla();
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                    LimpiarCampos();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REALIZAR LA ACCIÓN\nPOR FAVOR, CONTACTE CON EL ADMINISTRADOR\nPARA ELIMINAR ESTA FILA");
             }
-
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "ELIJA UN FILA DE LA TABLA");
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
 

@@ -133,6 +133,33 @@ public class ModeloPais {
         return id;
     }
     
+    public int EvitarDelete(Pais pais){
+        int cantidad = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql= "SELECT COUNT(e.id_pais_edi) FROM editorial e, pais p WHERE e.id_pais_edi = p.id_pais AND e.id_pais_edi = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, pais.getId_pais());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cantidad = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println("");
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return cantidad;
+    }
     
     //Registro completo de país, ciudad y zona(barrio)
     

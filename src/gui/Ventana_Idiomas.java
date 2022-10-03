@@ -577,19 +577,24 @@ public class Ventana_Idiomas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
     }
-
+    
     public void Eliminar() {
         try {
             Idioma idioma = new Idioma();
-            int id = Integer.parseInt(labelididioma.getText().trim());
+            int id = Integer.parseInt(labelididioma.getText());
 
             idioma.setId_idioma(id);
-            if (mi.EliminarIdioma(idioma)) {
-                JOptionPane.showMessageDialog(null, "ELIMINACIÓN EXITOSA");
-                Modeloidioma.getTabla();
-                LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL IDIOMA");
+            if(mi.evitarDeleteIdioma(idioma) == 0){
+                if (mi.EliminarIdioma(idioma)) {
+                    JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
+                    Modeloidioma.getTabla();
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR");
+                    LimpiarCampos();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REALIZAR LA ACCIÓN\nPOR FAVOR, CONTACTE CON EL ADMINISTRADOR\nPARA ELIMINAR ESTA FILA");
             }
         } catch (HeadlessException | NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
