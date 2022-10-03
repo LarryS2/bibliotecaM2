@@ -89,6 +89,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         labelfecha1 = new javax.swing.JLabel();
         checkFiltro = new javax.swing.JCheckBox();
         checkCancellDelete = new javax.swing.JCheckBox();
+        comboconsultas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -377,6 +378,14 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         checkCancellDelete.setText("CANCELAR ELIMINACION");
         checkCancellDelete.setEnabled(false);
 
+        comboconsultas.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        comboconsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONSULTAS", "CÓDIGO" }));
+        comboconsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboconsultasMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -445,11 +454,13 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 2, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backroundLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(checkFiltro)
-                                .addGap(239, 239, 239)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(120, 120, 120)))))
                 .addGap(24, 24, 24))
         );
         backroundLayout.setVerticalGroup(
@@ -516,8 +527,10 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnragregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkFiltro))
-                        .addGap(12, 12, 12)
+                            .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(checkFiltro)
+                                .addComponent(comboconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -625,9 +638,9 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                                         autor.setSegundo_nombre(nombre_s);
                                         autor.setSegundo_apellido(apellido_s);
                                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                                        autor.setLengua_materna(lengua_mat);
-                                        autor.setPais_origen(pais_origen);
-                                        if (ma.RegistrarAutor(autor)) {
+                                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua_mat)));
+                                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
+                                        if (ma.RegistrarAutorPer(autor)) {
                                             JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
                                             ModeloAutores.Limpiar_Tabla();
                                             ModeloAutores.getTabla();
@@ -647,34 +660,6 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         } catch (HeadlessException | IllegalArgumentException e) {
             System.out.println(e);
         }
-//    
-//    public void consultar_Parametro(){
-//        try{
-//            String id = JOptionPane.showInputDialog(null, "INGRESE EL EL PAÍS DE ORIGEN");
-////            int id_ = Integer.parseInt(id);
-//            
-//            String sql = "SELECT * FROM AUTOR WHERE pais_origen_aut=\""+id+"\"";
-//            try {
-//                con1 = con.getConnection(); 
-//                st = con1.createStatement();
-//                rs = st.executeQuery(sql);
-//                Limpiar_Tabla();
-//                Object [] Autor = new Object[4];
-//                model = (DefaultTableModel) tablaautores.getModel();
-//
-//                while (rs.next()) {                
-//                    Autor [0] = rs.getInt("id_aut");
-//                    Autor [1] = rs.getString("nombre_aut");
-//                    Autor [2] = rs.getString("apellido_aut");
-//                    Autor [3] = rs.getString("pais_origen_aut");
-//                    model.addRow(Autor);
-//                    tablaautores.setModel(model);
-//                }
-//            } catch (SQLException e) { 
-//            }
-//        }catch(HeadlessException | NumberFormatException e){
-//            JOptionPane.showMessageDialog(null, "NO SE PUDO HACER LA BÚSQUEDA");
-//        }
     }
 
     public void Modificar(){
@@ -687,12 +672,11 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String segundo_nombre = txtnombresegundo.getText().trim();
             String segundo_apellido = txtapellidosegundo.getText().trim();
             String fecha_nac = ((JTextField) fecha_nac_chooser.getDateEditor().getUiComponent()).getText();
-            String pais_origen = combopaisorigen.getSelectedItem().toString();
-            String lengua = combolengua.getSelectedItem().toString();
+            Pais pais_origen = (Pais) combopaisorigen.getSelectedItem();
+            Idioma lengua =(Idioma) combolengua.getSelectedItem();
 
             try {
-                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()
-                        || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
+                if(primer_nombre.isEmpty() || primer_apellido.isEmpty() || segundo_nombre.isEmpty() || segundo_apellido.isEmpty() || fecha_nac.isEmpty()){
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                     LimpiarCampos();
                 } else{
@@ -707,8 +691,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         autor.setPrimer_apellido(primer_apellido);
                         autor.setSegundo_apellido(segundo_apellido);
                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                        autor.setPais_origen(pais_origen);
-                        autor.setLengua_materna(lengua);
+                        autor.setLengua_materna(lengua.getId_idioma());
+                        autor.setPais_origen(pais_origen.getId_pais());
                         if(ma.ModificarAutor(autor)){
                             JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
                             ModeloAutores.getTabla();
@@ -721,7 +705,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
            } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "ERROR-NO SE PUDO MODIFICAR AL AUTOR");
             }
-        }catch(HeadlessException | NumberFormatException e){
+        }catch(HeadlessException | NumberFormatException |NullPointerException e){
             System.out.println(e);
         }
     }
@@ -746,7 +730,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         || combopaisorigen.getSelectedItem().toString().equalsIgnoreCase("SELECCIONAR")){
                     JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS");
                 } else{
-                    if(!autor.ValidarCedula(codigo) || !autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
+                    if(!autor.ValidarNombresYapellidos(primer_nombre) || !autor.ValidarNombresYapellidos(primer_apellido) || !autor.ValidarNombresYapellidos(segundo_nombre) || !autor.ValidarNombresYapellidos(segundo_apellido)){
                         JOptionPane.showMessageDialog(null, "VERIFIQUE LOS CAMPOS");
                     }else{
                         autor.setId_autor(id);
@@ -756,8 +740,8 @@ public final class Ventana_Autor extends javax.swing.JDialog {
                         autor.setSegundo_nombre(segundo_nombre);
                         autor.setSegundo_apellido(segundo_apellido);
                         autor.setFecha_nac(Date.valueOf(fecha_nac));
-                        autor.setPais_origen(pais_origen);
-                        autor.setLengua_materna(lengua);
+                        autor.setLengua_materna(Modeloidioma.getId(new Idioma(lengua)));
+                        autor.setPais_origen(ModeloPais.getId(new Pais(pais_origen)));
                         autor.setEstado(bo1);
                         if(ma.ModificarAutorEliminado(autor)){
                             JOptionPane.showMessageDialog(null, "AUTOR ACTUALIZADO CORRECTAMENTE");
@@ -794,6 +778,29 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         }
     }
     
+    public void BuscarID() {
+        try {
+            Autor aut = new Autor();
+            String tipoconsulta = comboconsultas.getSelectedItem().toString();
+            if(tipoconsulta.equalsIgnoreCase("CÓDIGO")){
+                String cedula = JOptionPane.showInputDialog("INGRESE EL CÓDIGO A BUSCAR");
+                aut.setCedula(cedula);
+                if (ma.BuscarAutor(aut)) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO ENCONTRADO");
+                    ModeloAutores.Limpiar_Tabla();
+                    ModeloAutores.getTablaConsultaCod(aut);
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "SIN COINCIDIENCIAS");
+                    ModeloAutores.Limpiar_Tabla();
+                    ModeloAutores.getTabla();
+                }   
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }    
+    }
+    
     public void LimpiarCampos() {
         campoid.setText(null);
         txtcodigoautor.setText(null);
@@ -801,9 +808,9 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         txtnombresegundo.setText(null);
         txtapellido.setText(null);
         txtapellidosegundo.setText(null);
-        combolengua.setSelectedIndex(0);
+        //combolengua.setSelectedIndex(0);
         fecha_nac_chooser.setCalendar(null);
-        combopaisorigen.setSelectedIndex(0);
+        //combopaisorigen.setSelectedIndex(0);
         checkCancellDelete.setSelected(false);
     }
 
@@ -881,9 +888,11 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             String segundo_nombre = (String) tablaautores.getValueAt(fila, 3);
             String apellido = (String) tablaautores.getValueAt(fila, 4);
             String segundo_apellido = (String) tablaautores.getValueAt(fila, 5);
-            String lengua_materna = (String) tablaautores.getValueAt(fila, 6).toString();
+            Idioma idioma = new Idioma();
+            idioma.setNombre_idioma((String) tablaautores.getValueAt(fila, 7).toString());
             Date fecha_p = Date.valueOf((String) tablaautores.getValueAt(fila, 6).toString());
-            String pais_origen = (String) tablaautores.getValueAt(fila, 8).toString();
+            Pais pais_origen = new Pais();
+            pais_origen.setNombre_pais( (String)tablaautores.getValueAt(fila, 8));
 
             campoid.setText("" + ida);
             txtcodigoautor.setText(codigo);
@@ -891,9 +900,19 @@ public final class Ventana_Autor extends javax.swing.JDialog {
             txtnombresegundo.setText(segundo_nombre);
             txtapellido.setText(apellido);
             txtapellidosegundo.setText(segundo_apellido);
-            combolengua.setSelectedItem(lengua_materna);
+            for(int i = 0; i < combolengua.getMaximumRowCount(); i++){
+                if(idioma.getNombre_idioma().equals(combolengua.getItemAt(i).getNombre_idioma())){
+                    combolengua.setSelectedIndex(i);
+                    i = combopaisorigen.getMaximumRowCount();
+                }
+            }
             fecha_nac_chooser.setDate(fecha_p);
-            combopaisorigen.setSelectedItem(pais_origen);
+            for(int i = 0; i < combopaisorigen.getMaximumRowCount(); i++){
+                if(pais_origen.getNombre_pais().equals(combopaisorigen.getItemAt(i).getNombre_pais())){
+                    combopaisorigen.setSelectedIndex(i);
+                    i = combopaisorigen.getMaximumRowCount();
+                }
+            }
             enableCheck();
         }
     }//GEN-LAST:event_tablaautoresMouseClicked
@@ -919,6 +938,10 @@ public final class Ventana_Autor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_checkFiltroMouseClicked
 
+    private void comboconsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboconsultasMouseClicked
+        BuscarID();
+    }//GEN-LAST:event_comboconsultasMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backround;
     private javax.swing.JPanel btnLimpiar;
@@ -936,6 +959,7 @@ public final class Ventana_Autor extends javax.swing.JDialog {
     private javax.swing.JLabel campoid;
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JComboBox<String> comboconsultas;
     private javax.swing.JComboBox<Idioma> combolengua;
     private javax.swing.JComboBox<Pais> combopaisorigen;
     private com.toedter.calendar.JDateChooser fecha_nac_chooser;

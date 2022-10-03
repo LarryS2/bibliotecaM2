@@ -15,6 +15,10 @@ public class Pais {
         this.id_pais = id_pais;
         this.nombre_pais = nombre_pais;
     }
+
+    public Pais(String nombre_pais) {
+        this.nombre_pais = nombre_pais;
+    }
     
     public Pais(int id_pais, String codigo_pais, String nombre_pais, String desc_pais, boolean estado) {
         this.id_pais = id_pais;

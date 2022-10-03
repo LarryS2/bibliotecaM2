@@ -19,14 +19,13 @@ public final class Mi_Perfil extends javax.swing.JDialog {
      * @param modal
      */
     Login log = new Login();
-    ControladorUsuario lista = new ControladorUsuario();
     public Mi_Perfil(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Mostrar_Datos();
+        //Mostrar_Datos();
     }
-    
-    public void Mostrar_Datos(){
+    //log.PerCedula(per)
+    /*public void Mostrar_Datos(){
         for (int i = 0; i < ControladorUsuario.listausuarios.size(); i++) {
             if (log.CEDULA.equals(ControladorUsuario.listausuarios.get(i).getCedula())) {
                 String cedula = ControladorUsuario.listausuarios.get(i).getCedula();
@@ -46,7 +45,7 @@ public final class Mi_Perfil extends javax.swing.JDialog {
             }
         }
  
-    }
+    }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

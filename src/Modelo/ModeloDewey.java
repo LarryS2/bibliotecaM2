@@ -13,26 +13,26 @@ import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
 public class ModeloDewey {
-    
+
     public ArrayList<Dewey> getDewey() {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
         ArrayList<Dewey> listaDewey = new ArrayList<>();
-        
-        try{
+
+        try {
             st = con.createStatement();
             rs = st.executeQuery("SELECT id_dew, nombre_sup_cat_dew FROM dewey WHERE estado_dew = False");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Dewey dew = new Dewey();
                 dew.setId(rs.getInt("id_dew"));
                 dew.setNombre_super_cat(rs.getString("nombre_sup_cat_dew"));
                 listaDewey.add(dew);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -41,26 +41,26 @@ public class ModeloDewey {
         }
         return listaDewey;
     }
-    
+
     public ArrayList<Dewey> getDeweyEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
         ArrayList<Dewey> listaDewey = new ArrayList<>();
-        
-        try{
+
+        try {
             st = con.createStatement();
             rs = st.executeQuery("SELECT id_dew, nombre_sup_cat_dew FROM dewey WHERE estado_dew = True");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Dewey dew = new Dewey();
                 dew.setId(rs.getInt("id_dew"));
                 dew.setNombre_super_cat(rs.getString("nombre_sup_cat_dew"));
                 listaDewey.add(dew);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -68,18 +68,18 @@ public class ModeloDewey {
             }
         }
         return listaDewey;
-    } 
-    
-    public boolean RegistrarDewey(Dewey dew){
-        
+    }
+
+    public boolean RegistrarDewey(Dewey dew) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
-        String sql = "INSERT INTO dewey (codigo_dew, nombre_cat_dew, nombre_sup_cat_dew, descripcion_dew, estado_dew)"
+
+        String sql = "INSERT INTO dewey (codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew, estado_dew)"
                 + " VALUES (?, ?, ?, ?, False)";
-        
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setString(1, dew.getCodigo());
             ps.setString(2, dew.getNombre_super_cat());
@@ -98,13 +98,13 @@ public class ModeloDewey {
             }
         }
     }
-    
-    public boolean ActualizarDewey(Dewey dewey){
+
+    public boolean ActualizarDewey(Dewey dewey) {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         String sql = "UPDATE dewey SET codigo_dew = ?, nombre_sup_cat_dew = ?, nombre_cat_dew = ?, descripcion_dew = ? WHERE id_dew = ?";
-        
-        try{
+
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dewey.getCodigo());
             ps.setString(2, dewey.getNombre_super_cat());
@@ -113,10 +113,10 @@ public class ModeloDewey {
             ps.setInt(5, dewey.getId());
             ps.execute();
             return true;
-        }catch(SQLException sqle){
+        } catch (SQLException sqle) {
             System.out.println(sqle);
             return false;
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -124,13 +124,13 @@ public class ModeloDewey {
             }
         }
     }
-    
-    public boolean ActualizarDeweyEliminado(Dewey dewey){
+
+    public boolean ActualizarDeweyEliminado(Dewey dewey) {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         String sql = "UPDATE dewey SET codigo_dew = ?, nombre_sup_cat_dew = ?, nombre_cat_dew = ?, descripcion_dew = ?, estado_dew = ? WHERE id_dew = ?";
-        
-        try{
+
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dewey.getCodigo());
             ps.setString(2, dewey.getNombre_super_cat());
@@ -140,10 +140,10 @@ public class ModeloDewey {
             ps.setInt(6, dewey.getId());
             ps.execute();
             return true;
-        }catch(SQLException sqle){
+        } catch (SQLException sqle) {
             System.out.println(sqle);
             return false;
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -151,22 +151,21 @@ public class ModeloDewey {
             }
         }
     }
-    
-    public boolean Eliminar(Dewey dewey){
+
+    public boolean Eliminar(Dewey dewey) {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        String sql = "UPDATE dewey SET estado_dew = ? WHERE id_dew = ?";
-        
-        try{
+        String sql = "UPDATE dewey SET estado_dew = True WHERE id_dew=?";
+
+        try {
             ps = con.prepareStatement(sql);
-            ps.setBoolean(1, dewey.isEstado());
-            ps.setInt(2, dewey.getId());
+            ps.setInt(1, dewey.getId());
             ps.execute();
             return true;
-        }catch(SQLException sqle){
+        } catch (SQLException sqle) {
             System.out.println(sqle);
             return false;
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException sqle) {
@@ -174,16 +173,17 @@ public class ModeloDewey {
             }
         }
     }
-    
+
     static DefaultTableModel modelo;
-    public static void getTabla(){
+
+    public static void getTabla() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
         String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = False";
         modelo = new DefaultTableModel();
         Ventana_Dewey.tabladewey.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -193,34 +193,28 @@ public class ModeloDewey {
             modelo.addColumn("CATEGORÍA");
             modelo.addColumn("SUBCATEGORÍA");
             modelo.addColumn("DESCRIPCIÓN");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
-            System.out.println(e.toString());
-        }finally {
-            try {
-                con.close();
-            } catch (SQLException sqle) {
-                System.err.println(sqle);
             }
-        }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        } 
     }
-    
-    public static void getTablaEliminado(){
+
+    public static void getTablaEliminado() {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
         String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE estado_dew = True";
         modelo = new DefaultTableModel();
         Ventana_Dewey.tabladewey.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
@@ -230,39 +224,34 @@ public class ModeloDewey {
             modelo.addColumn("CATEGORÍA");
             modelo.addColumn("SUBCATEGORÍA");
             modelo.addColumn("DESCRIPCIÓN");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
-            System.out.println(e.toString());
-        }finally {
-            try {
-                con.close();
-            } catch (SQLException sqle) {
-                System.err.println(sqle);
             }
-        }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        } 
     }
-    
-    public boolean ConsultarDewey(Dewey dew){
-        
+
+    public boolean ConsultarDewey(Dewey dew) {
+
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
-        
-        String sql = "SELECT * FROM dewey WHERE codigo_dew=?";
-        
+
+        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE codigo_dew like ? OR nombre_sup_cat_dew like ?";
+
         try {
-            
+
             ps = con.prepareStatement(sql);
             ps.setString(1, dew.getCodigo());
-            ps.execute();
-            return true;
+            ps.setString(2, dew.getCodigo());
+            return ps.execute();
+
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -274,17 +263,18 @@ public class ModeloDewey {
             }
         }
     }
-    
-    public static void getTablaConsultaCod(Dewey dew){
+
+    public static void getTablaConsultaCod(Dewey dew) {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE codigo_dew=?";
+        String sql = "SELECT id_dew, codigo_dew, nombre_sup_cat_dew, nombre_cat_dew, descripcion_dew FROM dewey WHERE codigo_dew like ? OR nombre_sup_cat_dew like ?";
         modelo = new DefaultTableModel();
         Ventana_Dewey.tabladewey.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
-            st.setString(1, dew.getCodigo()); 
+            st.setString(1, dew.getCodigo());
+            st.setString(2, dew.getCodigo());
             rs = st.executeQuery();
             ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
             int columns = rsMd.getColumnCount();
@@ -293,26 +283,24 @@ public class ModeloDewey {
             modelo.addColumn("CATEGORÍA");
             modelo.addColumn("SUBCATEGORÍA");
             modelo.addColumn("DESCRIPCIÓN");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
     }
-    
-    public static void Limpiar_Tabla(){
+
+    public static void Limpiar_Tabla() {
         for (int i = 0; i < Ventana_Dewey.tabladewey.getRowCount(); i++) {
             modelo.removeRow(i);
-            i = i-1;
+            i = i - 1;
         }
-    }    
+    }
 }
-    
-

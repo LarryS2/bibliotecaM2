@@ -1,6 +1,8 @@
 package Modelo;
 
+import static Modelo.ModeloCategoria.modelo;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import gui.Ventana_Categoria;
 import gui.Ventana_paises;
 import logico.Pais;
 import java.sql.PreparedStatement;
@@ -11,6 +13,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import logico.Categoria;
+import logico.Ciudad;
+import logico.Zona;
 
 public class ModeloPais {
    
@@ -42,6 +47,37 @@ public class ModeloPais {
         return listaPais;
     }
     
+    
+    public ArrayList<Ciudad> getCiudad() {
+        Connection con = Conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        ArrayList<Ciudad> listaCiudad = new ArrayList<>();
+        
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT id_ciu, id_ciu_pais, nombre_ciu FROM ciudad WHERE estado_ciu = False");
+            
+            while(rs.next()){
+                Ciudad ciudad = new Ciudad();
+                ciudad.setId_ciudad(rs.getInt("id_ciu"));
+                ciudad.setId_pais_ciu(rs.getInt("id_ciu_pais"));
+                ciudad.setNombre_ciudad(rs.getString("nombre_ciu"));
+                listaCiudad.add(ciudad);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return listaCiudad;
+    }
+    
+    
     public ArrayList<Pais> getPaisEliminado() {
         Connection con = Conexion.getConnection();
         Statement st;
@@ -70,12 +106,44 @@ public class ModeloPais {
         return listaPais;
     }
     
+    public static int getId(Pais pais){
+        int id = 0;
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT id_pais FROM pais WHERE nombre_pais = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, pais.getNombre_pais());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally{
+            try{
+                con.close();
+            }catch(SQLException se){
+                System.out.println(se);
+            }
+        }
+        return id;
+    }
+    
+    
+    //Registro completo de país, ciudad y zona(barrio)
+    
+    
     public boolean RegistrarPais(Pais pais){
         
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, descripcion_pais, estado_pais) VALUES (?, ?, ?, False)";
+        String sql = "INSERT INTO pais (codigo_pais, nombre_pais, desc_pais, estado_pais) "
+                + "VALUES (?, ?, ?, ?)";
         
         try {
             
@@ -83,6 +151,7 @@ public class ModeloPais {
             ps.setString(1, pais.getCodigo_pais());
             ps.setString(2, pais.getNombre_pais());
             ps.setString(3, pais.getDesc_pais());
+            ps.setBoolean(4, pais.isEstado());
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -97,12 +166,96 @@ public class ModeloPais {
         }
     }
     
+    public boolean BuscarPais(Pais pais){
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais FROM pais WHERE codigo_pais like ? OR nombre_pais like ?";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, pais.getCodigo_pais());
+            ps.setString(2, pais.getCodigo_pais());
+            return ps.execute();
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    public boolean RegistrarCiudad(Ciudad ciu){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO ciudad (id_ciu_pais, nombre_ciu, estado_ciu) "
+                + " VALUES ((SELECT id_pais FROM pais ORDER BY id_pais DESC LIMIT 1), "
+                + "?, ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ciu.getNombre_ciudad());
+            ps.setBoolean(2, ciu.isEstado());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+
+    public boolean RegistrarZona(Zona bar){
+        
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "INSERT INTO barrio (id_ciu_bar, nombre_bar, calle_prin_bar, "
+                + "calle_sec_bar, estado_bar) "
+                + " VALUES ((SELECT id_ciu FROM ciudad ORDER BY id_ciu DESC LIMIT 1), "
+                + "?, ?, ?, ?)";
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, bar.getNombre_bar());
+            ps.setString(2, bar.getCalle_prin());
+            ps.setString(3, bar.getCalle_sec());
+            ps.setBoolean(4, bar.isEstado_bar());
+            ps.execute();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+    
     public boolean ActualizarPais(Pais pais){
         
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, descripcion_pais = ? WHERE id_pais = ?";
+        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, desc_pais = ? WHERE id_pais = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -128,7 +281,7 @@ public class ModeloPais {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, descripcion_pais = ?, estado_pais = ? WHERE id_pais = ?";
+        String sql = "UPDATE pais SET codigo_pais = ?, nombre_pais = ?, desc_pais = ?, estado_pais = ? WHERE id_pais = ?";
         
         try{
             ps = con.prepareStatement(sql);
@@ -180,7 +333,7 @@ public class ModeloPais {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_pais, codigo_pais, nombre_pais, descripcion_pais FROM pais WHERE estado_pais = false";
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais, desc_pais FROM pais WHERE estado_pais = false";
         modelo = new DefaultTableModel();
         Ventana_paises.tablapaises.setModel(modelo);
         try{
@@ -216,7 +369,7 @@ public class ModeloPais {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_pais, codigo_pais, nombre_pais, descripcion_pais FROM pais WHERE estado_pais = True";
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais, desc_pais FROM pais WHERE estado_pais = True";
         modelo = new DefaultTableModel();
         Ventana_paises.tablapaises.setModel(modelo);
         try{
@@ -247,7 +400,36 @@ public class ModeloPais {
             }
         }
     }
-    
+    public static void getTablaConsultaCodigoPais(Pais pais){
+        Connection con = Conexion.getConnection();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT id_pais, codigo_pais, nombre_pais FROM pais WHERE codigo_pais like ? OR nombre_pais like ?";
+        modelo = new DefaultTableModel();
+        Ventana_paises.tablapaises.setModel(modelo);
+        try{
+            st = con.prepareStatement(sql);
+            st.setString(1, pais.getCodigo_pais());
+            st.setString(2, pais.getCodigo_pais());
+            rs = st.executeQuery();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int columns = rsMd.getColumnCount();
+            modelo.addColumn("ID");
+            modelo.addColumn("CODIGO");
+            modelo.addColumn("NOMBRE");
+            
+            while(rs.next()){
+                Object[] filas = new Object[columns];
+                
+                for(int i = 0; i < columns; i++){
+                    filas[i] = rs.getObject(i+1);
+                }   
+                modelo.addRow(filas);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
     public static void Limpiar_Tabla(){
         for (int i = 0; i < Ventana_paises.tablapaises.getRowCount(); i++) {
             modelo.removeRow(i);

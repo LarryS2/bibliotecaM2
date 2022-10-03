@@ -22,12 +22,12 @@ public class ModeloEditorial {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM editorial WHERE ESTADO = False");
+            rs = st.executeQuery("SELECT id_edi, nombre_edi FROM editorial WHERE estado_edi = False");
             
             while(rs.next()){
                 Editorial edi = new Editorial();
-                edi.setId(rs.getInt("ID"));
-                edi.setNombre(rs.getString("NOMBRE"));
+                edi.setId(rs.getInt("id_edi"));
+                edi.setNombre(rs.getString("nombre_edi"));
                 listaEditorial.add(edi);
             }
         }catch(SQLException e){
@@ -50,12 +50,12 @@ public class ModeloEditorial {
         
         try{
             st = con.createStatement();
-            rs = st.executeQuery("SELECT ID, NOMBRE FROM editorial WHERE ESTADO = True");
+            rs = st.executeQuery("SELECT id_edi, nombre_edi FROM editorial WHERE estado_edi = True");
             
             while(rs.next()){
                 Editorial edi = new Editorial();
-                edi.setId(rs.getInt("ID"));
-                edi.setNombre(rs.getString("NOMBRE"));
+                edi.setId(rs.getInt("id_edi"));
+                edi.setNombre(rs.getString("nombre_edi"));
                 listaEditorial.add(edi);
             }
         }catch(SQLException e){
@@ -75,14 +75,14 @@ public class ModeloEditorial {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "INSERT INTO editorial (CODIGO, NOMBRE, DIRECCION, TIPO, NOMBRE_R, APELLIDO_R, URL, ESTADO) VALUES (?,?,?,?,?,?,?,False)";
+        String sql = "INSERT INTO editorial (codigo_edi, nombre_edi, id_pais_edi, tipo_edi, nombre_rep_edi, apellido_rep_edi, url_edi, estado_edi) VALUES (?,?,?,?,?,?,?,False)";
         
         try {
             
             ps = con.prepareStatement(sql);
             ps.setString(1, edi.getCodigo());
             ps.setString(2, edi.getNombre());
-            ps.setString(3, edi.getDireccion());
+            ps.setInt(3, edi.getId_pais());
             ps.setString(4, edi.getTipo_editorial());
             ps.setString(5, edi.getNombre_rep());
             ps.setString(6, edi.getApellido_rep());
@@ -106,14 +106,14 @@ public class ModeloEditorial {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE editorial SET CODIGO = ?, NOMBRE = ?, DIRECCION = ?, TIPO = ?, NOMBRE_R = ?, APELLIDO_R = ?, URL = ? WHERE ID = ?";
+        String sql = "UPDATE editorial SET codigo_edi = ?, nombre_edi = ?, id_pais_edi = ?, TIPO = ?, nombre_rep_edi = ?, apellido_rep_edi = ?, url_edi = ? WHERE id_edi = ?";
         
         try {
             
             ps = con.prepareStatement(sql);
             ps.setString(1, edi.getCodigo());
             ps.setString(2, edi.getNombre());
-            ps.setString(3, edi.getDireccion());
+            ps.setInt(3, edi.getId_pais());
             ps.setString(4, edi.getTipo_editorial());
             ps.setString(5, edi.getNombre_rep());
             ps.setString(6, edi.getApellido_rep());
@@ -137,7 +137,7 @@ public class ModeloEditorial {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE editoriaL SET ESTADO = True WHERE ID = ?";
+        String sql = "UPDATE editoriaL SET estado_edi = True WHERE id_edi = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -161,14 +161,14 @@ public class ModeloEditorial {
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
         
-        String sql = "UPDATE editorial SET CODIGO = ?, NOMBRE = ?, DIRECCION = ?, TIPO = ?, NOMBRE_R = ?, APELLIDO_R = ?, URL = ?, ESTADO = ? WHERE ID = ?";
+        String sql = "UPDATE editorial SET codigo_edi = ?, nombre_edi = ?, id_pais_edi = ?, tipo_edi = ?, nombre_rep_edi = ?, apellido_rep_edi = ?, url_edi = ?, estado_edi = ? WHERE id_edi = ?";
         
         try {
             
             ps = con.prepareStatement(sql);
             ps.setString(1, edi.getCodigo());
             ps.setString(2, edi.getNombre());
-            ps.setString(3, edi.getDireccion());
+            ps.setInt(3, edi.getId_pais());
             ps.setString(4, edi.getTipo_editorial());
             ps.setString(5, edi.getNombre_rep());
             ps.setString(6, edi.getApellido_rep());
@@ -194,7 +194,7 @@ public class ModeloEditorial {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE, DIRECCION, TIPO, NOMBRE_R, APELLIDO_R, URL FROM editorial WHERE ESTADO = False";
+        String sql = "SELECT id_edi, codigo_edi, nombre_edi, id_pais_edi, tipo_edi, nombre_rep_edi, apellido_rep_edi, url_edi FROM editorial WHERE estado_edi = False";
         modelo = new DefaultTableModel();
         Ventana_Editorial.tablaEditorial.setModel(modelo);
         try{
@@ -233,7 +233,7 @@ public class ModeloEditorial {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT ID, CODIGO, NOMBRE, DIRECCION, TIPO, NOMBRE_R, APELLIDO_R, URL FROM editorial WHERE ESTADO = True";
+        String sql = "SELECT id_edi, codigo_edi, nombre_edi, id_pais_edi, tipo_edi, nombre_rep_edi, apellido_rep_edi, url_edi FROM editorial WHERE estado_edi = True";
         modelo = new DefaultTableModel();
         Ventana_Editorial.tablaEditorial.setModel(modelo);
         try{

@@ -1,7 +1,5 @@
 package logico;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Persona {
@@ -12,7 +10,7 @@ public class Persona {
     private String segundo_nombre;
     private String primer_apellido;
     private String segundo_apellido;
-    private String tipo_usuario;
+    private int tipo_usuario;
     private String email;
     private String tipo_sangre;
     private Date fecha_nac;
@@ -32,18 +30,18 @@ public class Persona {
         this.cedula = cedula;
     }
 
-    public Persona(String cedula, String tipo_usuario) {
+    public Persona(String cedula, int tipo_usuario) {
         this.cedula = cedula;
         this.tipo_usuario = tipo_usuario;
     }
-    
-    public Persona(int id, String primer_nombre, String primer_apellido){
+
+    public Persona(int id, String primer_nombre, String primer_apellido) {
         this.id = id;
         this.primer_nombre = primer_nombre;
         this.primer_apellido = primer_apellido;
     }
-    
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado){
+
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -54,7 +52,7 @@ public class Persona {
         this.Estado = Estado;
     }
 
-    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
+    public Persona(int id, String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, int tipo_usuario, String email, String tipo_sangre, Date fecha_nac, String direccion, String genero, String telefono, boolean Estado) {
         this.id = id;
         this.cedula = cedula;
         this.primer_nombre = primer_nombre;
@@ -68,6 +66,26 @@ public class Persona {
         this.direccion = direccion;
         this.genero = genero;
         this.telefono = telefono;
+        this.Estado = Estado;
+    }
+
+    public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, String telefono, String direccion) {
+        this.cedula = cedula;
+        this.primer_nombre = primer_nombre;
+        this.segundo_nombre = segundo_nombre;
+        this.primer_apellido = primer_apellido;
+        this.segundo_apellido = segundo_apellido;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
+    public Persona(String cedula, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido, Date fecha_nac, boolean Estado) {
+        this.cedula = cedula;
+        this.primer_nombre = primer_nombre;
+        this.segundo_nombre = segundo_nombre;
+        this.primer_apellido = primer_apellido;
+        this.segundo_apellido = segundo_apellido;
+        this.fecha_nac = fecha_nac;
         this.Estado = Estado;
     }
 
@@ -119,11 +137,11 @@ public class Persona {
         this.segundo_apellido = segundo_apellido;
     }
 
-    public String getTipo_usuario() {
+    public int getTipo_usuario() {
         return tipo_usuario;
     }
 
-    public void setTipo_usuario(String tipo_usuario) {
+    public void setTipo_usuario(int tipo_usuario) {
         this.tipo_usuario = tipo_usuario;
     }
 
@@ -245,16 +263,4 @@ public class Persona {
     public boolean ValidarPassword(String pass) {
         return pass.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$");
     }
-
-    public boolean Validar_fecha(String fecha) {
-        try {
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-            String fechaCad = new SimpleDateFormat("dd/MM/yyyy").format(date);
-            return fecha.equals(fechaCad);
-        } catch (ParseException pe) {
-        } catch (Exception e) {
-        }
-        return false;
-    }
 }
-

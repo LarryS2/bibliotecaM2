@@ -1,7 +1,6 @@
 package logico;
 
 import java.time.LocalTime;
-//import java.time.LocalDate;
 
 public class Horario {
    
@@ -9,31 +8,27 @@ public class Horario {
     private String codigo;
     private LocalTime hora_inicio;
     private LocalTime hora_fin;
-    private String descripcion;
+    private int id_dia;
     private boolean Estado;
 
     public Horario() {
     }
-
-    public Horario(int id) {
-        this.id = id;
-    }
     
-    public Horario(int id, LocalTime hora_inicio, LocalTime hora_fin, String descripcion) {
+    public Horario(int id, LocalTime hora_inicio, LocalTime hora_fin) {
         this.id = id;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
-        this.descripcion = descripcion;
     }
 
-    public Horario(int id, String codigo, LocalTime hora_inicio, LocalTime hora_fin, String descripcion, boolean Estado) {
+    public Horario(int id, String codigo, LocalTime hora_inicio, LocalTime hora_fin, int id_dia, boolean Estado) {
         this.id = id;
         this.codigo = codigo;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
-        this.descripcion = descripcion;
+        this.id_dia = id_dia;
         this.Estado = Estado;
     }
+
 
     public int getId() {
         return id;
@@ -66,12 +61,12 @@ public class Horario {
         this.hora_fin = hora_fin;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getId_dia() {
+        return id_dia;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId_dia(int id_dia) {
+        this.id_dia = id_dia;
     }
 
     public boolean isEstado() {
@@ -84,8 +79,10 @@ public class Horario {
 
     @Override
     public String toString() {
-        return "Horario{" + "id=" + id + ", codigo=" + codigo + ", hora_inicio=" + hora_inicio + ", hora_fin=" + hora_fin + ", descripcion=" + descripcion + ", Estado=" + Estado + '}';
+        return id+" "+hora_inicio +" "+ hora_fin;
+        //return id+" ";
     }
+
     
     public boolean Validar_Hora(String hora){
         boolean b;

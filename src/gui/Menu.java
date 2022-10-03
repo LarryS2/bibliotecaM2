@@ -2,12 +2,15 @@ package gui;
 
 import javax.swing.JOptionPane;
 import logico.Tiempo;
+
 /**
  *
  * @author santi
  */
-public final class Menu extends javax.swing.JFrame {
-
+public final class Menu extends javax.swing.JFrame{
+    String hora, minutos,segundos;
+    Thread hilo;
+    
     public Menu() {
         initComponents();
         ShowTime();
@@ -17,8 +20,26 @@ public final class Menu extends javax.swing.JFrame {
     
     public void ShowTime() {
         labelfecha.setText(time.fecha_completa); 
-        labelhora.setText(time.hora_completa);
     }
+    
+    /*public void hora(){
+        Calendar calendar = new GregorianCalendar();
+        Date horaactual = new Date();
+        calendar.setTime(horaactual);
+        hora = calendar.get(Calendar.HOUR_OF_DAY)>9?""+calendar.get(Calendar.HOUR_OF_DAY):"0"+calendar.get(Calendar.HOUR_OF_DAY);
+        minutos  = calendar.get(Calendar.MINUTE)>9?""+calendar.get(Calendar.MINUTE):"0"+calendar.get(Calendar.MINUTE);
+        segundos = calendar.get(Calendar.SECOND)>9?""+calendar.get(Calendar.SECOND):"0"+calendar.get(Calendar.SECOND);
+    }
+    
+    public void run(){
+        Thread current = Thread.currentThread();
+        
+        while(current==hilo){
+            hora();
+            labelhora.setText(hora+":"+minutos+":"+segundos);
+        }
+    }*/
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,6 +68,8 @@ public final class Menu extends javax.swing.JFrame {
         labelfecha = new javax.swing.JLabel();
         labelhora = new javax.swing.JLabel();
         Slide = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         panemenu.setBackground(new java.awt.Color(204, 204, 204));
         panemenu.setForeground(new java.awt.Color(153, 153, 153));
@@ -291,7 +314,7 @@ public final class Menu extends javax.swing.JFrame {
                         .addGap(361, 580, Short.MAX_VALUE)
                         .addGroup(panelsuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(labelhora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logo)
                 .addGap(26, 26, 26))
@@ -314,6 +337,20 @@ public final class Menu extends javax.swing.JFrame {
                 .addComponent(Slide))
         );
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backroundLayout = new javax.swing.GroupLayout(backround);
         backround.setLayout(backroundLayout);
         backroundLayout.setHorizontalGroup(
@@ -321,14 +358,25 @@ public final class Menu extends javax.swing.JFrame {
             .addComponent(panelsuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         backroundLayout.setVerticalGroup(
             backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backroundLayout.createSequentialGroup()
                 .addComponent(panelsuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(backroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backroundLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton2))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -474,6 +522,16 @@ public final class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_DeweyMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Prestamo pre = new Prestamo();
+        pre.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Ventana_Devolucion vd = new Ventana_Devolucion();
+        vd.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;
     private javax.swing.JLabel Categoria;
@@ -493,6 +551,8 @@ public final class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel btnlabeldewey;
     private javax.swing.JLabel btnlabelsalir;
     private javax.swing.JPanel btnregistrosalir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel labelfecha;
     private javax.swing.JLabel labelhora;
     private javax.swing.JLabel libro;

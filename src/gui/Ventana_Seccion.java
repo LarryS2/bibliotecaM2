@@ -5,12 +5,16 @@
  */
 package gui;
 
+import Modelo.ModeloCategoria;
+import Modelo.ModeloDewey;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import logico.Seccion;
 import Modelo.ModeloSeccion;
 import java.util.ArrayList;
+import logico.Categoria;
 import logico.Conexion;
+import logico.Dewey;
 
 /**
  *
@@ -28,7 +32,9 @@ public class Ventana_Seccion extends javax.swing.JDialog {
     public Ventana_Seccion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        llenarCategoria();
         ModeloSeccion.getTabla();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -55,8 +61,6 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         btnlabelactualizar = new javax.swing.JLabel();
         btneliminar = new javax.swing.JPanel();
         btnlabeleliminar = new javax.swing.JLabel();
-        btnbuscar = new javax.swing.JPanel();
-        btnlabelbuscar = new javax.swing.JLabel();
         btnrvolver = new javax.swing.JPanel();
         btnlabelvolver = new javax.swing.JLabel();
         labelid = new javax.swing.JLabel();
@@ -65,6 +69,10 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         btnlabellimpiar = new javax.swing.JLabel();
         checkCancellDelete = new javax.swing.JCheckBox();
         checkFiltro = new javax.swing.JCheckBox();
+        combogenero = new javax.swing.JComboBox<>();
+        labelnomb1 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -128,15 +136,7 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tablaseccion.setFocusable(false);
         tablaseccion.getTableHeader().setReorderingAllowed(false);
         tablaseccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,30 +218,6 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             .addComponent(btnlabeleliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
-        btnbuscar.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnlabelbuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnlabelbuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlabelbuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlabelbuscar.setText("BUSCAR");
-        btnlabelbuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnlabelbuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnlabelbuscarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnbuscarLayout = new javax.swing.GroupLayout(btnbuscar);
-        btnbuscar.setLayout(btnbuscarLayout);
-        btnbuscarLayout.setHorizontalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        btnbuscarLayout.setVerticalGroup(
-            btnbuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlabelbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-        );
-
         btnrvolver.setBackground(new java.awt.Color(0, 153, 153));
 
         btnlabelvolver.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -306,6 +282,20 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             }
         });
 
+        combogenero.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
+        labelnomb1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        labelnomb1.setForeground(new java.awt.Color(102, 102, 102));
+        labelnomb1.setText("CATEGORÍA:");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Buscar Seccion:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -313,37 +303,48 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labeldesc)
-                            .addComponent(labelnomb)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSeparator1)
-                                .addComponent(txtdesc, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                                .addComponent(jSeparator7)
-                                .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jSeparator3)
-                                .addComponent(txtnombrezona))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(campoid, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkFiltro)
-                                .addGap(38, 38, 38))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkCancellDelete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(labeldesc)
+                                .addComponent(labelnomb)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelid, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(campoid, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(combogenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtdesc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                        .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtcodigo)
+                                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtnombrezona, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(88, 88, 88)
+                                    .addComponent(checkFiltro))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(90, 90, 90)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkCancellDelete))
+                    .addComponent(labelnomb1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnlimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -364,40 +365,58 @@ public class Ventana_Seccion extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelcod, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(22, 22, 22)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelnomb, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtnombrezona, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(5, 5, 5)
-                                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtdesc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labeldesc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(checkCancellDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkFiltro)
-                                .addGap(184, 184, 184)))
+                                    .addComponent(txtnombrezona, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(checkFiltro))
+                        .addGap(5, 5, 5)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelnomb1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtdesc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labeldesc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(checkCancellDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addGap(15, 15, 15)
+                                .addComponent(checkFiltro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnrvolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -416,6 +435,15 @@ public class Ventana_Seccion extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void llenarCategoria() {
+        ModeloCategoria modcat = new ModeloCategoria();
+        ArrayList<Categoria> listcat = modcat.getCategoria();
+        combogenero.removeAllItems();
+        for (int i = 0; i < listcat.size(); i++) {
+            combogenero.addItem(new Categoria(listcat.get(i).getId(), listcat.get(i).getNombre_cat()));
+        }
+    }
 
     public void enableCheck() {
         checkCancellDelete.setEnabled(false);
@@ -441,6 +469,8 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             Seccion seccion = new Seccion();
             String codigo = txtcodigo.getText().trim();
             String nombre = txtnombrezona.getText().trim();
+            int categoria = combogenero.getItemAt(combogenero.getSelectedIndex()).getId();
+
             String descripcion = txtdesc.getText().trim();
 
             if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
@@ -449,23 +479,22 @@ public class Ventana_Seccion extends javax.swing.JDialog {
                 if (seccion.ValidarNombre(nombre) == false) {
                     JOptionPane.showMessageDialog(null, "NOMBRE NO VÁLIDO");
                 } else {
-                    if (seccion.ValidarDescripcion(descripcion) == false) {
-                        JOptionPane.showMessageDialog(null, "DESCRIPCIÓN NO VÁLIDA");
+
+                    seccion.setCodigo_zona(codigo);
+                    seccion.setNombre_zona(nombre);
+                    seccion.setDescripcion(descripcion);
+                    seccion.setId_cate_zona(categoria);
+                    if (ms.RegistrarSeccion(seccion)) {
+                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                        ModeloSeccion.Limpiar_Tabla();
+                        ModeloSeccion.getTabla();
+                        LimpiarCampos();
                     } else {
-                        seccion.setCodigo_zona(codigo);
-                        seccion.setNombre_zona(nombre);
-                        seccion.setDescripcion(descripcion);
-                        if (ms.RegistrarSeccion(seccion)) {
-                            JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                            ModeloSeccion.Limpiar_Tabla();
-                            ModeloSeccion.getTabla();
-                            LimpiarCampos();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR ");
-                            ModeloSeccion.Limpiar_Tabla();
-                            ModeloSeccion.getTabla();
-                        }
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR ");
+                        ModeloSeccion.Limpiar_Tabla();
+                        ModeloSeccion.getTabla();
                     }
+
                 }
             }
         } catch (HeadlessException | NumberFormatException e) {
@@ -583,6 +612,23 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         checkCancellDelete.setSelected(false);
     }
 
+    public void BuscarID() {
+        try {
+            String buscar = txtBuscar.getText();
+            if (!buscar.isEmpty()) {
+                Seccion seccion = new Seccion();
+                seccion.setCodigo_zona("%" + buscar + "%");
+                if (ms.BuscarSeccion(seccion)) {
+                    ModeloSeccion.getTablaConsultaCodigo(seccion);
+                    LimpiarCampos();
+                }
+            } else {
+                ModeloSeccion.getTabla();
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }
+    }
 
     private void btnlabeagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabeagregarMouseClicked
         Agregar();
@@ -606,10 +652,6 @@ public class Ventana_Seccion extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "NO SE PUEDE ELIMINAR ESTANDO ACTIVO EL FILTRO DE ELIMINADOS");
         }
     }//GEN-LAST:event_btnlabeleliminarMouseClicked
-
-    private void btnlabelbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelbuscarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlabelbuscarMouseClicked
 
     private void btnlabelvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlabelvolverMouseClicked
         this.dispose();
@@ -662,14 +704,16 @@ public class Ventana_Seccion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_checkFiltroMouseClicked
 
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        BuscarID();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnactualizar;
     private javax.swing.JPanel btnagregar;
-    private javax.swing.JPanel btnbuscar;
     private javax.swing.JPanel btneliminar;
     private javax.swing.JLabel btnlabeagregar;
     private javax.swing.JLabel btnlabelactualizar;
-    private javax.swing.JLabel btnlabelbuscar;
     private javax.swing.JLabel btnlabeleliminar;
     private javax.swing.JLabel btnlabellimpiar;
     private javax.swing.JLabel btnlabelvolver;
@@ -678,6 +722,8 @@ public class Ventana_Seccion extends javax.swing.JDialog {
     private javax.swing.JLabel campoid;
     private javax.swing.JCheckBox checkCancellDelete;
     private javax.swing.JCheckBox checkFiltro;
+    private javax.swing.JComboBox<Categoria> combogenero;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -689,9 +735,30 @@ public class Ventana_Seccion extends javax.swing.JDialog {
     private javax.swing.JLabel labelid;
     private javax.swing.JLabel labellibro;
     private javax.swing.JLabel labelnomb;
+    private javax.swing.JLabel labelnomb1;
     public static javax.swing.JTable tablaseccion;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtdesc;
     private javax.swing.JTextField txtnombrezona;
     // End of variables declaration//GEN-END:variables
+
+    private void BuscarID() {
+        try {
+            String buscar = txtBuscar.getText();
+            if (!buscar.isEmpty()) {
+                Seccion seccion = new Seccion();
+                seccion.setCodigo_zona("%" + buscar + "%");
+                if (ms.ConsultarSeccion(seccion)) {
+                    ModeloSeccion.getTablaConsultaCod(seccion);
+                    LimpiarCampos();
+                }
+            } else {
+                ModeloCategoria.getTabla();
+            }
+        } catch (HeadlessException | NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }
+
+    }
 }

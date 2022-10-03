@@ -13,6 +13,11 @@ public class Detalle_Pedido {
     public Detalle_Pedido(int id_det_pe) {
         this.id_det_pe = id_det_pe;
     }
+    
+    public Detalle_Pedido(String descripcion,int id_pe){
+        this.descripcion = descripcion;
+        this.id_pe = id_pe;
+    }
 
     public Detalle_Pedido(int id_det_pe, int id_pe, String descripcion) {
         this.id_det_pe = id_det_pe;
