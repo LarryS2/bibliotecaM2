@@ -1,6 +1,8 @@
 package Modelo;
 
+import static Modelo.ModeloDewey.modelo;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import gui.Ventana_Dewey;
 import gui.Ventana_Seccion;
 import logico.Seccion;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import logico.Dewey;
 
 public class ModeloSeccion {
 
@@ -19,7 +22,7 @@ public class ModeloSeccion {
         Connection con = Conexion.getConnection();
         Statement st;
         ResultSet rs;
-        
+
         ArrayList<Seccion> listaSeccion = new ArrayList<>();
         try {
 
@@ -89,7 +92,7 @@ public class ModeloSeccion {
             ps.setString(2, sec.getNombre_zona());
             ps.setString(3, sec.getDescripcion());
             ps.setInt(4, sec.getId_cate_zona());
-            
+
             ps.execute();
             return true;
         } catch (SQLException sqle) {
@@ -161,19 +164,20 @@ public class ModeloSeccion {
 
     
 
-    public boolean BuscarSeccion(Seccion sec) {
+    public boolean ConsultarSeccion(Seccion sec) {
 
         PreparedStatement ps;
         Connection con = Conexion.getConnection();
 
-        String sql = " SELECT id_sec, codigo_sec, nombre_sec , desc_sec FROM seccion WHERE codigo_sec like ? OR codigo_sec like ? FROM seccion WHERE codigo_sec like ? OR codigo_sec like ??";
+        String sql = "SELECT id_sec, codigo_sec, nombre_sec, desc_sec, id_cat_sec  FROM seccion WHERE codigo_sec like ? OR nombre_sec like ?";
 
         try {
 
             ps = con.prepareStatement(sql);
             ps.setString(1, sec.getCodigo_zona());
-            ps.execute();
-            return true;
+            ps.setString(2, sec.getCodigo_zona());
+            return ps.execute();
+
         } catch (SQLException sqle) {
             System.err.println(sqle);
             return false;
@@ -261,14 +265,14 @@ public class ModeloSeccion {
         }
     }
 
-public static void getTablaConsultaCodigo(Seccion sec){
+    public static void getTablaConsultaCod(Seccion sec) {
         Connection con = Conexion.getConnection();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT id_sec, codigo_sec, nombre_sec,desc_sec FROM seccion WHERE codigo_sec like ? OR nombre_sec like ?";
+        String sql = "SELECT id_sec, codigo_sec, nombre_sec, desc_sec, id_cat_sec  FROM seccion WHERE codigo_sec like ? OR nombre_sec like ?";
         modelo = new DefaultTableModel();
         Ventana_Seccion.tablaseccion.setModel(modelo);
-        try{
+        try {
             st = con.prepareStatement(sql);
             st.setString(1, sec.getCodigo_zona());
             st.setString(2, sec.getCodigo_zona());
@@ -279,16 +283,16 @@ public static void getTablaConsultaCodigo(Seccion sec){
             modelo.addColumn("CODIGO");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("DESCRIPCION");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[columns];
-                
-                for(int i = 0; i < columns; i++){
-                    filas[i] = rs.getObject(i+1);
-                }   
+
+                for (int i = 0; i < columns; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
                 modelo.addRow(filas);
-            }    
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
     }
