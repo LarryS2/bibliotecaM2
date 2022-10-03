@@ -337,14 +337,14 @@ public final class Menu extends javax.swing.JFrame{
                 .addComponent(Slide))
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("PEDIDO");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("DEVOLUCIÓN");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -375,7 +375,7 @@ public final class Menu extends javax.swing.JFrame{
                     .addGroup(backroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))))
         );
 
