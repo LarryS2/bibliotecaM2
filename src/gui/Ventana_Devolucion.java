@@ -28,10 +28,9 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
     /**
      * Creates new form Ventana_Devolucion
      */
-    
-    
     DefaultTableModel modelo;
-    ModeloDevolucion  md = new ModeloDevolucion();
+    ModeloDevolucion md = new ModeloDevolucion();
+
     public Ventana_Devolucion() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -40,69 +39,56 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         ModeloDevolucion.getTabla();
     }
 
-    
-    public void NuevoModelo() {
-        modelo = new DefaultTableModel();
-        modelo.addColumn("CÓDIGO");
-        modelo.addColumn("TÍTULO");
-        modelo.addColumn("ISBN");
-        tabladevolucion.setModel(modelo);
-        ModeloDevolucion.getTablaDetalles();
-    }
-    
-    public void detalles(){
+    public void detalles() {
         try {
             Devolucion dev = new Devolucion();
             String cedula = txtcedula.getText().trim();
             Date fecha_dev = java.sql.Date.valueOf(txtfechadev.getText().trim());
-            
+
             int id_per = ModeloDevolucion.getIdPerson(cedula);
-            if(id_per>0){
-                System.out.println(id_per);
+            if (id_per > 0) {
                 boolean estado = false;
                 dev.setFecha_dev(fecha_dev);
                 dev.setId_est_dev(id_per);
                 dev.setEstado(estado);
-                if(md.RegistrarEncaDevolucion(dev)) {
+                if (md.RegistrarEncaDevolucion(dev)) {
+                    guardarDetalleDev();
+                    md.devLib(md.idEjem(ModeloDevolucion.idLibro(new Libro(txtcodlib.getText())), Integer.parseInt(campoID.getText())));
                     limpiar_texto(paneltxt);
                 }
             } else {
             }
-            
+
         } catch (NullPointerException e) {
         }
     }
-    
-    public void guardarDetalleDev(){
+
+    public void guardarDetalleDev() {
         try {
             int a = 0;
             Detalle_Devolucion dd = new Detalle_Devolucion();
             String idd = ModeloDevolucion.idDevolucion();
             int iddev = Integer.parseInt(idd);
-            for (int i = 0; i < tabladevolucion.getRowCount(); i++) {
-                String cod = tabladevolucion.getValueAt(i, 0).toString();
-                dd.setId_lib(ModeloDevolucion.idLibro(new Libro(cod)));
-                dd.setId_enc_dev(iddev);
-                if (md.registrarDetalleDev(dd)) {
-                    a++;
-                }
-            }
-            if (a != 0) {
-                JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO");
-                for(int i = 0; i < tabladevolucion.getRowCount(); i++){
-                    modelo.removeRow(i);
-                }
+            dd.setId_lib(md.idEjem(ModeloDevolucion.idLibro(new Libro(txtcodlib.getText())), Integer.parseInt(campoID.getText())));
+            dd.setId_enc_dev(iddev);
+            if (md.registrarDetalleDev(dd)) {
+                System.out.println("El libro ha sido devuelto");
             }
         } catch (NumberFormatException | NullPointerException e) {
             System.out.println(e);
         }
     }
-    
-    public void TablaDetalles(){
-        Estudiante est = new Estudiante();
-        String cedula = txtcedula.getText();
-        est.setCedula(cedula);
-        ModeloDevolucion.getTablaDetalles();
+
+    public void TablaDetalles() {
+        try {
+            Estudiante est = new Estudiante();
+            String cedula = txtcedula.getText();
+            int id_per = ModeloDevolucion.getIdPerson(cedula);
+            est.setId_est(id_per);
+            ModeloDevolucion.getTablaDetalle(est, Integer.parseInt(campoID.getText()));
+        } catch (NumberFormatException | NullPointerException e) {
+            System.out.println(e);
+        }
     }
 
     public void limpiar_texto(JPanel panel) {
@@ -114,12 +100,12 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void mt(){
+
+    public void mt() {
         Frameclientes.setLocationRelativeTo(null);
         Frameclientes.setVisible(true);
-        ModeloDevolucion.getTablaDetalles();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,6 +113,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         Frameclientes = new javax.swing.JFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabladet = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
         backround = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -150,13 +137,20 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         txtisbn = new javax.swing.JTextField();
         txtcodlib = new javax.swing.JTextField();
         txtitulolibr = new javax.swing.JTextField();
+        labelid = new javax.swing.JLabel();
+        campoID = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         btndevolver = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
 
-        Frameclientes.setMinimumSize(new java.awt.Dimension(680, 240));
+        Frameclientes.setMinimumSize(new java.awt.Dimension(600, 241));
         Frameclientes.setResizable(false);
 
+        tabladet = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tabladet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -168,6 +162,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabladet.getTableHeader().setReorderingAllowed(false);
         tabladet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabladetMouseClicked(evt);
@@ -175,21 +170,30 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabladet);
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("LIBROS PEDIDOS POR EL CLIENTE");
+
         javax.swing.GroupLayout FrameclientesLayout = new javax.swing.GroupLayout(Frameclientes.getContentPane());
         Frameclientes.getContentPane().setLayout(FrameclientesLayout);
         FrameclientesLayout.setHorizontalGroup(
             FrameclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FrameclientesLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(FrameclientesLayout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jLabel8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         FrameclientesLayout.setVerticalGroup(
             FrameclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FrameclientesLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -212,7 +216,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(idlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,15 +225,20 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(idlabel))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tabladevolucion = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tabladevolucion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -241,6 +250,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabladevolucion.getTableHeader().setReorderingAllowed(false);
         tabladevolucion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabladevolucionMouseClicked(evt);
@@ -269,11 +279,13 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
 
         labelnom.setText("NOMBRES:");
 
+        txrnombrecli.setEditable(false);
         txrnombrecli.setFocusable(false);
         txrnombrecli.setRequestFocusEnabled(false);
 
         jLabel2.setText("CÉDULA:");
 
+        txtcedula.setEditable(false);
         txtcedula.setFocusable(false);
         txtcedula.setRequestFocusEnabled(false);
 
@@ -288,6 +300,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
 
         jLabel4.setText("FECHA: ");
 
+        txtfechadev.setEditable(false);
         txtfechadev.setFocusable(false);
         txtfechadev.setRequestFocusEnabled(false);
 
@@ -297,11 +310,24 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
 
         jLabel7.setText("TITULO");
 
+        txtisbn.setEditable(false);
         txtisbn.setFocusable(false);
         txtisbn.setRequestFocusEnabled(false);
 
+        txtcodlib.setEditable(false);
         txtcodlib.setFocusable(false);
         txtcodlib.setRequestFocusEnabled(false);
+
+        txtitulolibr.setEditable(false);
+
+        labelid.setText("ID PED:");
+
+        campoID.setEditable(false);
+        campoID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneltxtLayout = new javax.swing.GroupLayout(paneltxt);
         paneltxt.setLayout(paneltxtLayout);
@@ -312,7 +338,8 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelnom)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(labelid))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneltxtLayout.createSequentialGroup()
@@ -320,14 +347,15 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                         .addGap(76, 76, 76)
                         .addComponent(buttonCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paneltxtLayout.createSequentialGroup()
-                        .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfechadev, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campoID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtfechadev, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                            .addComponent(txtcedula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
-                        .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneltxtLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtcodlib, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paneltxtLayout.createSequentialGroup()
                                 .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +363,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addGap(48, 48, 48)
                                 .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtisbn)
+                                    .addComponent(txtisbn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtitulolibr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -370,7 +398,11 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                         .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtitulolibr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(2, 2, 2)
+                .addGroup(paneltxtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelid)
+                    .addComponent(campoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -380,6 +412,11 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         btndevolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btndevolverMouseClicked(evt);
+            }
+        });
+        btndevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndevolverActionPerformed(evt);
             }
         });
 
@@ -396,19 +433,20 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(213, 213, 213)
+                .addGap(168, 168, 168)
                 .addComponent(btncancelar)
-                .addGap(28, 28, 28)
+                .addGap(66, 66, 66)
                 .addComponent(btndevolver)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncancelar)
-                    .addComponent(btndevolver)))
+                    .addComponent(btndevolver))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -431,11 +469,11 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(paneltxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         backround.setViewportView(jPanel1);
@@ -450,18 +488,23 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backround, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(backround, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonClienteMouseClicked
-        mt();
+        if (!txtcedula.getText().isEmpty()) {
+            mt();
+            TablaDetalles();
+        } else {
+            JOptionPane.showMessageDialog(null, "SELECCIONE PRIMERO A UN CLIENTE");
+        }
     }//GEN-LAST:event_buttonClienteMouseClicked
 
     private void tabladevolucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabladevolucionMouseClicked
-        try{
+        try {
             int fila = tabladevolucion.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
@@ -470,16 +513,18 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 String cedula = ((String) tabladevolucion.getValueAt(fila, 0).toString());
                 String pri_nom = (String) tabladevolucion.getValueAt(fila, 1);
                 String seg_nombre = (String) tabladevolucion.getValueAt(fila, 2);
-                
+
                 String pr_ap = (String) tabladevolucion.getValueAt(fila, 3);
                 String seg_ap = (String) tabladevolucion.getValueAt(fila, 4);
+                int id = (int) tabladevolucion.getValueAt(fila, 5);
 
                 txtcedula.setText(cedula);
-                txrnombrecli.setText(pri_nom+" "+seg_nombre+" "+pr_ap+" "+seg_ap);
+                txrnombrecli.setText(pri_nom + " " + seg_nombre + " " + pr_ap + " " + seg_ap);
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 txtfechadev.setText(formatter.format(new Date()));
+                campoID.setText(String.valueOf(id));
             }
-        }catch(HeadlessException  | ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e){
+        } catch (HeadlessException | ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_tabladevolucionMouseClicked
@@ -493,7 +538,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
     }//GEN-LAST:event_btndevolverMouseClicked
 
     private void tabladetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabladetMouseClicked
-        try{
+        try {
             int fila = tabladet.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(null, "NO HAY UNA FILA SELECCIONADA");
@@ -502,15 +547,24 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
                 String codigo = ((String) tabladet.getValueAt(fila, 0).toString());
                 String isbn = (String) tabladet.getValueAt(fila, 1);
                 String titulo = (String) tabladet.getValueAt(fila, 2);
-                
+
                 txtcodlib.setText(codigo);
                 txtisbn.setText(isbn);
                 txtitulolibr.setText(titulo);
+                this.Frameclientes.dispose();
             }
-        }catch(HeadlessException  | ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e){
+        } catch (HeadlessException | ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_tabladetMouseClicked
+
+    private void btndevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btndevolverActionPerformed
+
+    private void campoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoIDActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame Frameclientes;
@@ -518,6 +572,7 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btndevolver;
     private javax.swing.JLabel buttonCliente;
+    private javax.swing.JTextField campoID;
     private javax.swing.JLabel idlabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -526,12 +581,14 @@ public class Ventana_Devolucion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelid;
     private javax.swing.JLabel labelnom;
     private javax.swing.JPanel paneltxt;
     public static javax.swing.JTable tabladet;

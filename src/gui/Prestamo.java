@@ -1061,10 +1061,7 @@ public class Prestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveDateActionPerformed
 
     private void DescarteDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescarteDateActionPerformed
-        String fecha_fi = ((JTextField) fecha_fin.getDateEditor().getUiComponent()).getText();
-        if (allowDays(fecha_fi)) {
-            System.out.println("a");
-        }
+        this.dispose();
     }//GEN-LAST:event_DescarteDateActionPerformed
 
     private void VistaSelectBookWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_VistaSelectBookWindowGainedFocus
