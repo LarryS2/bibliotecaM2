@@ -9,6 +9,11 @@ public class Ejemplar {
 
     public Ejemplar() {
     }
+    
+    public Ejemplar(int id, int cantidad){
+        this.id = id;
+        this.cantidad = cantidad;
+    }
 
     public Ejemplar(String codigo, int cod_libro, int cantidad) {
         this.codigo = codigo;

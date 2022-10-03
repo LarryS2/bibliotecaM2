@@ -129,6 +129,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
             Seccion seccion = comboSeccion.getItemAt(comboSeccion.getSelectedIndex());
             int editorial = comboeditorial.getItemAt(comboeditorial.getSelectedIndex()).getId();
             int autor = comboAutor.getItemAt(comboAutor.getSelectedIndex()).getId();
+            int ejemplar = Integer.parseInt(txtnumEjem.getText());
             boolean estado = false;
 
             if (codigo.isEmpty()) {
@@ -146,32 +147,36 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                             if (num_pags < 10 || num_pags > 9999) {
                                 JOptionPane.showMessageDialog(null, "NÚMERO DE PÁGINAS NO VÁLIDO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                             } else {
-                                //REVISAR LA VALIDACIÓN DEL ISBN
-                                libro.setCodigo(codigo);
-                                libro.setTitulo(titulo);
-                                libro.setDescripcion(descripcion);
-                                libro.setIsbn(ISBN);
-                                libro.setDewey(dewey);
-                                libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
-                                libro.setNumero_pags(num_pags);
-                                libro.setId_idioma(idioma);
-                                libro.setId_seccion(seccion.getId());
-                                libro.setId_editorial(editorial);
-                                libro.setId_autor(autor);
-                                libro.setEstado(estado);
-                                if (!ml.RegistrarLibro(libro)) {
-                                    registrarEjem();
-                                    labelqrdes.setText("EL CÓDIGO QR DEL LIBRO ES:");
-                                    QR();
-                                    ModeloLibro.Limpiar_Tabla();
-                                    ModeloLibro.getTabla();
-                                    JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                                    LimpiarCampos();
+                                if (ejemplar == 0) {
+                                    JOptionPane.showMessageDialog(null, "INGRESE LA CANTIDAD DE EJEMPLARES EXISTENTES", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL LIBRO", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                    ModeloLibro.Limpiar_Tabla();
-                                    ModeloLibro.Limpiar_Tabla();
-                                    ModeloLibro.getTabla();
+                                    //REVISAR LA VALIDACIÓN DEL ISBN
+                                    libro.setCodigo(codigo);
+                                    libro.setTitulo(titulo);
+                                    libro.setDescripcion(descripcion);
+                                    libro.setIsbn(ISBN);
+                                    libro.setDewey(dewey);
+                                    libro.setFecha_Publicacion(Date.valueOf(fecha_pub));
+                                    libro.setNumero_pags(num_pags);
+                                    libro.setId_idioma(idioma);
+                                    libro.setId_seccion(seccion.getId());
+                                    libro.setId_editorial(editorial);
+                                    libro.setId_autor(autor);
+                                    libro.setEstado(estado);
+                                    if (!ml.RegistrarLibro(libro)) {
+                                        registrarEjem();
+                                        labelqrdes.setText("EL CÓDIGO QR DEL LIBRO ES:");
+                                        QR();
+                                        ModeloLibro.Limpiar_Tabla();
+                                        ModeloLibro.getTabla();
+                                        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                                        LimpiarCampos();
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR EL LIBRO", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                        ModeloLibro.Limpiar_Tabla();
+                                        ModeloLibro.Limpiar_Tabla();
+                                        ModeloLibro.getTabla();
+                                    }
                                 }
                             }
                         }
@@ -248,7 +253,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
     public String generarNoSerie() {
         String serie = ml.NoSerie();
         String noserie;
-        
+
         if (serie == null) {
             noserie = "0001";
         } else {
@@ -273,9 +278,9 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                 ejem.setCodigo(generarNoSerie());
                 ejem.setCantidad(i);
                 ejem.setCod_libro(idl);
-                if(!ml.registrarEjemplar(ejem)){
+                if (!ml.registrarEjemplar(ejem)) {
                     JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR");
                 }
             }
@@ -936,7 +941,7 @@ public final class Ventana_Libro extends javax.swing.JFrame {
                 txtareadescripcion.setText(desc);
                 fecha_publi_chooser.setDate(fecha_p);
                 txtpags.setText(desca);
-                
+
                 idi.setNombre_idioma((String) tablalibros.getValueAt(fila, 9));
                 String cadena = (String) tablalibros.getValueAt(fila, 8);
                 String[] partes = cadena.split(" ");

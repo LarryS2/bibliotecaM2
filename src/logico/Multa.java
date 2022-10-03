@@ -6,7 +6,7 @@ public class Multa {
     
     private int id_multa;
     private double cantidad_multa;
-    private String ced_usuario;
+    private int id_usuario;
     private Date fecha_aplicacion;
     private boolean Estado;
 
@@ -17,10 +17,10 @@ public class Multa {
         this.id_multa = id_multa;
     }
 
-    public Multa(int id_multa, double cantidad_multa, String ced_usuario, Date fecha_aplicacion) {
+    public Multa(int id_multa, double cantidad_multa, int id_usuario, Date fecha_aplicacion) {
         this.id_multa = id_multa;
         this.cantidad_multa = cantidad_multa;
-        this.ced_usuario = ced_usuario;
+        this.id_usuario = id_usuario;
         this.fecha_aplicacion = fecha_aplicacion;
     }
     
@@ -40,12 +40,12 @@ public class Multa {
         this.cantidad_multa = cantidad_multa;
     }
 
-    public String getCed_usuario() {
-        return ced_usuario;
+    public int getCed_usuario() {
+        return id_usuario;
     }
 
-    public void setCed_usuario(String ced_usuario) {
-        this.ced_usuario = ced_usuario;
+    public void setCed_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public Date getFecha_aplicacion() {
@@ -66,6 +66,6 @@ public class Multa {
 
     @Override
     public String toString() {
-        return "Multa{" + "id_multa=" + id_multa + ", cantidad_multa=" + cantidad_multa + ", ced_usuario=" + ced_usuario + ", fecha_aplicacion=" + fecha_aplicacion + '}';
+        return "Multa{" + "id_multa=" + id_multa + ", cantidad_multa=" + cantidad_multa + ", ced_usuario=" + id_usuario + ", fecha_aplicacion=" + fecha_aplicacion + '}';
     }
 }
