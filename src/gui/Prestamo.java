@@ -15,9 +15,12 @@ import java.sql.Date;
 import Modelo.ModeloPedido;
 import com.toedter.calendar.JDateChooser;
 import java.awt.HeadlessException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import logico.Detalle_Pedido;
+import logico.Ejemplar;
 
 /**
  *
@@ -37,6 +40,11 @@ public class Prestamo extends javax.swing.JFrame {
         titleCol();
         DetallePedido.getColumnModel().getColumn(0).setPreferredWidth(20);
         generarNoSerie();
+        Calendar c1 = new GregorianCalendar();
+        Calendar c2 = new GregorianCalendar();
+        c2.add(Calendar.DATE, 5);
+        fecha_in.setCalendar(c1);
+        fecha_fin.setCalendar(c2);
     }
 
     public void llenarCampos(Persona p1) {
@@ -58,12 +66,25 @@ public class Prestamo extends javax.swing.JFrame {
         ModeloGetTablas.getTablaLibro();
     }
 
+    public boolean allowDays(String date) {
+        boolean bo1 = false;
+        Calendar c1 = new GregorianCalendar();
+        c1.add(Calendar.DATE, 10);
+        Calendar c3 = Calendar.getInstance();
+        c3.setTime(Date.valueOf(date));
+        if (c3.get(Calendar.DAY_OF_YEAR) <= c1.get(Calendar.DAY_OF_YEAR)) {
+            bo1 = true;
+        }
+        return bo1;
+    }
+
     public void editableFalse() {
         txtNombre.setEditable(false);
         txtNombre.setEditable(false);
         txtDireccion.setEditable(false);
         txtTelefono.setEditable(false);
         txtCedula.setEditable(false);
+        fecha_in.setEnabled(false);
     }
 
     public void agregarFila(Libro lib) {
@@ -105,16 +126,16 @@ public class Prestamo extends javax.swing.JFrame {
             buttonEliminar.setEnabled(false);
         }
     }
-    
-    public void generarNoSerie(){
+
+    public void generarNoSerie() {
         String serie = mp.NoSerie();
-        
-        if(serie == null){
+
+        if (serie == null) {
             campoIdSerie.setText("000001");
-        }else{
+        } else {
             int increment = Integer.parseInt(serie);
             increment++;
-            campoIdSerie.setText("00000"+increment);
+            campoIdSerie.setText("0000" + increment);
         }
     }
 
@@ -129,12 +150,16 @@ public class Prestamo extends javax.swing.JFrame {
             if (!txtCedula.getText().isEmpty()) {
                 int id = ModeloPedido.getIdPerson(txtCedula.getText());
                 if (!fecha_ini.isEmpty() || !fecha_fi.isEmpty()) {
-                    pd = new Pedido(id, codigo, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi), total);
-                    if (mp.RegistrarPedidoEnc(pd)) {
-                        JOptionPane.showMessageDialog(null, "SE HA GENERADO EL PEDIDO CON ÉXITO");
-                        limpiar_texto(Pedido);
+                    if (allowDays(fecha_fi)) {
+                        pd = new Pedido(id, codigo, Date.valueOf(fecha_ini), Date.valueOf(fecha_fi), total);
+                        if (mp.RegistrarPedidoEnc(pd)) {
+                            limpiar_texto(Pedido);
+                            guardarDet();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR, REVISE SUS CAMPOS");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR, REVISE SUS CAMPOS");
+                        JOptionPane.showMessageDialog(null, "LA FECHA DE DEVOLUCIÓN NO PUEDE SER MAYOR A 10 DÍAS");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "ASEGURESE DE LLENAR LOS CAMPOS DEPENDIENTES DE LAS FECHAS");
@@ -164,8 +189,20 @@ public class Prestamo extends javax.swing.JFrame {
             }
             if (a != 0) {
                 JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO");
-                for(int i = 0; i < DetallePedido.getRowCount(); i++){
+                for (int i = 0; i < DetallePedido.getRowCount(); i++) {
+                    Libro libro = new Libro();
+                    Ejemplar ejem;
+                    int idL = ModeloPedido.idLibro(new Libro(DetallePedido.getValueAt(i, 0).toString()));
+                    libro.setId(idL);
+                    ejem = mp.getStock(libro);
+                    int newStock = ejem.getCantidad() - 1;
+                    ejem.setCantidad(newStock);
+                    mp.actualizarStock(ejem);
+                }
+                for (int i = 0; i < DetallePedido.getRowCount(); i++) {
                     modelo.removeRow(i);
+                    i = i-1;
+                    ContarFilas.setText(String.valueOf(DetallePedido.getRowCount()));
                 }
             }
         } catch (NumberFormatException | NullPointerException e) {
@@ -216,6 +253,7 @@ public class Prestamo extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLibro = new javax.swing.JTable();
+        ParBusqueda2 = new javax.swing.ButtonGroup();
         Enc = new javax.swing.JPanel();
         lbelTitulo = new javax.swing.JLabel();
         lbelLogo = new javax.swing.JLabel();
@@ -255,6 +293,13 @@ public class Prestamo extends javax.swing.JFrame {
         VistaSelectCliente.setAlwaysOnTop(true);
         VistaSelectCliente.setMinimumSize(new java.awt.Dimension(550, 300));
         VistaSelectCliente.setResizable(false);
+        VistaSelectCliente.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                VistaSelectClienteWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         VistaSelectCliente.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 VistaSelectClienteWindowClosed(evt);
@@ -377,6 +422,13 @@ public class Prestamo extends javax.swing.JFrame {
         );
 
         VistaSelectBook.setMinimumSize(new java.awt.Dimension(550, 331));
+        VistaSelectBook.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                VistaSelectBookWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         VistaSelectBook.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 VistaSelectBookWindowClosed(evt);
@@ -386,10 +438,13 @@ public class Prestamo extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("BUSCAR LIBRO:");
 
+        ParBusqueda2.add(buttCod);
         buttCod.setText("POR CODIGO");
 
+        ParBusqueda2.add(butTit);
         butTit.setText("POR TÍTULO");
 
+        ParBusqueda2.add(butCat);
         butCat.setText("POR CATEGORÍA");
 
         ContainBut.setBackground(new java.awt.Color(225, 225, 225));
@@ -522,6 +577,13 @@ public class Prestamo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 20));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         Enc.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -616,7 +678,9 @@ public class Prestamo extends javax.swing.JFrame {
         txtDireccion.setFocusable(false);
 
         fecha_in.setDateFormatString("yyyy-MM-dd");
-        fecha_in.setMinSelectableDate(new java.util.Date(1577858464000L));
+        fecha_in.setEnabled(false);
+        fecha_in.setMaxSelectableDate(new java.util.Date(1672552909000L));
+        fecha_in.setMinSelectableDate(new java.util.Date(1662012064000L));
 
         buttonCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
         buttonCliente.setText("Elegir cliente");
@@ -679,7 +743,8 @@ public class Prestamo extends javax.swing.JFrame {
         );
 
         fecha_fin.setDateFormatString("yyyy-MM-dd");
-        fecha_fin.setMinSelectableDate(new java.util.Date(1577858464000L));
+        fecha_fin.setMaxSelectableDate(new java.util.Date(1672552909000L));
+        fecha_fin.setMinSelectableDate(new java.util.Date());
 
         javax.swing.GroupLayout PedidoLayout = new javax.swing.GroupLayout(Pedido);
         Pedido.setLayout(PedidoLayout);
@@ -905,11 +970,11 @@ public class Prestamo extends javax.swing.JFrame {
     private void buttonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEliminarMouseClicked
         try {
             int fila = DetallePedido.getSelectedRow();
-            if(fila != -1){
+            if (fila != -1) {
                 eliminarFila(fila);
                 ContarFilas.setText(String.valueOf(DetallePedido.getRowCount()));
-            }else{
-                JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA","Advertencia",JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         } catch (HeadlessException e) {
             System.out.println("Fallo algo");
@@ -983,18 +1048,37 @@ public class Prestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_DetallePedidoFocusLost
 
     private void SaveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveDateActionPerformed
-        if(modelo.getRowCount() == 0){
+        if (modelo.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR\nASEGURESE QUE EXISTAN LIBROS\nA SER PEDIDOS");
-        }else{
+        } else {
             guardarEnc();
-            guardarDet();
-            generarNoSerie();
+            Calendar c1 = new GregorianCalendar();
+            Calendar c2 = new GregorianCalendar();
+            fecha_in.setCalendar(c1);
+            c2.add(Calendar.DATE, 5);
+            fecha_fin.setCalendar(c2);
         }
     }//GEN-LAST:event_SaveDateActionPerformed
 
     private void DescarteDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescarteDateActionPerformed
-        JOptionPane.showMessageDialog(null, ModeloPedido.getIdPerson(txtCedula.getText()));
+        String fecha_fi = ((JTextField) fecha_fin.getDateEditor().getUiComponent()).getText();
+        if (allowDays(fecha_fi)) {
+            System.out.println("a");
+        }
     }//GEN-LAST:event_DescarteDateActionPerformed
+
+    private void VistaSelectBookWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_VistaSelectBookWindowGainedFocus
+        ModeloGetTablas.getTablaLibro();
+    }//GEN-LAST:event_VistaSelectBookWindowGainedFocus
+
+    private void VistaSelectClienteWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_VistaSelectClienteWindowGainedFocus
+        ModeloGetTablas.getTablaCliente();
+    }//GEN-LAST:event_VistaSelectClienteWindowGainedFocus
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        ModeloGetTablas.getTablaLibro();
+        ModeloGetTablas.getTablaCliente();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Buttons;
@@ -1007,6 +1091,7 @@ public class Prestamo extends javax.swing.JFrame {
     public static javax.swing.JTable DetallePedido;
     private javax.swing.JPanel Enc;
     private javax.swing.ButtonGroup ParBusqueda1;
+    private javax.swing.ButtonGroup ParBusqueda2;
     private javax.swing.JPanel Pedido;
     private javax.swing.JButton SaveDate;
     private javax.swing.JFrame VistaSelectBook;

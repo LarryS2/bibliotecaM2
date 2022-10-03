@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import logico.Detalle_Pedido;
+import logico.Ejemplar;
 import logico.Libro;
 
 public class ModeloPedido {
@@ -203,6 +204,57 @@ public class ModeloPedido {
         }catch(NumberFormatException | SQLException e){
             System.out.println(e);
             return false;
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+    }
+    
+    public Ejemplar getStock(Libro libro){
+        Ejemplar lb = new Ejemplar();
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        ResultSet rs;
+        
+        String sql = "SELECT id_ejem, cantidad_ejem FROM ejemplar WHERE id_lib_ejem = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, libro.getId());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                lb.setId(rs.getInt(1));
+                lb.setCantidad(rs.getInt(2));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException sqle) {
+                System.err.println(sqle);
+            }
+        }
+        return lb;
+    }
+    
+    public void actualizarStock(Ejemplar ejemplar){
+        PreparedStatement ps;
+        Connection con = Conexion.getConnection();
+        
+        String sql = "UPDATE ejemplar SET cantidad_ejem = ? WHERE id_ejem = ? ";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, ejemplar.getCantidad());
+            ps.setInt(2, ejemplar.getId());
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
         }finally {
             try {
                 con.close();

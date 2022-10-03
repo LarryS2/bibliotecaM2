@@ -66,7 +66,8 @@ public class ModeloGetTablas {
         PreparedStatement st;
         ResultSet rs;
         String sql = "SELECT l.codigo_lib, l.titulo_lib, l.isbn_lib, d.nombre_sup_cat_dew, CONCAT(p.primer_nombre_per, ' ', p.primer_apellido_per), "
-                + "l.fecha_pub_lib FROM libro l, dewey d, autor a, persona p WHERE l.id_aut_lib = a.id_aut AND l.id_dew_lib = d.id_dew AND a.id_per_aut = p.id_per;";
+                + "l.fecha_pub_lib FROM libro l, ejemplar e, dewey d, autor a, persona p WHERE l.id_aut_lib = a.id_aut AND l.id_dew_lib = d.id_dew AND a.id_per_aut = p.id_per AND e.id_lib_ejem = l.id_lib"
+                + " AND e.cantidad_ejem >= 1;";
         modelo = new DefaultTableModel();
         Prestamo.tablaLibro.setModel(modelo);
         try {

@@ -20,6 +20,10 @@ public class Libro {
 
     public Libro() {
     }
+    
+    public Libro(int id){
+        this.id = id;
+    }
 
     public Libro(String codigo) {
         this.codigo = codigo;
